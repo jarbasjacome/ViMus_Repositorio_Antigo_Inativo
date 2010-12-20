@@ -369,8 +369,7 @@ void VimusGUIEditor::draw()
                         0.0, 1.0, 0.0);//TODO VITALINO
         }
 
-        //VITALINO
-        //currentCube->draw(GL_RENDER);
+        currentCube->draw(GL_RENDER);
         currentCube->objects[4]->draw(GL_RENDER);
 
 
