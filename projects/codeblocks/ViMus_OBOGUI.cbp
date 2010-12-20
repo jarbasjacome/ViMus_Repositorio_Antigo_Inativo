@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ViMus_OBOGUI" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/ViMus_OBOGUI" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="/usr/bin" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/ViMus_OBOGUI" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="/usr/bin" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-O2" />
+					<Add option="-O1" />
+					<Add option="-O" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="/usr/include" />
+			<Add directory="/usr/local/include/opencv" />
+		</Compiler>
+		<Linker>
+			<Add library="glut" />
+			<Add library="GL" />
+			<Add library="GLU" />
+			<Add library="Xxf86vm" />
+			<Add library="highgui" />
+			<Add library="boost_thread-mt" />
+			<Add directory="/usr/lib" />
+		</Linker>
+		<Unit filename="../../src/Configuration.h" />
+		<Unit filename="../../src/Global.h" />
+		<Unit filename="../../src/Machine.h" />
+		<Unit filename="../../src/VideoCaptureOpenCV.cpp" />
+		<Unit filename="../../src/VideoCaptureOpenCV.h" />
+		<Unit filename="../../src/VimusGUICube.cpp" />
+		<Unit filename="../../src/VimusGUICube.h" />
+		<Unit filename="../../src/VimusGUIEditor.cpp" />
+		<Unit filename="../../src/VimusGUIEditor.h" />
+		<Unit filename="../../src/VimusGUIGLUT.cpp" />
+		<Unit filename="../../src/VimusGUIGLUT.h" />
+		<Unit filename="../../src/VimusGUINormalObject.cpp" />
+		<Unit filename="../../src/VimusGUINormalObject.h" />
+		<Unit filename="../../src/VimusGUIObject.cpp" />
+		<Unit filename="../../src/VimusGUIObject.h" />
+		<Unit filename="../../src/VimusGUIObjects.h" />
+		<Unit filename="../../src/VimusGUIOpenGLObject.cpp" />
+		<Unit filename="../../src/VimusGUIOpenGLObject.h" />
+		<Unit filename="../../src/VimusGUIPin.cpp" />
+		<Unit filename="../../src/VimusGUIPin.h" />
+		<Unit filename="../../src/VimusGUIVideoPreview.cpp" />
+		<Unit filename="../../src/VimusGUIVideoPreview.h" />
+		<Unit filename="../../src/VimusMachine.cpp" />
+		<Unit filename="../../src/VimusMachine.h" />
+		<Unit filename="../../src/VimusMachineAbstractionObject.cpp" />
+		<Unit filename="../../src/VimusMachineAbstractionObject.h" />
+		<Unit filename="../../src/VimusMachineCVThreshold.cpp" />
+		<Unit filename="../../src/VimusMachineCVThreshold.h" />
+		<Unit filename="../../src/VimusMachineEditor.cpp" />
+		<Unit filename="../../src/VimusMachineEditor.h" />
+		<Unit filename="../../src/VimusMachineNormalObject.cpp" />
+		<Unit filename="../../src/VimusMachineNormalObject.h" />
+		<Unit filename="../../src/VimusMachineObject.cpp" />
+		<Unit filename="../../src/VimusMachineObject.h" />
+		<Unit filename="../../src/VimusMachineObjects.h" />
+		<Unit filename="../../src/VimusMachineOpenGLObject.cpp" />
+		<Unit filename="../../src/VimusMachineOpenGLObject.h" />
+		<Unit filename="../../src/VimusMachinePin.cpp" />
+		<Unit filename="../../src/VimusMachinePin.h" />
+		<Unit filename="../../src/VimusMachinePinControl.cpp" />
+		<Unit filename="../../src/VimusMachinePinControl.h" />
+		<Unit filename="../../src/VimusMachinePinVideo.cpp" />
+		<Unit filename="../../src/VimusMachinePinVideo.h" />
+		<Unit filename="../../src/VimusMachinePixelAdd.cpp" />
+		<Unit filename="../../src/VimusMachinePixelAdd.h" />
+		<Unit filename="../../src/VimusMachineVideoCapture.cpp" />
+		<Unit filename="../../src/VimusMachineVideoCapture.h" />
+		<Unit filename="../../src/VimusMachineVideoPreview.cpp" />
+		<Unit filename="../../src/VimusMachineVideoPreview.h" />
+		<Unit filename="../../src/VimusMachineVitalino.cpp" />
+		<Unit filename="../../src/VimusMachineVitalino.h" />
+		<Unit filename="../../src/VimusMain.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
