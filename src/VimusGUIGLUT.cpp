@@ -123,56 +123,73 @@ void VimusGUIGLUT ::specialKeyBoardFunc(int key, int x, int y)
 	switch (key)
 	{
         case GLUT_KEY_F11:
-        if (vimusUIPtr->isFullscreen)
-        {
-            vimusUIPtr->isFullscreen = false;
-            glutReshapeWindow(WINDOW_WIDTH, WINDOW_HEIGHT);
-            glutPositionWindow(WINDOW_POSX, WINDOW_POSY);
-            glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
-        }
-        else
-        {
-            vimusUIPtr->isFullscreen = true;
-            glutFullScreen();
-            glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
-        }
-//        if (glutGameModeGet(GLUT_GAME_MODE_ACTIVE))
-//        {
-//            glutLeaveGameMode();
-//
-//            //initialize window size.
-//            glutInitWindowSize (WINDOW_WIDTH, WINDOW_HEIGHT);
-//
-//            //initialize window position.
-//            glutInitWindowPosition (WINDOW_POSX, WINDOW_POSY);
-//
-//            //create new OpenGL window.
-//            glutCreateWindow (WINDOW_NAME);
-//
-//            glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
-//        }
-//        else
-//        {
-//            glutDestroyWindow(glutGetWindow());
-//            std::ostringstream resolutionStream;
-//            std::string resolutionString;
-//            resolutionStream << glutGet(GLUT_SCREEN_WIDTH)
-//                             << "x"
-//                             << glutGet(GLUT_SCREEN_HEIGHT)
-//                             << ":32@60";
-//            resolutionString = resolutionStream.str();
-//            char* resChar = new char[256];
-//            resolutionString.copy(resChar, resolutionString.size(), 0);
-//            resChar[resolutionString.size()]='\0';
-//
-//            glutGameModeString( resChar );
-//
-//            // start fullscreen game mode
-//            glutEnterGameMode();
-//
-//            //show cursor at fullscreen mode.
-//            glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
-//        }
+//            if (vimusUIPtr->isFullscreen)
+//            {
+//                vimusUIPtr->isFullscreen = false;
+//                glutReshapeWindow(WINDOW_WIDTH, WINDOW_HEIGHT);
+//                glutPositionWindow(WINDOW_POSX, WINDOW_POSY);
+//                glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+//            }
+//            else
+//            {
+//                vimusUIPtr->isFullscreen = true;
+//                glutFullScreen();
+//                glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+//            }
+            if (glutGameModeGet(GLUT_GAME_MODE_ACTIVE))
+            {
+                glutLeaveGameMode();
+
+                //initialize window size.
+                glutInitWindowSize (WINDOW_WIDTH, WINDOW_HEIGHT);
+
+                //initialize window position.
+                glutInitWindowPosition (WINDOW_POSX, WINDOW_POSY);
+
+                //create new OpenGL window.
+                glutCreateWindow (WINDOW_NAME);
+
+                glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+
+                glutDisplayFunc(this->displayStaticFunc);
+                glutMouseFunc(this->mouseStaticFunc);
+                glutMotionFunc(this->motionStaticFunc);
+                glutPassiveMotionFunc(this->passiveMotionStaticFunc);
+                glutKeyboardFunc(this->keyBoardStaticFunc);
+                glutSpecialFunc(this->specialKeyBoardStaticFunc);
+                glutIdleFunc(this->idleStaticFunc);
+
+            }
+            else
+            {
+                glutDestroyWindow(glutGetWindow());
+                std::ostringstream resolutionStream;
+                std::string resolutionString;
+                resolutionStream << glutGet(GLUT_SCREEN_WIDTH)
+                                 << "x"
+                                 << glutGet(GLUT_SCREEN_HEIGHT)
+                                 << ":32@60";
+                resolutionString = resolutionStream.str();
+                char* resChar = new char[256];
+                resolutionString.copy(resChar, resolutionString.size(), 0);
+                resChar[resolutionString.size()]='\0';
+
+                glutGameModeString( resChar );
+
+                // start fullscreen game mode
+                glutEnterGameMode();
+
+                //show cursor at fullscreen mode.
+                glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+
+                glutDisplayFunc(this->displayStaticFunc);
+                glutMouseFunc(this->mouseStaticFunc);
+                glutMotionFunc(this->motionStaticFunc);
+                glutPassiveMotionFunc(this->passiveMotionStaticFunc);
+                glutKeyboardFunc(this->keyBoardStaticFunc);
+                glutSpecialFunc(this->specialKeyBoardStaticFunc);
+                glutIdleFunc(this->idleStaticFunc);
+            }
         break;
 	}
     vimusUIPtr->editor->specialKeyBoardFunc(key, x, y);
@@ -216,8 +233,6 @@ void VimusGUIGLUT :: start()
 {
 //    vimusUIPtr->pastTime = 0;
 //    boost::xtime_get(&(vimusUIPtr->lastSysTime), boost::TIME_UTC);
-
-	this->createTestPatch();
 
     //start GLUT main loop.
 	glutMainLoop();

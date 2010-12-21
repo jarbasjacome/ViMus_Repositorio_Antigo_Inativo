@@ -340,14 +340,14 @@ void VimusGUIEditor::update()
 void VimusGUIEditor::draw()
 {
     //buffer must be cleaned before drawing and buffer swap.
-    glClearColor (0.0, 0.0, 0.0, 0.0);//VITALINO glClearColor (0.0, 0.0, 0.1, 0.0);
+    glClearColor (0.0, 0.0, 0.1, 0.0);
 //	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT |
 //			 GL_STENCIL_BUFFER_BIT | GL_ACCUM_BUFFER_BIT);
 //VITALINO
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glEnable(GL_BLEND);
-    //glBlendFunc(GL_SRC_ALPHA, GL_ONE); //VITALINO
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
     if (fpsFlag) drawFps();
 
@@ -370,8 +370,6 @@ void VimusGUIEditor::draw()
         }
 
         currentCube->draw(GL_RENDER);
-        currentCube->objects[4]->draw(GL_RENDER);
-
 
         if (editorState == EDITOR_CONNECTING)
         {
@@ -418,8 +416,7 @@ void VimusGUIEditor::draw()
 
         gluLookAt (0.0, 0.0, CAM_EYE_Z, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-        //VITALINO
-        //currentCube->draw(GL_SELECT);
+        currentCube->draw(GL_SELECT);
 
         glMatrixMode (GL_PROJECTION);
         glPopMatrix ();

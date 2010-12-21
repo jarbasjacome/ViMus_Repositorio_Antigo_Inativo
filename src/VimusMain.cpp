@@ -37,6 +37,8 @@ int main(int argc, char** argv)
 
     gui.addMachine(vimusMachine);
 
+    gui.createTestPatch();
+
 	gui.start();
 
 	return 0;

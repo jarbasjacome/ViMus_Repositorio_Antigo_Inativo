@@ -128,16 +128,6 @@ VimusMachineVitalino::VimusMachineVitalino()
     high_shininess[0] = 100.0f;
 
     glClearColor(1,1,1,1);
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
-
-    glEnable(GL_LIGHT0);
-    glEnable(GL_NORMALIZE);
-    glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHTING);
 
     glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
     glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
@@ -236,6 +226,19 @@ void VimusMachineVitalino::draw(int rendermode)
  */
 void VimusMachineVitalino::draw()
 {
+
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+
+    glEnable(GL_LIGHT0);
+    glEnable(GL_NORMALIZE);  //decrease FPS because do lot of extra calculations
+                             //see http://www.opengl.org/resources/features/
+                             //KilgardTechniques/oglpitfall/
+    glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_LIGHTING);
 
     float adjustPos = -0.66f;
 
@@ -385,6 +388,16 @@ void VimusMachineVitalino::draw()
 	}
 
     glPopMatrix();
+
+
+    glDisable(GL_CULL_FACE);
+    glDisable(GL_DEPTH_TEST);
+    glDisable(GL_LIGHT0);
+    glDisable(GL_NORMALIZE);  //decrease FPS because do lot of extra calculations
+                             //see http://www.opengl.org/resources/features/
+                             //KilgardTechniques/oglpitfall/
+    glDisable(GL_COLOR_MATERIAL);
+    glDisable(GL_LIGHTING);
 
 }
 

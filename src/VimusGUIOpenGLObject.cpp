@@ -49,7 +49,7 @@ VimusGUIOpenGLObject :: VimusGUIOpenGLObject (  const string& label, float posX,
     this->machineGLObj = machineObj;
 
     if (DEBUG_MODE)
-        printf("\nVimusGUIVideoPreview constructed.");
+        printf("\VimusGUIOpenGLObject constructed.");
 }
 
 /**
@@ -74,4 +74,5 @@ void VimusGUIOpenGLObject::draw(int rendermode)
     VimusGUINormalObject::draw(rendermode);
 
     this->machineGLObj->draw();
+
 }

@@ -179,15 +179,14 @@ void VimusGUINormalObject::update()
  */
 void VimusGUINormalObject::draw(int renderMode)
 {
-//    if (isMinimized3D)
-//    {
-//        drawMinimized3D(renderMode);
-//    }
-//    else
-//    {
-//        drawMinimized2D(renderMode);
-//    }
-//TODO VITALINO
+    if (isMinimized3D)
+    {
+        drawMinimized3D(renderMode);
+    }
+    else
+    {
+        drawMinimized2D(renderMode);
+    }
 }
 
 /**

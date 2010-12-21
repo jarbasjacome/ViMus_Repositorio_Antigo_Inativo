@@ -63,8 +63,6 @@ class VimusMachineVitalino : public VimusMachineOpenGLObject
          */
         void draw(int rendermode);
 
-        //void recomecar();
-
 		/**
 		 * Get pointer to currentFrame buffer pointer.
 		 * This is necessary for GUI have a direct access to
