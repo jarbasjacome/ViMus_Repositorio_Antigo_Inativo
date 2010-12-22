@@ -30,6 +30,12 @@ VimusMachineEditor :: VimusMachineEditor (VideoCaptureOpenCV* vidCap)
 
 	this->currentAbsObj = this->rootAbsObj;
 
+	this->numOpenGLObjs = 0;
+	for (int i=0; i<MAX_GL_OBJ; i++)
+	{
+		this->opengGLObjects[i] = NULL;
+	}
+
     if (DEBUG_MODE)
         printf("\nVimusMachineEditor constructed.");
 }
@@ -39,6 +45,17 @@ VimusMachineEditor :: VimusMachineEditor (VideoCaptureOpenCV* vidCap)
 */
 VimusMachineEditor :: ~VimusMachineEditor()
 {
+    if (opengGLObjects)
+    {
+        for (int i=0; i<MAX_GL_OBJ; i++)
+        {
+            if (opengGLObjects[i])
+            {
+                delete opengGLObjects[i];
+                opengGLObjects[i] = NULL;
+            }
+        }
+    }
 }
 
 /**
@@ -107,6 +124,8 @@ VimusGUIObject * VimusMachineEditor :: createObject(const string& label, float p
 		    VimusMachineVitalino * vitalino = new VimusMachineVitalino();
 			macObj = vitalino;
 			guiObj = new VimusGUIOpenGLObject(label, posX, posY, posZ, 2, 1, vitalino);
+
+			this->addOpenGLObject(vitalino);
 		}
         if (macObj)
 			this->currentAbsObj->addObject(macObj);
@@ -241,4 +260,37 @@ void VimusMachineEditor :: setCurrentAbsObjToParent ()
 VimusMachineAbstractionObject * VimusMachineEditor ::getRootAbsObj ()
 {
 	return this->rootAbsObj;
+}
+
+/**
+ * Adds an OpenGL machine object
+ *
+ * @return index of the added object in the machine editors array
+ */
+void VimusMachineEditor :: addOpenGLObject(VimusMachineOpenGLObject* obj)
+{
+    if (numOpenGLObjs < MAX_GL_OBJ)
+    {
+        opengGLObjects[numOpenGLObjs] = obj;
+		numOpenGLObjs++;
+    }
+}
+
+/**
+ * Remove an OpenGL machine object
+ */
+void VimusMachineEditor :: removeOpenGLObject (int index)
+{
+    //TODO:
+}
+
+/**
+ * Draws all OpenGL objects
+ */
+void VimusMachineEditor:: drawOpenGLObjects()
+{
+    for (int i=0; i<numOpenGLObjs; i++)
+    {
+        opengGLObjects[i]->draw();
+    }
 }

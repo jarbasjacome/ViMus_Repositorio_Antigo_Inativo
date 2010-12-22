@@ -88,6 +88,12 @@ class VimusMachineEditor
 		 */
 		VimusMachineAbstractionObject * getRootAbsObj();
 
+        /**
+         * Draws all OpenGL objects
+         */
+        void drawOpenGLObjects();
+
+
     private:
 
 		/**
@@ -101,6 +107,30 @@ class VimusMachineEditor
 		 * through machine objects tree.
 		 */
 		VimusMachineAbstractionObject * currentAbsObj;
+
+        static const int MAX_GL_OBJ = 1000;
+
+        /**
+         * OpenGL machine objects array.
+         */
+        VimusMachineOpenGLObject* opengGLObjects[MAX_GL_OBJ];
+
+        /**
+         * Number of OpenGL machine objects
+         */
+        int numOpenGLObjs;
+
+        /**
+         * Adds an OpenGL machine object
+         *
+         * @return index of the added object in the machine editors array
+         */
+        void addOpenGLObject(VimusMachineOpenGLObject* obj);
+
+        /**
+         * Remove an OpenGL machine object
+         */
+        void removeOpenGLObject (int index);
 
 		/**
 		 * Tokens of message (words separeted by " ").

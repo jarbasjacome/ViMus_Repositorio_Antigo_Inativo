@@ -437,6 +437,9 @@ void VimusGUIEditor::drawEditor()
 
 void VimusGUIEditor::drawOutput()
 {
+    glClearColor (0.5, 0.0, 0.0, 0.0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    this->machine->drawOpenGLObjects();
 }
 
 void VimusGUIEditor::draw()
@@ -455,8 +458,7 @@ void VimusGUIEditor::draw()
                        glutGet(GLUT_SCREEN_HEIGHT));
             glScissor(0, 0, glutGet(GLUT_SCREEN_WIDTH),
                        glutGet(GLUT_SCREEN_HEIGHT));
-            glClearColor (0.0, 0.0, 0.5, 0.0);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            this->drawOutput();
             glutSwapBuffers();
         break;
         case VIEWPORT_EDITOR_OUTPUT:
@@ -466,14 +468,12 @@ void VimusGUIEditor::draw()
 
             glViewport(glutGet(GLUT_SCREEN_WIDTH)/2, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));
             glScissor(glutGet(GLUT_SCREEN_WIDTH)/2, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));
-            glClearColor (0.5, 0.0, 0.0, 0.0);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            this->drawOutput();
         break;
         case VIEWPORT_OUTPUT_EDITOR:
             glViewport(0, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));
             glScissor(0, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));
-            glClearColor (0.5, 0.0, 0.0, 0.0);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            this->drawOutput();
 
             glViewport(glutGet(GLUT_SCREEN_WIDTH)/2, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));
             glScissor(glutGet(GLUT_SCREEN_WIDTH)/2, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));

@@ -72,7 +72,4 @@ void VimusGUIOpenGLObject::update()
 void VimusGUIOpenGLObject::draw(int rendermode)
 {
     VimusGUINormalObject::draw(rendermode);
-
-    this->machineGLObj->draw();
-
 }

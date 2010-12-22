@@ -117,3 +117,11 @@ void VimusMachine :: setCurrentAbsObjToParent()
 {
 	this->editor->setCurrentAbsObjToParent();
 }
+
+/**
+ * Draws all OpenGL objects
+ */
+void VimusMachine:: drawOpenGLObjects()
+{
+    this->editor->drawOpenGLObjects();
+}

@@ -93,6 +93,11 @@ class VimusMachine// : public Machine //TODO: use abstract machine
 	 */
 	void setCurrentAbsObjToParent ();
 
+    /**
+     * Draws all OpenGL machine objects
+     */
+    void drawOpenGLObjects();
+
     private:
 
 		/**
