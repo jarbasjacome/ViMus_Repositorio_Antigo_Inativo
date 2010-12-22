@@ -123,19 +123,6 @@ void VimusGUIGLUT ::specialKeyBoardFunc(int key, int x, int y)
 	switch (key)
 	{
         case GLUT_KEY_F11:
-//            if (vimusUIPtr->isFullscreen)
-//            {
-//                vimusUIPtr->isFullscreen = false;
-//                glutReshapeWindow(WINDOW_WIDTH, WINDOW_HEIGHT);
-//                glutPositionWindow(WINDOW_POSX, WINDOW_POSY);
-//                glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
-//            }
-//            else
-//            {
-//                vimusUIPtr->isFullscreen = true;
-//                glutFullScreen();
-//                glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
-//            }
             if (glutGameModeGet(GLUT_GAME_MODE_ACTIVE))
             {
                 glutLeaveGameMode();
@@ -151,13 +138,7 @@ void VimusGUIGLUT ::specialKeyBoardFunc(int key, int x, int y)
 
                 glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 
-                glutDisplayFunc(this->displayStaticFunc);
-                glutMouseFunc(this->mouseStaticFunc);
-                glutMotionFunc(this->motionStaticFunc);
-                glutPassiveMotionFunc(this->passiveMotionStaticFunc);
-                glutKeyboardFunc(this->keyBoardStaticFunc);
-                glutSpecialFunc(this->specialKeyBoardStaticFunc);
-                glutIdleFunc(this->idleStaticFunc);
+                vimusUIPtr->registerCallbackFunctions();
 
             }
             else
@@ -182,15 +163,9 @@ void VimusGUIGLUT ::specialKeyBoardFunc(int key, int x, int y)
                 //show cursor at fullscreen mode.
                 glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 
-                glutDisplayFunc(this->displayStaticFunc);
-                glutMouseFunc(this->mouseStaticFunc);
-                glutMotionFunc(this->motionStaticFunc);
-                glutPassiveMotionFunc(this->passiveMotionStaticFunc);
-                glutKeyboardFunc(this->keyBoardStaticFunc);
-                glutSpecialFunc(this->specialKeyBoardStaticFunc);
-                glutIdleFunc(this->idleStaticFunc);
+                vimusUIPtr->registerCallbackFunctions();
             }
-        break;
+            break;
 	}
     vimusUIPtr->editor->specialKeyBoardFunc(key, x, y);
 }
@@ -213,6 +188,7 @@ void VimusGUIGLUT:: displayFunc()
 void VimusGUIGLUT:: idleFunc()
 {
     vimusUIPtr->editor->update();
+
     vimusUIPtr->editor->draw();
 
 //    boost::xtime_get(&(vimusUIPtr->currSysTime), boost::TIME_UTC);
@@ -290,7 +266,7 @@ void VimusGUIGLUT :: initGLUT(int argc, char** argv)
     //if fullscreen on set fullscreen.
 	if (FULLSCREEN) {
 
-	    vimusUIPtr->isFullscreen = false; //TODO: no GameMode nao consigo voltar pro normal.
+	    vimusUIPtr->isFullscreen = false;
 
         std::ostringstream resolutionStream;
         std::string resolutionString;
@@ -309,7 +285,7 @@ void VimusGUIGLUT :: initGLUT(int argc, char** argv)
         glutEnterGameMode();
 
         //show cursor at fullscreen mode.
-		glutSetCursor(GLUT_CURSOR_NONE);
+		glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 	}
 	else
 	{
@@ -327,7 +303,16 @@ void VimusGUIGLUT :: initGLUT(int argc, char** argv)
 
     vimusUIPtr->editor = new VimusGUIEditor();
 
-    //register callback functions.
+    vimusUIPtr->registerCallbackFunctions();
+
+}
+
+/**
+ * Register all callback functions.
+ * Must be called always after window creation.
+ */
+void VimusGUIGLUT::registerCallbackFunctions ()
+{
     glutDisplayFunc(this->displayStaticFunc);
     glutMouseFunc(this->mouseStaticFunc);
     glutMotionFunc(this->motionStaticFunc);
@@ -335,5 +320,4 @@ void VimusGUIGLUT :: initGLUT(int argc, char** argv)
 	glutKeyboardFunc(this->keyBoardStaticFunc);
 	glutSpecialFunc(this->specialKeyBoardStaticFunc);
 	glutIdleFunc(this->idleStaticFunc);
-
 }

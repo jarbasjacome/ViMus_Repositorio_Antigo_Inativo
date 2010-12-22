@@ -368,10 +368,10 @@
 	<stdlib.h>
 	<GL/glut.h>
 
-1292945058 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.cpp
+1292994986 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.cpp
 	"VimusGUIEditor.h"
 
-1292816083 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.h
+1292992802 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.h
 	"Configuration.h"
 	"VimusGUIObjects.h"
 	"VimusGUIPin.h"
@@ -2889,10 +2889,10 @@
 	<boost/thread.hpp>
 	<boost/thread/xtime.hpp>
 
-1292949140 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIGLUT.cpp
+1292987513 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIGLUT.cpp
 	"VimusGUIGLUT.h"
 
-1292816088 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIGLUT.h
+1292981535 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIGLUT.h
 	"Configuration.h"
 	"VimusGUIEditor.h"
 	"VimusMachine.h"

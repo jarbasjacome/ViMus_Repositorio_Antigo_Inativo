@@ -80,6 +80,8 @@ class VimusGUIGLUT
 		// GLUT callback functions (as keyBoardFunc, or displayFunc)
 		static VimusGUIGLUT * vimusUIPtr;
 
+		void registerCallbackFunctions();
+
         void mouseFunc(int button, int state, int x, int y);
 		inline static void mouseStaticFunc(int button, int state, int x, int y)
 		{	vimusUIPtr->mouseFunc(button, state, x, y);	};

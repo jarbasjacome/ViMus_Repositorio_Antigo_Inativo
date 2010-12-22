@@ -49,6 +49,10 @@ VimusGUIEditor::VimusGUIEditor()
 
     if (DEBUG_MODE)
         printf("\nVimusGUIEditor constructed.");
+
+    this->viewPortMode = VIEWPORT_EDITOR;
+
+    glEnable(GL_SCISSOR_TEST);//TODO: verify performance implications
 }
 
 VimusGUIEditor::~VimusGUIEditor()
@@ -225,8 +229,13 @@ void VimusGUIEditor::specialKeyBoardFunc(int key, int x, int y)
 		case GLUT_KEY_F2:
 			break;
 
-        case GLUT_KEY_F5:
-			break;
+	    case GLUT_KEY_F5:
+            this->viewPortMode++;
+            if (this->viewPortMode == VIEWPORT_NUM_OF_MODES)
+            {
+                this->viewPortMode = 0;
+            }
+        break;
 
         case GLUT_KEY_UP:
             currentCube->turnDown();
@@ -337,22 +346,16 @@ void VimusGUIEditor::update()
     mainCube->update();
 }
 
-void VimusGUIEditor::draw()
+void VimusGUIEditor::drawEditor()
 {
     //buffer must be cleaned before drawing and buffer swap.
     glClearColor (0.0, 0.0, 0.1, 0.0);
-//	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT |
-//			 GL_STENCIL_BUFFER_BIT | GL_ACCUM_BUFFER_BIT);
-//VITALINO
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
     if (fpsFlag) drawFps();
-
-    //TODO: colocar barra de ferramentas em outra viewport
-    //glViewport (200, 10, 80, 80);
 
     glPushMatrix();
 
@@ -366,7 +369,7 @@ void VimusGUIEditor::draw()
                         camTargetX + camTargetXTrans,
                         camTargetY + camTargetYTrans,
                         camTargetZ + camTargetZTrans,
-                        0.0, 1.0, 0.0);//TODO VITALINO
+                        0.0, 1.0, 0.0);
         }
 
         currentCube->draw(GL_RENDER);
@@ -420,7 +423,7 @@ void VimusGUIEditor::draw()
 
         glMatrixMode (GL_PROJECTION);
         glPopMatrix ();
-        glFlush ();
+//        glFlush ();
 
         hits = glRenderMode (GL_RENDER);
         processHits (hits, selectBuf);
@@ -430,6 +433,73 @@ void VimusGUIEditor::draw()
     }
 
     isShiftKeyPressed = false;
+}
+
+void VimusGUIEditor::drawOutput()
+{
+}
+
+void VimusGUIEditor::draw()
+{
+    switch (this->viewPortMode)
+    {
+        case VIEWPORT_EDITOR:
+            glViewport(0, 0, glutGet(GLUT_SCREEN_WIDTH),
+                       glutGet(GLUT_SCREEN_HEIGHT));
+            glScissor(0, 0, glutGet(GLUT_SCREEN_WIDTH),
+                       glutGet(GLUT_SCREEN_HEIGHT));
+            this->drawEditor();
+        break;
+        case VIEWPORT_OUTPUT:
+            glViewport(0, 0, glutGet(GLUT_SCREEN_WIDTH),
+                       glutGet(GLUT_SCREEN_HEIGHT));
+            glScissor(0, 0, glutGet(GLUT_SCREEN_WIDTH),
+                       glutGet(GLUT_SCREEN_HEIGHT));
+            glClearColor (0.0, 0.0, 0.5, 0.0);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            glutSwapBuffers();
+        break;
+        case VIEWPORT_EDITOR_OUTPUT:
+            glViewport(0, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));
+            glScissor(0, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));
+            this->drawEditor();
+
+            glViewport(glutGet(GLUT_SCREEN_WIDTH)/2, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));
+            glScissor(glutGet(GLUT_SCREEN_WIDTH)/2, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));
+            glClearColor (0.5, 0.0, 0.0, 0.0);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        break;
+        case VIEWPORT_OUTPUT_EDITOR:
+            glViewport(0, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));
+            glScissor(0, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));
+            glClearColor (0.5, 0.0, 0.0, 0.0);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+            glViewport(glutGet(GLUT_SCREEN_WIDTH)/2, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));
+            glScissor(glutGet(GLUT_SCREEN_WIDTH)/2, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));
+            this->drawEditor();
+        break;
+//        case VIEWPORT_EDITOR_OUTPUT:
+//            glViewport(0, 0, 1280, 800);
+//            glScissor(0, 0, 1280, 800);
+//            this->drawEditor();
+//
+//            glViewport(1280, 0, 1024, 800);
+//            glScissor(1280, 0, 1024, 800);
+//            glClearColor (0.5, 0.0, 0.0, 0.0);
+//            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//        break;
+//        case VIEWPORT_OUTPUT_EDITOR:
+//            glViewport(0, 0, 1280, 800);
+//            glScissor(0, 0, 1280, 800);
+//            glClearColor (0.5, 0.0, 0.0, 0.0);
+//            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//
+//            glViewport(1280, 0, 1024, 800);
+//            glScissor(1280, 0, 1024, 800);
+//            this->drawEditor();
+//        break;
+    }
 }
 
 void VimusGUIEditor::screenCoordToSceneCoord(int screenX, int screenY, GLdouble *sceneX,
