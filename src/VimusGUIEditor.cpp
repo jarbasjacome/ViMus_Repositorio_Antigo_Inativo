@@ -275,13 +275,6 @@ void VimusGUIEditor::displayFunc()
     //(upx, upy, upz) is  camera up side direction.
     gluLookAt (0.0, 0.0, CAM_EYE_Z, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-    glGetIntegerv (GL_VIEWPORT, viewport);
-
-       //buffer must be cleaned before buffer swap.
-//    glClearColor (0.0, 0.0, 0.1, 0.0);
-//	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT |
-//			 GL_STENCIL_BUFFER_BIT | GL_ACCUM_BUFFER_BIT);
-
     glutSwapBuffers();
 }
 
@@ -395,8 +388,6 @@ void VimusGUIEditor::drawEditor()
     glColor4f(1.0, 1.0, 1.0, 1.0);
     glDisable(GL_BLEND);
 
-    glutSwapBuffers();
-
     if (pickFlag)
     {
         glSelectBuffer (BUFFER, selectBuf);
@@ -444,62 +435,56 @@ void VimusGUIEditor::drawOutput()
 
 void VimusGUIEditor::draw()
 {
+    this->windowWidth = glutGet(GLUT_WINDOW_WIDTH);
+    this->windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
+    this->screen0w = this->screen1w = glutGet(GLUT_WINDOW_WIDTH)/2;
+    this->screen0h = this->screen1h = glutGet(GLUT_WINDOW_HEIGHT);
+
+//    this->screen0w = 1280;
+//    this->screen1w = 1024;
+//    this->screen0h = this->screen1h = 800;
+
     switch (this->viewPortMode)
     {
         case VIEWPORT_EDITOR:
-            glViewport(0, 0, glutGet(GLUT_SCREEN_WIDTH),
-                       glutGet(GLUT_SCREEN_HEIGHT));
-            glScissor(0, 0, glutGet(GLUT_SCREEN_WIDTH),
-                       glutGet(GLUT_SCREEN_HEIGHT));
+            glViewport(0, 0, windowWidth, windowHeight);
+            glGetIntegerv( GL_VIEWPORT, viewport );
+            glScissor(0, 0, windowWidth, windowHeight);
             this->drawEditor();
         break;
         case VIEWPORT_OUTPUT:
-            glViewport(0, 0, glutGet(GLUT_SCREEN_WIDTH),
-                       glutGet(GLUT_SCREEN_HEIGHT));
-            glScissor(0, 0, glutGet(GLUT_SCREEN_WIDTH),
-                       glutGet(GLUT_SCREEN_HEIGHT));
+            glViewport(0, 0, windowWidth, windowHeight);
+            glGetIntegerv( GL_VIEWPORT, viewport );
+            glScissor(0, 0, windowWidth, windowHeight);
             this->drawOutput();
-            glutSwapBuffers();
         break;
         case VIEWPORT_EDITOR_OUTPUT:
-            glViewport(0, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));
-            glScissor(0, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));
+            glViewport(0, 0, screen0w, screen0h);
+            glGetIntegerv( GL_VIEWPORT, viewport );
+            glScissor(0, 0, screen0w, screen0h);
             this->drawEditor();
 
-            glViewport(glutGet(GLUT_SCREEN_WIDTH)/2, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));
-            glScissor(glutGet(GLUT_SCREEN_WIDTH)/2, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));
+            glViewport(screen0w, 0, screen1w, screen1h);
+            glGetIntegerv( GL_VIEWPORT, viewport );
+            glScissor(screen0w, 0, screen1w, screen1h);
             this->drawOutput();
-        break;
+         break;
         case VIEWPORT_OUTPUT_EDITOR:
-            glViewport(0, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));
-            glScissor(0, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));
+            glViewport(0, 0, screen0w, screen0h);
+            glGetIntegerv( GL_VIEWPORT, viewport );
+            glScissor(0, 0, screen0w, screen0h);
             this->drawOutput();
 
-            glViewport(glutGet(GLUT_SCREEN_WIDTH)/2, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));
-            glScissor(glutGet(GLUT_SCREEN_WIDTH)/2, 0, glutGet(GLUT_SCREEN_WIDTH)/2, glutGet(GLUT_SCREEN_HEIGHT));
+            glViewport(screen0w, 0, screen1w, screen1h);
+            glGetIntegerv( GL_VIEWPORT, viewport );
+            glScissor(screen0w, 0, screen1w, screen1h);
             this->drawEditor();
-        break;
-//        case VIEWPORT_EDITOR_OUTPUT:
-//            glViewport(0, 0, 1280, 800);
-//            glScissor(0, 0, 1280, 800);
-//            this->drawEditor();
-//
-//            glViewport(1280, 0, 1024, 800);
-//            glScissor(1280, 0, 1024, 800);
-//            glClearColor (0.5, 0.0, 0.0, 0.0);
-//            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//        break;
-//        case VIEWPORT_OUTPUT_EDITOR:
-//            glViewport(0, 0, 1280, 800);
-//            glScissor(0, 0, 1280, 800);
-//            glClearColor (0.5, 0.0, 0.0, 0.0);
-//            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//
-//            glViewport(1280, 0, 1024, 800);
-//            glScissor(1280, 0, 1024, 800);
-//            this->drawEditor();
-//        break;
+
+         break;
     }
+
+
+    glutSwapBuffers();
 }
 
 void VimusGUIEditor::screenCoordToSceneCoord(int screenX, int screenY, GLdouble *sceneX,
@@ -507,7 +492,7 @@ void VimusGUIEditor::screenCoordToSceneCoord(int screenX, int screenY, GLdouble 
 {
 	glGetDoublev( GL_MODELVIEW_MATRIX, modelview );
 	glGetDoublev( GL_PROJECTION_MATRIX, projection );
-	glGetIntegerv( GL_VIEWPORT, viewport );
+//	glGetIntegerv( GL_VIEWPORT, viewport );
 
 	winX = (float) screenX;
 	winY = (float) viewport[3] - (float) screenY;

@@ -203,6 +203,14 @@ class VimusGUIEditor
         float timePast;
         float fpsAcum;
 
+        // TODO: multi-monitor configuration suport for more then 2 monitors
+        int screen0w;
+        int screen0h;
+        int screen1w;
+        int screen1h;
+        int windowWidth;
+        int windowHeight;
+
         void updateFps();
         void drawFps();
 

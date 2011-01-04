@@ -380,7 +380,9 @@ void VimusMachineVitalino::draw()
 
 //        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 //        glFlush();
-        glutSwapBuffers();
+//        glutSwapBuffers(); //comentado para evitar bug de swap quando aperta
+                             //F5 no modo janela. mas não influencia no bug.
+
         this->numVoxels = BARRO_WIDTH*BARRO_HEIGHT*BARRO_DEPTH;
         boost::xtime_get(&(this->xtimeRecomecar), boost::TIME_UTC);
         this->xtimeRecomecar.nsec += 700000000;

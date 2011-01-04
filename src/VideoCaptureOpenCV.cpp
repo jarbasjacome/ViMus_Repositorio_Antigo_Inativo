@@ -65,19 +65,9 @@ void VideoCaptureOpenCV::init()
 
 	for (int i=0; i<VIDEO_WIDTH*VIDEO_HEIGHT; i++)
 	{
-	    if (    i%VIDEO_WIDTH > 100 && i%VIDEO_WIDTH < 180 &&
-                i/VIDEO_HEIGHT > 100 && i/VIDEO_HEIGHT < 180)
-	    {
-            vidCapOpenCvPtr->redFrame[i*3] = 0;
-            vidCapOpenCvPtr->redFrame[i*3+1] = 0;
-            vidCapOpenCvPtr->redFrame[i*3+2] = 0;
-	    }
-	    else
-	    {
-            vidCapOpenCvPtr->redFrame[i*3] = 255;
-            vidCapOpenCvPtr->redFrame[i*3+1] = 255;
-            vidCapOpenCvPtr->redFrame[i*3+2] = 255;
-	    }
+        vidCapOpenCvPtr->redFrame[i*3] = 255;
+        vidCapOpenCvPtr->redFrame[i*3+1] = 255;
+        vidCapOpenCvPtr->redFrame[i*3+2] = 255;
 	}
 
     for (int i=0; i<10; i++)
