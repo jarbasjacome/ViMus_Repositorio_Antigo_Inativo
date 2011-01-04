@@ -22,8 +22,8 @@
 	<File name="../../src/VimusGUICube.h" open="0" top="0" tabpos="0">
 		<Cursor position="3548" topLine="148" />
 	</File>
-	<File name="../../src/VimusGUIEditor.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="11949" topLine="434" />
+	<File name="../../src/VimusGUIEditor.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="14470" topLine="500" />
 	</File>
 	<File name="../../src/VimusGUIEditor.h" open="1" top="0" tabpos="4">
 		<Cursor position="3018" topLine="105" />
@@ -67,7 +67,7 @@
 	<File name="../../src/VimusGUIVideoPreview.h" open="0" top="0" tabpos="0">
 		<Cursor position="709" topLine="0" />
 	</File>
-	<File name="../../src/VimusMachine.cpp" open="1" top="1" tabpos="5">
+	<File name="../../src/VimusMachine.cpp" open="1" top="0" tabpos="5">
 		<Cursor position="2642" topLine="106" />
 	</File>
 	<File name="../../src/VimusMachine.h" open="0" top="0" tabpos="0">
@@ -148,7 +148,7 @@
 	<File name="../../src/VimusMachineVideoPreview.h" open="0" top="0" tabpos="0">
 		<Cursor position="911" topLine="18" />
 	</File>
-	<File name="../../src/VimusMachineVitalino.cpp" open="0" top="0" tabpos="2">
+	<File name="../../src/VimusMachineVitalino.cpp" open="1" top="0" tabpos="6">
 		<Cursor position="5272" topLine="183" />
 	</File>
 	<File name="../../src/VimusMachineVitalino.h" open="0" top="0" tabpos="0">
