@@ -1,5 +1,5 @@
 /**
- * Copyright 2007-2011 Jarbas Jácome
+ * Copyright 2007-2011 Jarbas JÃ¡come
  *
  * This file is part of ViMus.
  *
@@ -35,7 +35,7 @@
 /**
  * Editor is responsible for Vimus patch construct and navigation.
  *
- * @author Jarbas Jácome
+ * @author Jarbas JÃ¡come
  * @author Mavix
  */
 class VimusGUIEditor

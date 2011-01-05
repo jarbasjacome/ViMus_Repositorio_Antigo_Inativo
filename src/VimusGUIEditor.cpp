@@ -22,7 +22,6 @@
 VimusGUIEditor::VimusGUIEditor()
 {
     pickFlag = false;
-
     fpsFlag = false;
 
 //    lastFrameTime = 0;
@@ -57,6 +56,7 @@ VimusGUIEditor::VimusGUIEditor()
 
 VimusGUIEditor::~VimusGUIEditor()
 {
+
 }
 
 void VimusGUIEditor::mouseFunc(int button, int state, int x, int y)
