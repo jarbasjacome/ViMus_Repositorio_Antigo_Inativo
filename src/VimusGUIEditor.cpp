@@ -67,7 +67,8 @@ void VimusGUIEditor::mouseFunc(int button, int state, int x, int y)
         {
             if (editorState == EDITOR_READY)
             {
-                if (!currentCube->isFreeRotation() && currentCube->rotationState == currentCube->ROTATION_STOPPED)
+                if (!currentCube->isFreeRotation() && currentCube->rotationState
+                        == currentCube->ROTATION_STOPPED)
                 {
                     currentCube->enableFreeRotation();
                     glutSetCursor(GLUT_CURSOR_CYCLE);
@@ -199,7 +200,8 @@ void VimusGUIEditor::keyBoardFunc(unsigned char key, int x, int y)
                 hideFps();
             break;
 		case 'v':
-			this->createObject("video", -this->currentCube->numObjects/10.0, -0.6, 0.0);
+			this->createObject("video", -this->currentCube->numObjects/10.0,
+                                                                    -0.6, 0.0);
 			break;
 		case 'c':
 			this->createObject("videocap", -0.5, -0.6, 0.0);
@@ -531,9 +533,19 @@ void VimusGUIEditor::processHits (GLint hits, GLuint buffer[])
         ptr++; indexCount++;
 
         if (DEBUG_MODE)
+            cout << "\n  z1 is " << (float) *ptr/0x7fffffff;
+
+        ptr++;
+        indexCount++;
+
+        if (DEBUG_MODE)
+            cout << "\n z2 is " << (float) *ptr/0x7fffffff;
+
+        ptr++;
+        indexCount++;
+
+        if (DEBUG_MODE)
         {
-            cout << "\n  z1 is " << (float) *ptr/0x7fffffff; ptr++; indexCount++;
-            cout << "\n z2 is " << (float) *ptr/0x7fffffff; ptr++; indexCount++;
             cout << "   names are ";
             cout << *ptr << " ";
         }
@@ -555,7 +567,7 @@ void VimusGUIEditor::processHits (GLint hits, GLuint buffer[])
         for (j = 1; j < (int) numNames; j++) /*  for each name */
         {
             if (DEBUG_MODE)
-            cout << *ptr << " ";
+                cout << *ptr << " ";
 
             ptr++; indexCount++;
         }
@@ -1323,6 +1335,7 @@ void VimusGUIEditor :: createTestPatch()
 
 */
 
+/*
     VimusGUIObject* videocap1 =	this->createObject("videocap", -0.5, 0.6, 0.0);
 
     VimusGUIObject* videocap2 =	this->createObject("videocap", 0.5, 0.6, 0.0);
@@ -1337,24 +1350,36 @@ void VimusGUIEditor :: createTestPatch()
 
 	VimusGUIObject* preview2 = this->createObject("video", -0.1, -0.6, 0.0);
 
-	this->connectPins(  videocap1->indexOnParent, videocap1->getOutputByIndex(0)->indexOnParent,
-                        threshold1->indexOnParent, threshold1->getInputByIndex(0)->indexOnParent);
+	this->connectPins(  videocap1->indexOnParent,
+                        videocap1->getOutputByIndex(0)->indexOnParent,
+                        threshold1->indexOnParent,
+                        threshold1->getInputByIndex(0)->indexOnParent);
 
-	this->connectPins(  videocap2->indexOnParent, videocap2->getOutputByIndex(0)->indexOnParent,
-                        threshold2->indexOnParent, threshold2->getInputByIndex(0)->indexOnParent);
+	this->connectPins(  videocap2->indexOnParent,
+                        videocap2->getOutputByIndex(0)->indexOnParent,
+                        threshold2->indexOnParent,
+                        threshold2->getInputByIndex(0)->indexOnParent);
 
-	this->connectPins(  threshold1->indexOnParent, threshold1->getOutputByIndex(0)->indexOnParent,
-                        vitalino->indexOnParent, threshold1->getInputByIndex(0)->indexOnParent);
+	this->connectPins(  threshold1->indexOnParent,
+                        threshold1->getOutputByIndex(0)->indexOnParent,
+                        vitalino->indexOnParent,
+                        threshold1->getInputByIndex(0)->indexOnParent);
 
-	this->connectPins(  threshold2->indexOnParent, threshold2->getOutputByIndex(0)->indexOnParent,
-                        vitalino->indexOnParent, vitalino->getInputByIndex(1)->indexOnParent);
+	this->connectPins(  threshold2->indexOnParent,
+                        threshold2->getOutputByIndex(0)->indexOnParent,
+                        vitalino->indexOnParent,
+                        vitalino->getInputByIndex(1)->indexOnParent);
 
-	this->connectPins(  threshold1->indexOnParent, threshold1->getOutputByIndex(0)->indexOnParent,
-                        preview1->indexOnParent, preview1->getInputByIndex(0)->indexOnParent);
+	this->connectPins(  threshold1->indexOnParent,
+                        threshold1->getOutputByIndex(0)->indexOnParent,
+                        preview1->indexOnParent,
+                        preview1->getInputByIndex(0)->indexOnParent);
 
-	this->connectPins(  threshold2->indexOnParent, threshold2->getOutputByIndex(0)->indexOnParent,
-                        preview2->indexOnParent, preview2->getInputByIndex(0)->indexOnParent);
-
+	this->connectPins(  threshold2->indexOnParent,
+                        threshold2->getOutputByIndex(0)->indexOnParent,
+                        preview2->indexOnParent,
+                        preview2->getInputByIndex(0)->indexOnParent);
+*/
 
 
     //this->createObject("pixel_add", -0.3, 0.0, 0.0);

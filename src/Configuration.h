@@ -36,7 +36,7 @@
 #include <windows.h>
 #endif
 
-#define DEBUG_MODE      true
+#define DEBUG_MODE      false
 
 // Performance settings
 #define MAX_FRAME_RATE  60

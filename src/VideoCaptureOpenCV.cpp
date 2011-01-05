@@ -41,6 +41,9 @@ VideoCaptureOpenCV::VideoCaptureOpenCV()
 int VideoCaptureOpenCV::getNextCaptureDevice()
 {
     int ret = vidCapOpenCvPtr->nextCapDev;
+
+
+
     vidCapOpenCvPtr->nextCapDev += 1;
 
     if (DEBUG_MODE)
@@ -66,13 +69,19 @@ void VideoCaptureOpenCV::init()
 
 	for (int i=0; i<VIDEO_WIDTH*VIDEO_HEIGHT; i++)
 	{
-        vidCapOpenCvPtr->redFrame[i*3] = 255;
-        vidCapOpenCvPtr->redFrame[i*3+1] = 255;
+        vidCapOpenCvPtr->redFrame[i*3] = 0;
+        vidCapOpenCvPtr->redFrame[i*3+1] = 0;
         vidCapOpenCvPtr->redFrame[i*3+2] = 255;
 	}
 
+	Mat red(VIDEO_WIDTH, VIDEO_HEIGHT, CV_8UC3, vidCapOpenCvPtr->redFrame,0);
+
     for (int i=0; i<10; i++)
     {
+        vidCapOpenCvPtr->frame[i] = red.clone();
+        vidCapOpenCvPtr->frameDst[i] = red.clone();
+        vidCapOpenCvPtr->frameDstSwap[i] = red.clone();
+
         vidCapOpenCvPtr->capturedFrame[i] =
                                 new unsigned char[VIDEO_WIDTH*VIDEO_HEIGHT*3];
 
@@ -84,17 +93,13 @@ void VideoCaptureOpenCV::init()
         }
     }
 
-//SEM_CAMERA
-/*
-	vidCapOpenCvPtr->videoCapDevices[0] = new VideoCapture(0);
-	vidCapOpenCvPtr->videoCapDevices[0]->set(CV_CAP_PROP_FRAME_WIDTH, 320);
-    vidCapOpenCvPtr->videoCapDevices[0]->set(CV_CAP_PROP_FRAME_HEIGHT, 240);
-    vidCapOpenCvPtr->videoCapDevices[0]->grab();
+	vidCapOpenCvPtr->videoCapDevices[0] = new VideoCapture(1);
+    if (!vidCapOpenCvPtr->videoCapDevices[0]->isOpened())
+    {
+        cout << "\nFailed to open video capture device 0\n";
+        return;
+    }
 
-    vidCapOpenCvPtr->videoCapDevices[1] = new VideoCapture(1);
-	vidCapOpenCvPtr->videoCapDevices[1]->set(CV_CAP_PROP_FRAME_WIDTH, 320);
-    vidCapOpenCvPtr->videoCapDevices[1]->set(CV_CAP_PROP_FRAME_HEIGHT, 240);
-    vidCapOpenCvPtr->videoCapDevices[1]->grab();
     boost::thread grabT(VideoCaptureOpenCV::grabThreadFuncStatic);
     vidCapOpenCvPtr->grabThread = &grabT;
 
@@ -106,7 +111,6 @@ void VideoCaptureOpenCV::init()
 
     if (DEBUG_MODE)
         cout << "\nVideoCaptureOpenCV started.";
-*/
 
 }
 
@@ -131,7 +135,7 @@ void VideoCaptureOpenCV::grabThreadFunc()
 //        }
 
         vidCapOpenCvPtr->videoCapDevices[0]->grab();
-        vidCapOpenCvPtr->videoCapDevices[1]->grab();
+//        vidCapOpenCvPtr->videoCapDevices[1]->grab();
 
         vidCapOpenCvPtr->flagGrabing = false;
 
@@ -153,37 +157,30 @@ void VideoCaptureOpenCV::resizeThreadFunc()
 
         try
         {
-            if (vidCapOpenCvPtr->swapBufferOn)
+            for (int i = 0; i < vidCapOpenCvPtr->nextCapDev; i++)
             {
-                int i = 0;
-                vidCapOpenCvPtr->videoCapDevices[i]->retrieve(frame[i], 0);
-                img = frame[i];
-                check = cvCheckArr(&img, 0, 0, 0);
-                resize(vidCapOpenCvPtr->frame[i], vidCapOpenCvPtr->frameDstSwap[i], Size(VIDEO_WIDTH, VIDEO_HEIGHT),0,0, INTER_LINEAR);
-                i = 1;
-                vidCapOpenCvPtr->videoCapDevices[i]->retrieve(frame[i], 0);
-                img = frame[i];
-                check = cvCheckArr(&img, 0, 0, 0);
-                resize(vidCapOpenCvPtr->frame[i], vidCapOpenCvPtr->frameDstSwap[i], Size(VIDEO_WIDTH, VIDEO_HEIGHT),0,0, INTER_LINEAR);
-                vidCapOpenCvPtr->swapBufferOn = false;
-            }
-            else
-            {
-                int i = 0;
-                vidCapOpenCvPtr->videoCapDevices[i]->retrieve(frame[i], 0);
-                img = frame[i];
-                check = cvCheckArr(&img, 0, 0, 0);
-                resize(vidCapOpenCvPtr->frame[i], vidCapOpenCvPtr->frameDst[i], Size(VIDEO_WIDTH, VIDEO_HEIGHT),0,0, INTER_LINEAR);
-                i = 1;
-                vidCapOpenCvPtr->videoCapDevices[i]->retrieve(frame[i], 0);
-                img = frame[i];
-                check = cvCheckArr(&img, 0, 0, 0);
-                resize(vidCapOpenCvPtr->frame[i], vidCapOpenCvPtr->frameDst[i], Size(VIDEO_WIDTH, VIDEO_HEIGHT),0,0, INTER_LINEAR);
-                vidCapOpenCvPtr->swapBufferOn = true;
+                if (vidCapOpenCvPtr->swapBufferOn)
+                {
+                    vidCapOpenCvPtr->videoCapDevices[i]->retrieve(frame[i], 0);
+                    img = frame[i];
+                    check = cvCheckArr(&img, 0, 0, 0);
+                    resize(vidCapOpenCvPtr->frame[i], vidCapOpenCvPtr->frameDstSwap[i], Size(VIDEO_WIDTH, VIDEO_HEIGHT),0,0, INTER_LINEAR);
+                    vidCapOpenCvPtr->swapBufferOn = false;
+                }
+                else
+                {
+                    int i = 0;
+                    vidCapOpenCvPtr->videoCapDevices[i]->retrieve(frame[i], 0);
+                    img = frame[i];
+                    check = cvCheckArr(&img, 0, 0, 0);
+                    resize(vidCapOpenCvPtr->frame[i], vidCapOpenCvPtr->frameDst[i], Size(VIDEO_WIDTH, VIDEO_HEIGHT),0,0, INTER_LINEAR);
+                    vidCapOpenCvPtr->swapBufferOn = true;
+                }
             }
         }
         catch (...)
         {
+            cout << "\nOpenCV resize error!\n";
         }
 
         vidCapOpenCvPtr->flagResizing = false;
@@ -197,6 +194,8 @@ void VideoCaptureOpenCV::resizeThreadFunc()
 
 void VideoCaptureOpenCV::grabCapturedFrame(int dev)
 {
+//    vidCapOpenCvPtr->capturedFrame[dev] = (unsigned char *) vidCapOpenCvPtr->frameDst[dev].data;
+
     int i=dev;
     if (vidCapOpenCvPtr->swapBufferOn)
     {
@@ -206,12 +205,13 @@ void VideoCaptureOpenCV::grabCapturedFrame(int dev)
     {
         vidCapOpenCvPtr->capturedFrame[i] = (unsigned char *) vidCapOpenCvPtr->frameDstSwap[i].data;
     }
+
 }
 
 unsigned char* VideoCaptureOpenCV :: getCurrentFrame(int dev)
 {
-	//vidCapOpenCvPtr->grabCapturedFrame(dev);//SEM_CAMERA
+	vidCapOpenCvPtr->grabCapturedFrame(dev);
 
-	return vidCapOpenCvPtr->redFrame;
-    //return vidCapOpenCvPtr->capturedFrame[dev];//SEM_CAMERA
+    return vidCapOpenCvPtr->capturedFrame[dev];
+	//return vidCapOpenCvPtr->redFrame;
 }

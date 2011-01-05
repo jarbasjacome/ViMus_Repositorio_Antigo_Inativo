@@ -11,7 +11,7 @@
 	"VimusGUINormalObject.h"
 	<iostream>
 
-1294242771 /dados/ViMus/ViMus_OBOGUI/src/Configuration.h
+1294243932 /dados/ViMus/ViMus_OBOGUI/src/Configuration.h
 	<windows.h>
 
 1287716278 /usr/include/stdio.h
@@ -368,7 +368,7 @@
 	<stdlib.h>
 	<GL/glut.h>
 
-1294242183 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.cpp
+1294261634 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.cpp
 	"VimusGUIEditor.h"
 
 1294242173 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.h
@@ -469,7 +469,7 @@
 	"VimusMachineObject.h"
 	"VideoCaptureOpenCV.h"
 
-1294239047 /dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.h
+1294258709 /dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.h
 	"Configuration.h"
 	"cv.h"
 	"highgui.h"
@@ -2966,6 +2966,6 @@
 	"VimusGUIGLUT.h"
 	"VimusMachine.h"
 
-1294242661 source:/dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.cpp
+1294265308 source:/dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.cpp
 	"VideoCaptureOpenCV.h"
 
