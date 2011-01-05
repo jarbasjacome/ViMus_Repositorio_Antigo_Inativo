@@ -25,7 +25,8 @@ using namespace cv;
  * VimusCaptureOpenCV singleton object, to make it possible to
  * to call non-static member functions to use in threads
  */
-VideoCaptureOpenCV* VideoCaptureOpenCV::vidCapOpenCvPtr = new VideoCaptureOpenCV();
+VideoCaptureOpenCV* VideoCaptureOpenCV::vidCapOpenCvPtr =
+                                                new VideoCaptureOpenCV();
 
 /**
  * Constructor
@@ -72,7 +73,8 @@ void VideoCaptureOpenCV::init()
 
     for (int i=0; i<10; i++)
     {
-        vidCapOpenCvPtr->capturedFrame[i] = new unsigned char[VIDEO_WIDTH*VIDEO_HEIGHT*3];
+        vidCapOpenCvPtr->capturedFrame[i] =
+                                new unsigned char[VIDEO_WIDTH*VIDEO_HEIGHT*3];
 
         for (int j=0; j<VIDEO_WIDTH*VIDEO_HEIGHT; j++)
         {
@@ -81,6 +83,13 @@ void VideoCaptureOpenCV::init()
             vidCapOpenCvPtr->capturedFrame[i][j*3+2] = 100;
         }
     }
+
+    vidCapOpenCvPtr->videoCapDevices[0] = new VideoCapture(0);
+
+//    if (!vidCapOpenCvPtr->videoCapDevices[0]->isOpened()) {
+//        std::cout << "Failed to open video capture device 0\n";
+//        return;
+//    }
 
 //SEM_CAMERA
 /*

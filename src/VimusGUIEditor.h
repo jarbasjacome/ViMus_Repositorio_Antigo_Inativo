@@ -24,7 +24,6 @@
 #include "VimusGUIObjects.h"
 #include "VimusGUIPin.h"
 
-//#include "Machine.h"
 #include "VimusMachine.h"
 
 #include <string>
