@@ -59,7 +59,7 @@ VimusGUICube :: VimusGUICube (const string& label, float posX, float posY, float
     setPosMinimized(posX, posY, posZ);
 
     if (DEBUG_MODE)
-        printf("\nVimusGUICube constructed.");
+        cout << "\nVimusGUICube constructed.";
 }
 
 /**

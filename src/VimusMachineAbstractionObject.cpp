@@ -39,7 +39,7 @@ VimusMachineAbstractionObject :: VimusMachineAbstractionObject (const string& la
 //	this->setLabel(label);
 
     if (DEBUG_MODE)
-        printf("\nVimusMachineAbstractionObject constructed.");
+        cout << "\nVimusMachineAbstractionObject constructed.";
 }
 
 

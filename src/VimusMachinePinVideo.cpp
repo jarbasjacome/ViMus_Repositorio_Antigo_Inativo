@@ -33,7 +33,7 @@ VimusMachinePinVideo::VimusMachinePinVideo (bool isInput, int index)
         connections[i] = NULL;
     numConnections = 0;
     if (DEBUG_MODE)
-        printf("\nVimusMachinePinVideo constructed.");
+        cout << "\nVimusMachinePinVideo constructed.";
 }
 
 /**

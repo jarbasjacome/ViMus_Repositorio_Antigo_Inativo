@@ -43,7 +43,7 @@ VimusMachineVideoCapture::VimusMachineVideoCapture(VideoCaptureOpenCV *vidCap)
 	((VimusMachinePinVideo *)this->outputPins[0])->ppFrame = this->ppCurrentFrame;
 
     if (DEBUG_MODE)
-        printf("\nVimusMachineVideoCapture constructed.");
+        cout << "\nVimusMachineVideoCapture constructed.";
 }
 
 /**

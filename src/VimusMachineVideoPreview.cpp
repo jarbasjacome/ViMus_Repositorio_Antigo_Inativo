@@ -60,7 +60,7 @@ VimusMachineVideoPreview::VimusMachineVideoPreview()
 //	((VimusMachinePinVideo *)this->inputPins[0])->ppFrame = this->ppInputData;
 
     if (DEBUG_MODE)
-        printf("\nVimusMachineVideoPreview constructed.");
+        cout << "\nVimusMachineVideoPreview constructed.";
 }
 
 /**

@@ -1,18 +1,18 @@
 # depslib dependency file v1.0
-1292815907 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUICube.cpp
+1294242055 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUICube.cpp
 	"VimusGUICube.h"
 
-1292816078 /dados/ViMus/ViMus_OBOGUI/src/VimusGUICube.h
+1294242049 /dados/ViMus/ViMus_OBOGUI/src/VimusGUICube.h
 	"Configuration.h"
 	"Global.h"
 	<stdlib.h>
 	<math.h>
 	<GL/glut.h>
 	"VimusGUINormalObject.h"
+	<iostream>
 
-1294172503 /dados/ViMus/ViMus_OBOGUI/src/Configuration.h
+1294242771 /dados/ViMus/ViMus_OBOGUI/src/Configuration.h
 	<windows.h>
-	<stdio.h>
 
 1287716278 /usr/include/stdio.h
 	<features.h>
@@ -222,9 +222,8 @@
 
 1287716278 /usr/include/bits/stdio-ldbl.h
 
-1292816053 /dados/ViMus/ViMus_OBOGUI/src/Global.h
+1294242791 /dados/ViMus/ViMus_OBOGUI/src/Global.h
 	<stdlib.h>
-	<stdio.h>
 
 1287716277 /usr/include/stdlib.h
 	<features.h>
@@ -349,11 +348,12 @@
 
 1289314209 /usr/include/GL/glu_mangle.h
 
-1292816096 /dados/ViMus/ViMus_OBOGUI/src/VimusGUINormalObject.h
+1294242217 /dados/ViMus/ViMus_OBOGUI/src/VimusGUINormalObject.h
 	"Configuration.h"
 	"VimusGUIObject.h"
 	<stdlib.h>
 	<string>
+	<iostream>
 	<GL/glut.h>
 
 1292996767 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIObject.h
@@ -368,10 +368,10 @@
 	<stdlib.h>
 	<GL/glut.h>
 
-1294189097 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.cpp
+1294242183 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.cpp
 	"VimusGUIEditor.h"
 
-1294190000 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.h
+1294242173 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.h
 	"Configuration.h"
 	"VimusGUIObjects.h"
 	"VimusGUIPin.h"
@@ -387,12 +387,13 @@
 	"VimusGUIVideoPreview.h"
 	"VimusGUIOpenGLObject.h"
 
-1292816122 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIVideoPreview.h
+1294242271 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIVideoPreview.h
 	"Configuration.h"
 	"VimusGUIObject.h"
 	<stdlib.h>
 	<GL/glext.h>
 	<GL/glut.h>
+	<iostream>
 
 1292816114 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIOpenGLObject.h
 	"Configuration.h"
@@ -416,9 +417,9 @@
 	"VimusMachinePinControl.h"
 	<string>
 
-1292816162 /dados/ViMus/ViMus_OBOGUI/src/VimusMachinePin.h
+1294242481 /dados/ViMus/ViMus_OBOGUI/src/VimusMachinePin.h
 	<stdlib.h>
-	<stdio.h>
+	<iostream>
 	"Configuration.h"
 
 1292816169 /dados/ViMus/ViMus_OBOGUI/src/VimusMachinePinVideo.h
@@ -451,12 +452,14 @@
 	"VimusMachineCVThreshold.h"
 	"VimusMachineVitalino.h"
 
-1292816145 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineNormalObject.h
+1294242361 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineNormalObject.h
 	"VimusMachineObject.h"
+	<iostream>
 
-1292816133 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineAbstractionObject.h
+1294242303 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineAbstractionObject.h
 	"VimusMachineNormalObject.h"
 	"VimusMachineVideoPreview.h"
+	<iostream>
 	<string>
 
 1292816181 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineVideoPreview.h
@@ -466,7 +469,7 @@
 	"VimusMachineObject.h"
 	"VideoCaptureOpenCV.h"
 
-1294190585 /dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.h
+1294239047 /dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.h
 	"Configuration.h"
 	"cv.h"
 	"highgui.h"
@@ -2878,10 +2881,11 @@
 1292816172 /dados/ViMus/ViMus_OBOGUI/src/VimusMachinePixelAdd.h
 	"VimusMachineObject.h"
 
-1292816137 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVThreshold.h
+1294242362 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVThreshold.h
 	"VimusMachineObject.h"
 	"cv.h"
 	"highgui.h"
+	<iostream>
 
 1292945058 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineVitalino.h
 	"VimusMachineOpenGLObject.h"
@@ -2889,7 +2893,7 @@
 	<boost/thread.hpp>
 	<boost/thread/xtime.hpp>
 
-1292987513 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIGLUT.cpp
+1294240697 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIGLUT.cpp
 	"VimusGUIGLUT.h"
 
 1292981535 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIGLUT.h
@@ -2901,34 +2905,34 @@
 	<sstream>
 	<GL/glut.h>
 
-1292943225 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUINormalObject.cpp
+1294240804 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUINormalObject.cpp
 	"VimusGUINormalObject.h"
 
 1292815930 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIObject.cpp
 	"VimusGUIObject.h"
 
-1292998539 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIOpenGLObject.cpp
+1294240779 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIOpenGLObject.cpp
 	"VimusGUIOpenGLObject.h"
 
 1292815941 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIPin.cpp
 	"VimusGUIPin.h"
 
-1292815946 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIVideoPreview.cpp
+1294240801 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIVideoPreview.cpp
 	"VimusGUIVideoPreview.h"
 
-1292999341 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachine.cpp
+1294240816 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachine.cpp
 	"VimusMachine.h"
 
-1292815957 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineAbstractionObject.cpp
+1294240828 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineAbstractionObject.cpp
 	"VimusMachineAbstractionObject.h"
 
-1292815962 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVThreshold.cpp
+1294240841 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVThreshold.cpp
 	"VimusMachineCVThreshold.h"
 
-1292998999 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineEditor.cpp
+1294240849 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineEditor.cpp
 	"VimusMachineEditor.h"
 
-1292815977 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineNormalObject.cpp
+1294240855 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineNormalObject.cpp
 	"VimusMachineNormalObject.h"
 
 1292815982 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineObject.cpp
@@ -2937,31 +2941,31 @@
 1292815987 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineOpenGLObject.cpp
 	"VimusMachineOpenGLObject.h"
 
-1292815992 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachinePin.cpp
+1294241048 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachinePin.cpp
 	"VimusMachinePin.h"
 
-1292815997 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachinePinControl.cpp
+1294240971 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachinePinControl.cpp
 	"VimusMachinePinControl.h"
 
-1292816015 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachinePinVideo.cpp
+1294240984 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachinePinVideo.cpp
 	"VimusMachinePinVideo.h"
 
-1292816019 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachinePixelAdd.cpp
+1294241045 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachinePixelAdd.cpp
 	"VimusMachinePixelAdd.h"
 
-1292816026 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineVideoCapture.cpp
+1294241058 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineVideoCapture.cpp
 	"VimusMachineVideoCapture.h"
 
-1292816031 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineVideoPreview.cpp
+1294241082 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineVideoPreview.cpp
 	"VimusMachineVideoPreview.h"
 
-1294169994 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineVitalino.cpp
+1294241092 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineVitalino.cpp
 	"VimusMachineVitalino.h"
 
 1292945563 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMain.cpp
 	"VimusGUIGLUT.h"
 	"VimusMachine.h"
 
-1294191805 source:/dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.cpp
+1294242661 source:/dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.cpp
 	"VideoCaptureOpenCV.h"
 

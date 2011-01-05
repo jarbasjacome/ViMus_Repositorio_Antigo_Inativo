@@ -44,7 +44,7 @@ int VideoCaptureOpenCV::getNextCaptureDevice()
     vidCapOpenCvPtr->nextCapDev += 1;
 
     if (DEBUG_MODE)
-        printf("\ngetCaptureDeviceNumber = %d", ret);
+        cout << "\ngetCaptureDeviceNumber = " << ret;
 
     return ret;
 }
@@ -84,13 +84,6 @@ void VideoCaptureOpenCV::init()
         }
     }
 
-    vidCapOpenCvPtr->videoCapDevices[0] = new VideoCapture(0);
-
-//    if (!vidCapOpenCvPtr->videoCapDevices[0]->isOpened()) {
-//        std::cout << "Failed to open video capture device 0\n";
-//        return;
-//    }
-
 //SEM_CAMERA
 /*
 	vidCapOpenCvPtr->videoCapDevices[0] = new VideoCapture(0);
@@ -112,7 +105,7 @@ void VideoCaptureOpenCV::init()
     vidCapOpenCvPtr->swapBufferOn = false;
 
     if (DEBUG_MODE)
-        printf("\nVideoCaptureOpenCV started.");
+        cout << "\nVideoCaptureOpenCV started.";
 */
 
 }
@@ -202,7 +195,7 @@ void VideoCaptureOpenCV::resizeThreadFunc()
     }
 }
 
-void VideoCaptureOpenCV::grabCapturedFrame(int dev)									// Grabs A Frame From The Stream
+void VideoCaptureOpenCV::grabCapturedFrame(int dev)
 {
     int i=dev;
     if (vidCapOpenCvPtr->swapBufferOn)

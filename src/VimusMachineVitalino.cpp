@@ -142,7 +142,7 @@ VimusMachineVitalino::VimusMachineVitalino()
     this->rotInc = 0;
 
     if (DEBUG_MODE)
-        printf("\nVimusMachineVitalino constructed.");
+        cout << "\nVimusMachineVitalino constructed.";
 }
 
 /**

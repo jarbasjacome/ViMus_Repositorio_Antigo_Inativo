@@ -37,7 +37,7 @@ VimusMachineEditor :: VimusMachineEditor (VideoCaptureOpenCV* vidCap)
 	}
 
     if (DEBUG_MODE)
-        printf("\nVimusMachineEditor constructed.");
+        cout << "\nVimusMachineEditor constructed.";
 }
 
 /**

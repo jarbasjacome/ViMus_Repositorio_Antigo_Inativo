@@ -25,7 +25,7 @@
 VimusGUINormalObject :: VimusGUINormalObject () : VimusGUIObject ()
 {
     if (DEBUG_MODE)
-        printf("\nVimusGUINormalObject constructed.");
+        cout << "\nVimusGUINormalObject constructed.";
 }
 
 /**
@@ -53,7 +53,7 @@ VimusGUINormalObject :: VimusGUINormalObject (const string& label, float posX,
 	this->setPins(numInputs, numOutputs);
 
     if (DEBUG_MODE)
-        printf("\nVimusGUINormalObject constructed.");
+        cout << "\nVimusGUINormalObject constructed.";
 }
 
 /**

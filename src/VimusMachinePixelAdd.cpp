@@ -62,7 +62,7 @@ VimusMachinePixelAdd::VimusMachinePixelAdd()
 	//((VimusMachinePinVideo *)this->inputPins[0])->ppFrame = this->ppInputData;
 
     if (DEBUG_MODE)
-        printf("\nVimusMachinePixelAdd constructed.");
+        cout << "\nVimusMachinePixelAdd constructed.";
 }
 
 /**

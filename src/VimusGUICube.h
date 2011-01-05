@@ -30,6 +30,9 @@
 
 #include "VimusGUINormalObject.h"
 
+#include <iostream>
+using namespace std;
+
 /**
  * VimusGUICube represents a node (unit generator or object)
  * of a VimusPatch.

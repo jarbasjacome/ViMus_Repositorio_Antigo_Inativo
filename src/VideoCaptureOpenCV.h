@@ -31,6 +31,7 @@
 #include <iostream>
 
 using namespace cv;
+using namespace std;
 
 /**
  * This class encapsulates all OpenCV video capture code.

@@ -27,6 +27,8 @@
 #include <GL/glext.h>
 #include <GL/glut.h>
 
+#include <iostream>
+
 /**
  * VimusGUIVideoPreview is an interface object for display videos
  * and images.

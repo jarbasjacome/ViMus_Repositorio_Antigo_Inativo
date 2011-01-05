@@ -73,7 +73,7 @@ VimusMachineCVThreshold::VimusMachineCVThreshold()
     (*this->ppOutputData) = this->frameDst.data;
 
     if (DEBUG_MODE)
-        printf("\nVimusMachineCVThreshold constructed.");
+        cout << "\nVimusMachineCVThreshold constructed.";
 }
 
 /**

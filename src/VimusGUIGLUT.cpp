@@ -197,7 +197,7 @@ void VimusGUIGLUT:: idleFunc()
 //    {
 //        vimusUIPtr->currSysTime.nsec += 17000000 - vimusUIPtr->pastTime;
 //        boost::thread::sleep(vimusUIPtr->currSysTime);
-//        //printf("pastTime = %d", vimusUIPtr->pastTime);
+//        //cout << "pastTime = " << vimusUIPtr->pastTime;
 //    }
 //    boost::xtime_get(&(vimusUIPtr->lastSysTime), boost::TIME_UTC);
 }
@@ -214,7 +214,7 @@ void VimusGUIGLUT :: start()
 	glutMainLoop();
 
     if (DEBUG_MODE)
-        printf("\nVimusGUIGLUT started.");
+        cout << "\nVimusGUIGLUT started.";
 }
 
 /**

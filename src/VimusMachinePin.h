@@ -21,7 +21,8 @@
 #define _VIMUSMACHINEPIN_H_
 
 #include <stdlib.h>
-#include <stdio.h>
+#include <iostream>
+using namespace std;
 
 #include "Configuration.h"
 

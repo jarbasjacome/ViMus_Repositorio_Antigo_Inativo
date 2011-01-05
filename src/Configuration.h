@@ -37,7 +37,6 @@
 #endif
 
 #define DEBUG_MODE      true
-#include <stdio.h>
 
 // Performance settings
 #define MAX_FRAME_RATE  60

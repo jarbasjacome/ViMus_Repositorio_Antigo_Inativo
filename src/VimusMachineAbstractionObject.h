@@ -23,6 +23,7 @@
 #include "VimusMachineNormalObject.h"
 #include "VimusMachineVideoPreview.h"
 
+#include <iostream>
 #include <string>
 using namespace std;
 

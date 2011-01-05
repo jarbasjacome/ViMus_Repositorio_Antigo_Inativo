@@ -49,7 +49,7 @@ VimusGUIOpenGLObject :: VimusGUIOpenGLObject (  const string& label, float posX,
     this->machineGLObj = machineObj;
 
     if (DEBUG_MODE)
-        printf("\VimusGUIOpenGLObject constructed.");
+        cout << "\nVimusGUIOpenGLObject constructed.";
 }
 
 /**

@@ -25,7 +25,7 @@
 VimusMachine :: VimusMachine ()
 {
     if (DEBUG_MODE)
-        printf("\nVimusMachine constructed.");
+        cout << "\nVimusMachine constructed.";
 }
 
 /**

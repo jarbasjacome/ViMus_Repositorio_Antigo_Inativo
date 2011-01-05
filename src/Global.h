@@ -22,9 +22,6 @@
 
 #include <stdlib.h>
 
-//SOH PRA DEBUGAR, DEPOIS TIRA...
-#include <stdio.h>
-
 // Macro for releasing a COM object
 #define RELEASE(x) { if ((x)!=NULL) (x)->Release();  (x)=NULL; }
 #define SAFE_RELEASE(p)   { if(p) { (p)->Release(); (p)=NULL; } }

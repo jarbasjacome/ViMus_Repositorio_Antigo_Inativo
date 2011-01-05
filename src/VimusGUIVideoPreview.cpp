@@ -25,7 +25,7 @@
 VimusGUIVideoPreview::VimusGUIVideoPreview() : VimusGUIObject ()
 {
     if (DEBUG_MODE)
-        printf("\nVimusGUIVideoPreview constructed.");
+        cout << "\nVimusGUIVideoPreview constructed.";
 }
 
 /**

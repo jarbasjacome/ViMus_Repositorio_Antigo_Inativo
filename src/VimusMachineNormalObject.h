@@ -22,6 +22,8 @@
 
 #include "VimusMachineObject.h"
 
+#include <iostream>
+
 /**
  * VimusMachineNormalObject represents a node (unit generator or object)
  * of a MachinePatch.

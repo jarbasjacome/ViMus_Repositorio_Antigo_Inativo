@@ -47,7 +47,7 @@ VimusGUIEditor::VimusGUIEditor()
 	mainCube->setCurrentSide(VimusGUIObject::SIDE_CONTROLPANEL);
 
     if (DEBUG_MODE)
-        printf("\nVimusGUIEditor constructed.");
+        cout << "\nVimusGUIEditor constructed.";
 
     this->viewPortMode = VIEWPORT_EDITOR;
 
@@ -516,19 +516,28 @@ void VimusGUIEditor::processHits (GLint hits, GLuint buffer[])
     int lineBufIndex = -1;
     int indexCount = 0;
 
-    printf ("hits = %d\n", hits);
+    if (DEBUG_MODE)
+        cout << "\nhits = " << hits;
+
     ptr = (GLuint *) buffer;
 
     for (i = 0; i < hits; i++) /*  for each hit  */
     {
         numNames = *ptr;
-        printf (" number of names for this hit = %d\n", numNames);
-        ptr++; indexCount++;
-        printf("  z1 is %g;", (float) *ptr/0x7fffffff); ptr++; indexCount++;
-        printf(" z2 is %g\n", (float) *ptr/0x7fffffff); ptr++; indexCount++;
-        printf ("   names are ");
 
-        printf ("%d ", *ptr);
+        if (DEBUG_MODE)
+            cout << "\n number of names for this hit = " << numNames;
+
+        ptr++; indexCount++;
+
+        if (DEBUG_MODE)
+        {
+            cout << "\n  z1 is " << (float) *ptr/0x7fffffff; ptr++; indexCount++;
+            cout << "\n z2 is " << (float) *ptr/0x7fffffff; ptr++; indexCount++;
+            cout << "   names are ";
+            cout << *ptr << " ";
+        }
+
         if (*ptr == 1)
         {
             if (numNames == 2)
@@ -545,10 +554,13 @@ void VimusGUIEditor::processHits (GLint hits, GLuint buffer[])
 
         for (j = 1; j < (int) numNames; j++) /*  for each name */
         {
-            printf ("%d ", *ptr);
+            if (DEBUG_MODE)
+            cout << *ptr << " ";
+
             ptr++; indexCount++;
         }
-        printf ("\n");
+        if (DEBUG_MODE)
+            cout << "\n";
     }
 
     if (isEditMode)
@@ -564,7 +576,8 @@ void VimusGUIEditor::processHits (GLint hits, GLuint buffer[])
             if (pinBufIndex >= 0)
             {
                 numNames = buffer[pinBufIndex];
-                printf("pino! numNames: %d \n", numNames);
+                if (DEBUG_MODE)
+                    cout << "\npino! numNames: " << numNames << " \n";
 
                 if (buffer[pinBufIndex+5] == 0) // clicked on input pin
                     selectObject(buffer[objectBufIndex+4]);
@@ -574,7 +587,10 @@ void VimusGUIEditor::processHits (GLint hits, GLuint buffer[])
             else if (objectBufIndex >=0)
             {
                 numNames = buffer[objectBufIndex];
-                printf("objeto! numNames: %d \n", numNames);
+
+                if (DEBUG_MODE)
+                    cout << "objeto! numNames: " << numNames << " \n";
+
                 selectObject(buffer[objectBufIndex+4]);
             }
             else if (lineBufIndex >=0)
@@ -601,7 +617,8 @@ void VimusGUIEditor::processHits (GLint hits, GLuint buffer[])
 						getOutputByIndex(buffer[lineBufIndex+5])->
 						selOutConnections[buffer[lineBufIndex+6]] = false;
 				}
-				printf("linha! numNames: %d \n", numNames);
+				if (DEBUG_MODE)
+                    cout << "linha! numNames: " << numNames << " \n";
             }
             break;
 
@@ -614,7 +631,8 @@ void VimusGUIEditor::processHits (GLint hits, GLuint buffer[])
             if (pinBufIndex >= 0)
             {
                 numNames = buffer[pinBufIndex];
-                printf("pino! numNames: %d \n", numNames);
+                if (DEBUG_MODE)
+                    cout << "pino! numNames: " << numNames << " \n";
 
                 if (buffer[pinBufIndex+5] == 0) // clicked on input pin
                     pickInputConnectPin(buffer[pinBufIndex+4],buffer[pinBufIndex+6]);
@@ -624,14 +642,16 @@ void VimusGUIEditor::processHits (GLint hits, GLuint buffer[])
             else if (objectBufIndex >=0)
             {
                 numNames = buffer[objectBufIndex];
-                printf("objeto! numNames: %d \n", numNames);
+                if (DEBUG_MODE)
+                    cout << "objeto! numNames: " << numNames << " \n";
 
                 setEditorState(EDITOR_READY);
             }
             else if (lineBufIndex >=0)
             {
                 numNames = buffer[lineBufIndex];
-                printf("linha! numNames: %d \n", numNames);
+                if (DEBUG_MODE)
+                    cout << "linha! numNames: " << numNames << " \n";
 
                 setEditorState(EDITOR_READY);
             }
@@ -1353,5 +1373,5 @@ void VimusGUIEditor :: createTestPatch()
 */
 
     if (DEBUG_MODE)
-        printf("\nCreated a test patch.");
+        cout << "\nCreated a test patch.";
 }

@@ -43,20 +43,20 @@ bool VimusMachinePin::connect(VimusMachinePin *pin)
 	bool connected = false;
 	if (numConnections >= MAX_CONNECTIONS)
 	{
-		printf("number of connected pins exceed./n");
+	    cout << "number of connected pins exceed./n"; //TODO EXCEPTION
 		return false;
 	}
-	//TODO: accept multiple input connections.
+	//TODO: accept multiple input connections in some cases.
 	if (pin->numConnections > 0)
     {
-		printf("already connected with another pin./n");
+		cout << "already connected with another pin./n";  //TODO EXCEPTION
 		return false;
 	}
     if (pin->isInput)
     {
 		if (this->type != pin->type)
 		{
-			printf("can not connect diferent types./n");
+			 cout << "can not connect diferent types./n";
 			return false;
 		}
         for (int i = 0; i<numConnections; i++)
@@ -65,7 +65,7 @@ bool VimusMachinePin::connect(VimusMachinePin *pin)
             if ((connections[i]->indexOnParent == pin->indexOnParent)
                 && (connections[i]->parentIndex == pin->parentIndex))
 			{
-				printf("already connected./n");
+				cout << "already connected./n";
                 return false;
 			}
         }

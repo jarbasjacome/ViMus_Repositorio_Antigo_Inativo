@@ -34,7 +34,7 @@ VimusMachinePinControl::VimusMachinePinControl (bool isInput, int index)
     numConnections = 0;
 
     if (DEBUG_MODE)
-        printf("\nVimusMachinePinControl constructed.");
+        cout << "\nVimusMachinePinControl constructed.";
 }
 
 /**

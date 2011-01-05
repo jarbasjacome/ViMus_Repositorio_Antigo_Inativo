@@ -26,7 +26,7 @@ VimusMachineNormalObject :: VimusMachineNormalObject ()
 {
     VimusMachineObject::initObject();
     if (DEBUG_MODE)
-        printf("\nVimusMachineNormalObject constructed.");
+        cout << "\nVimusMachineNormalObject constructed.";
 }
 
 /**
