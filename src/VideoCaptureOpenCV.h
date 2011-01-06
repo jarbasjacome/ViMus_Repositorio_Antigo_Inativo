@@ -100,12 +100,5 @@ class VideoCaptureOpenCV
 		{	vidCapOpenCvPtr->grabThreadFunc();	};
         boost::thread* grabThread;
         boost::xtime sleepGrab;
-
-        void resizeThreadFunc();
-		inline static void resizeThreadFuncStatic()
-		{	vidCapOpenCvPtr->resizeThreadFunc();	};
-        boost::thread* resizeThread;
-        boost::xtime sleepResize;
-
 };
 #endif // VIDEOCAPTUREOPENCV_H

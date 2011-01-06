@@ -103,9 +103,6 @@ void VideoCaptureOpenCV::init()
     boost::thread grabT(VideoCaptureOpenCV::grabThreadFuncStatic);
     vidCapOpenCvPtr->grabThread = &grabT;
 
-    boost::thread resizeT(VideoCaptureOpenCV::resizeThreadFuncStatic);
-    vidCapOpenCvPtr->resizeThread = &resizeT;
-
     vidCapOpenCvPtr->flagGrabing = false;
     vidCapOpenCvPtr->swapBufferOn = false;
 
@@ -126,34 +123,10 @@ void VideoCaptureOpenCV::grabThreadFunc()
 {
     while(1)
     {
-        vidCapOpenCvPtr->flagGrabing = true;
-
-//        for (int i= 0; i<10; i++)
-//        {
-//            if (vidCapOpenCvPtr->videoCapDevices[i] != 0)
-//                vidCapOpenCvPtr->videoCapDevices[i]->grab();
-//        }
-
         vidCapOpenCvPtr->videoCapDevices[0]->grab();
-//        vidCapOpenCvPtr->videoCapDevices[1]->grab();
 
-        vidCapOpenCvPtr->flagGrabing = false;
-
-//        boost::xtime_get(&(vidCapOpenCvPtr->sleepGrab), boost::TIME_UTC);
-//        vidCapOpenCvPtr->sleepGrab.nsec += 10000000;
-//        boost::thread::sleep(vidCapOpenCvPtr->sleepGrab);
-
-    }
-}
-
-void VideoCaptureOpenCV::resizeThreadFunc()
-{
-    while(1)
-    {
         int check;
         IplImage img;
-
-        vidCapOpenCvPtr->flagResizing = true;
 
         try
         {
@@ -185,17 +158,12 @@ void VideoCaptureOpenCV::resizeThreadFunc()
 
         vidCapOpenCvPtr->flagResizing = false;
 
-//        boost::xtime_get(&(vidCapOpenCvPtr->sleepResize), boost::TIME_UTC);
-//        vidCapOpenCvPtr->sleepResize.nsec += 10000000;
-//        boost::thread::sleep(vidCapOpenCvPtr->sleepResize);
-
     }
 }
 
+
 void VideoCaptureOpenCV::grabCapturedFrame(int dev)
 {
-//    vidCapOpenCvPtr->capturedFrame[dev] = (unsigned char *) vidCapOpenCvPtr->frameDst[dev].data;
-
     int i=dev;
     if (vidCapOpenCvPtr->swapBufferOn)
     {
@@ -205,7 +173,6 @@ void VideoCaptureOpenCV::grabCapturedFrame(int dev)
     {
         vidCapOpenCvPtr->capturedFrame[i] = (unsigned char *) vidCapOpenCvPtr->frameDstSwap[i].data;
     }
-
 }
 
 unsigned char* VideoCaptureOpenCV :: getCurrentFrame(int dev)
@@ -213,5 +180,4 @@ unsigned char* VideoCaptureOpenCV :: getCurrentFrame(int dev)
 	vidCapOpenCvPtr->grabCapturedFrame(dev);
 
     return vidCapOpenCvPtr->capturedFrame[dev];
-	//return vidCapOpenCvPtr->redFrame;
 }
