@@ -26,7 +26,7 @@ VimusMachinePixelAdd::VimusMachinePixelAdd()
 {
     VimusMachineObject::initObject();
 
-	this->label = string ("pixel_add");
+	this->label = string ("pixelAdd");
 	this->addInputPin(VimusMachinePin::TYPE_VIDEO);
 	this->addInputPin(VimusMachinePin::TYPE_CONTROL);
 

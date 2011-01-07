@@ -142,7 +142,6 @@ void VideoCaptureOpenCV::grabThreadFunc()
                 }
                 else
                 {
-                    int i = 0;
                     vidCapOpenCvPtr->videoCapDevices[i]->retrieve(frame[i], 0);
                     img = frame[i];
                     check = cvCheckArr(&img, 0, 0, 0);
@@ -155,8 +154,6 @@ void VideoCaptureOpenCV::grabThreadFunc()
         {
             cout << "\nOpenCV resize error!\n";
         }
-
-        vidCapOpenCvPtr->flagResizing = false;
 
     }
 }

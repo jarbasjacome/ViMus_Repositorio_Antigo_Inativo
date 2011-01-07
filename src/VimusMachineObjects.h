@@ -27,5 +27,6 @@
 #include "VimusMachinePixelAdd.h"
 #include "VimusMachineCVThreshold.h"
 #include "VimusMachineVitalino.h"
+#include "VimusMachineCVBlobDetection.h"
 
 #endif //_VIMUSMACHINEOBJECTS_H_

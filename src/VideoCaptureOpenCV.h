@@ -93,8 +93,6 @@ class VideoCaptureOpenCV
 
         bool flagGrabing;
 
-        bool flagResizing;
-
         void grabThreadFunc();
 		inline static void grabThreadFuncStatic()
 		{	vidCapOpenCvPtr->grabThreadFunc();	};

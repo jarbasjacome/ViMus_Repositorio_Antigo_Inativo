@@ -45,6 +45,7 @@
 			<Add library="Xxf86vm" />
 			<Add library="highgui" />
 			<Add library="boost_thread-mt" />
+			<Add library="libblob" />
 			<Add directory="/usr/lib" />
 		</Linker>
 		<Unit filename="../../src/Configuration.h" />
@@ -73,6 +74,8 @@
 		<Unit filename="../../src/VimusMachine.h" />
 		<Unit filename="../../src/VimusMachineAbstractionObject.cpp" />
 		<Unit filename="../../src/VimusMachineAbstractionObject.h" />
+		<Unit filename="../../src/VimusMachineCVBlobDetection.cpp" />
+		<Unit filename="../../src/VimusMachineCVBlobDetection.h" />
 		<Unit filename="../../src/VimusMachineCVThreshold.cpp" />
 		<Unit filename="../../src/VimusMachineCVThreshold.h" />
 		<Unit filename="../../src/VimusMachineEditor.cpp" />

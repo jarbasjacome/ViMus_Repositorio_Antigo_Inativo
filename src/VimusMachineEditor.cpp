@@ -109,15 +109,23 @@ VimusGUIObject * VimusMachineEditor :: createObject(const string& label, float p
 			macObj = new VimusMachineNormalObject(label, 0, 1);
 			guiObj = new VimusGUINormalObject(label, posX, posY, posZ, 0, 1);
 		}
-		else if (!this->msgTokens[0].compare("pixel_add"))
+		else if (!this->msgTokens[0].compare("pixelAdd"))
 		{
 			macObj = new VimusMachinePixelAdd();
 			guiObj = new VimusGUINormalObject(label, posX, posY, posZ, 2, 1);
 		}
-		else if (!this->msgTokens[0].compare("pixel_cvthreshold"))
+		else if (!this->msgTokens[0].compare("pixelCVThreshold"))
 		{
 			macObj = new VimusMachineCVThreshold();
 			guiObj = new VimusGUINormalObject(label, posX, posY, posZ, 2, 1);
+		}
+		else if (!this->msgTokens[0].compare("pixelCVBlob"))
+		{
+		    VimusMachineCVBlobDetection * blob = new VimusMachineCVBlobDetection();
+			macObj = blob;
+			guiObj = new VimusGUIOpenGLObject(label, posX, posY, posZ, 2, 1, blob);
+
+            this->addOpenGLObject(blob);
 		}
 		else if (!this->msgTokens[0].compare("vitalino"))
 		{

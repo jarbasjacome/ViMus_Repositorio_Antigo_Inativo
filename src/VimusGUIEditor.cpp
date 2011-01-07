@@ -207,10 +207,13 @@ void VimusGUIEditor::keyBoardFunc(unsigned char key, int x, int y)
 			this->createObject("videocap", -0.5, -0.6, 0.0);
 			break;
 		case 'p':
-			this->createObject("pixel_add", 0.0, -0.6, 0.0);
+			this->createObject("pixelAdd", 0.0, -0.6, 0.0);
 			break;
 		case 't':
-			this->createObject("pixel_cvthreshold", 0.0, -0.6, 0.0);
+			this->createObject("pixelCVThreshold", 0.0, -0.6, 0.0);
+			break;
+		case 'b':
+			this->createObject("pixelCVBlob", 0.0, -0.6, 0.0);
 			break;
         case 'm':
             this->createObject("vitalino", 0.0, -0.6, 0.0);
@@ -1382,7 +1385,7 @@ void VimusGUIEditor :: createTestPatch()
 */
 
 
-    //this->createObject("pixel_add", -0.3, 0.0, 0.0);
+    //this->createObject("pixelAdd", -0.3, 0.0, 0.0);
 
 //	this->createObject("audiocap", 0.5, 0.3, 0.0);
 

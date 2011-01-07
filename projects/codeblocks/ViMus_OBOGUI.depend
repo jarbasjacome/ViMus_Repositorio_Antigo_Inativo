@@ -368,7 +368,7 @@
 	<stdlib.h>
 	<GL/glut.h>
 
-1294261634 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.cpp
+1294343602 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.cpp
 	"VimusGUIEditor.h"
 
 1294242173 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.h
@@ -443,7 +443,7 @@
 	<sstream>
 	<vector>
 
-1292816155 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineObjects.h
+1294343360 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineObjects.h
 	"VimusMachineNormalObject.h"
 	"VimusMachineAbstractionObject.h"
 	"VimusMachineVideoPreview.h"
@@ -451,6 +451,7 @@
 	"VimusMachinePixelAdd.h"
 	"VimusMachineCVThreshold.h"
 	"VimusMachineVitalino.h"
+	"VimusMachineCVBlobDetection.h"
 
 1294242361 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineNormalObject.h
 	"VimusMachineObject.h"
@@ -469,7 +470,7 @@
 	"VimusMachineObject.h"
 	"VideoCaptureOpenCV.h"
 
-1294285219 /dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.h
+1294285665 /dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.h
 	"Configuration.h"
 	"cv.h"
 	"highgui.h"
@@ -2929,7 +2930,7 @@
 1294240841 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVThreshold.cpp
 	"VimusMachineCVThreshold.h"
 
-1294240849 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineEditor.cpp
+1294391913 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineEditor.cpp
 	"VimusMachineEditor.h"
 
 1294240855 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineNormalObject.cpp
@@ -2950,7 +2951,7 @@
 1294240984 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachinePinVideo.cpp
 	"VimusMachinePinVideo.h"
 
-1294241045 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachinePixelAdd.cpp
+1294343569 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachinePixelAdd.cpp
 	"VimusMachinePixelAdd.h"
 
 1294241058 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineVideoCapture.cpp
@@ -2966,6 +2967,36 @@
 	"VimusGUIGLUT.h"
 	"VimusMachine.h"
 
-1294285238 source:/dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.cpp
+1294285653 source:/dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.cpp
 	"VideoCaptureOpenCV.h"
+
+1294399641 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVBlobDetection.h
+	"VimusMachineOpenGLObject.h"
+	"cv.h"
+	"highgui.h"
+	"GL/glut.h"
+	<iostream>
+
+1294398867 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVBlobDetection.cpp
+	"VimusMachineCVBlobDetection.h"
+
+1294345073 /usr/local/include/opencv/Blob.h
+	"cxcore.h"
+	"BlobLibraryConfiguration.h"
+	<functional>
+	<vector>
+	<algorithm>
+	"..\inspecta\DesignPatterns\ObjectFactory.h"
+
+1294344465 /usr/local/include/opencv/BlobResult.h
+	"BlobLibraryConfiguration.h"
+	<math.h>
+	"cxcore.h"
+	"matrixCV.h"
+	"vector"
+	<vector>
+	<functional>
+	"Blob.h"
+
+1294344465 /usr/local/include/opencv/BlobLibraryConfiguration.h
 
