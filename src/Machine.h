@@ -23,8 +23,6 @@
 #include "VimusGUIObjects.h"
 
 #include <string>
-using namespace std;
-
 
 /**
  * Machine is the machine generic class.

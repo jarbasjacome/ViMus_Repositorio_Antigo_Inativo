@@ -28,7 +28,6 @@
 #include "VimusMachinePinControl.h"
 
 #include <string>
-using namespace std;
 
 /**
  * VimusMachineObject is a generic object
@@ -82,7 +81,7 @@ class VimusMachineObject
         /**
          * VimusMachineObject label text.
          */
-        string label;
+        std::string label;
 
         /**
          * Number of VimusMachineObject inputs.

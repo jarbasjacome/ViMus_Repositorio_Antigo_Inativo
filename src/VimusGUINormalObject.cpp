@@ -19,6 +19,8 @@
 
 #include "VimusGUINormalObject.h"
 
+using namespace std;
+
 /**
  * VimusGUINormalObject default constructor.
  */

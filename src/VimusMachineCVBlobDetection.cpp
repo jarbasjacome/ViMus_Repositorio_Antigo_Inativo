@@ -19,6 +19,9 @@
 
 #include "VimusMachineCVBlobDetection.h"
 
+using namespace std;
+using namespace cv;
+
 /**
  * VimusMachineCVBlobDetection default constructor.
  */

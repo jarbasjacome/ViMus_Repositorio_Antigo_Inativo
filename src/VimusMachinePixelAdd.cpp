@@ -19,6 +19,8 @@
 
 #include "VimusMachinePixelAdd.h"
 
+using namespace std;
+
 /**
  * VimusMachinePixelAdd default constructor.
  */

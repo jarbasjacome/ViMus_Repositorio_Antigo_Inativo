@@ -19,6 +19,8 @@
 
 #include "VimusGUIOpenGLObject.h"
 
+using namespace std;
+
 /**
  * VimusGUIOpenGLObject constructor.
  */

@@ -19,10 +19,12 @@
 
 #include "VimusGUICube.h"
 
+using namespace std;
+
 /**
  * VimusGUICube constructor.
  */
-VimusGUICube :: VimusGUICube (const string& label, float posX, float posY, float posZ,
+VimusGUICube :: VimusGUICube (const std::string& label, float posX, float posY, float posZ,
 							  bool isFixedOnParent)
 {
 	this->numObjects = 0;

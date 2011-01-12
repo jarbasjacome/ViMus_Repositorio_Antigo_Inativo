@@ -20,6 +20,8 @@
 #include "VideoCaptureOpenCV.h"
 
 using namespace cv;
+using namespace std;
+
 
 /**
  * VimusCaptureOpenCV singleton object, to make it possible to

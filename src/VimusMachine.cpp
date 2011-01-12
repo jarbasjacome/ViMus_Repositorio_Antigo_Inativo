@@ -19,6 +19,8 @@
 
 #include "VimusMachine.h"
 
+using namespace std;
+
 /**
  * VimusMachine default constructor.
  */

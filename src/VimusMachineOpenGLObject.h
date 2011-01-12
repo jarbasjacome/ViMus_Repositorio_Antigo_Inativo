@@ -26,7 +26,6 @@
 #include "VimusMachineObject.h"
 
 #include <string>
-using namespace std;
 
 /**
  * VimusMachineOpenGLObject is a generic object

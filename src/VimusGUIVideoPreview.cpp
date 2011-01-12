@@ -19,6 +19,8 @@
 
 #include "VimusGUIVideoPreview.h"
 
+using namespace std;
+
 /**
  * VimusGUIVideoPreview default constructor.
  */

@@ -27,8 +27,6 @@
 
 #include <iostream>
 
-using namespace cv;
-
 /**
  * VimusMachineCVThreshold calls OpenCV threshold function.
  *
@@ -94,8 +92,8 @@ class VimusMachineCVThreshold : public VimusMachineObject
 
 		unsigned char** ppNullFrame;
 
-		Mat frame;
-		Mat frameDst;
+		cv::Mat frame;
+		cv::Mat frameDst;
 
 };
 

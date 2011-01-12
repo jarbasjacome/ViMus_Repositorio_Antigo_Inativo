@@ -27,7 +27,6 @@
 #include <string>
 #include <sstream>
 #include <vector>
-using namespace std;
 
 /**
  * VimusMachineEditor is module responsible for patch edition.
@@ -51,7 +50,7 @@ class VimusMachineEditor
 		/**
 		 * Creates a new machine object.
 		 */
-		VimusGUIObject * createObject(const string& label, float posX,
+		VimusGUIObject * createObject(const std::string& label, float posX,
 												float posY, float posZ);
 		/**
 		 * Removes an object by index.
@@ -76,7 +75,7 @@ class VimusMachineEditor
 		/**
 		 * Set currentAbsObj by son's name.
 		 */
-		void setCurrentAbsObj (const string& objName);
+		void setCurrentAbsObj (const std::string& objName);
 
 		/**
 		 * Set currentAbsObj to be the current cube's parent cube.
@@ -135,12 +134,12 @@ class VimusMachineEditor
 		/**
 		 * Tokens of message (words separeted by " ").
 		 */
-		vector<string> msgTokens;
+		std::vector<std::string> msgTokens;
 
 		/**
 		 * Parse message text to tokens.
 		 */
-		void parseMsg (const string& msg);
+		void parseMsg (const std::string& msg);
 
 		/**
 		 * Reference to Video Capture Manager.

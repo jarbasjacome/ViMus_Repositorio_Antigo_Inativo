@@ -42,7 +42,7 @@ class VimusMachineNormalObject : public VimusMachineObject
         /**
          * VimusMachineNormalObject constructor.
          */
-        VimusMachineNormalObject(	const string& label, int numInputs,
+        VimusMachineNormalObject(	const std::string& label, int numInputs,
 									int numOutputs);
 
         /**

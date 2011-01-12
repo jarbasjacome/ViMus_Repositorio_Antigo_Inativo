@@ -19,6 +19,8 @@
 
 #include "VimusMachinePinVideo.h"
 
+using namespace std;
+
 /**
  * VimusMachinePinVideo constructor.
  */

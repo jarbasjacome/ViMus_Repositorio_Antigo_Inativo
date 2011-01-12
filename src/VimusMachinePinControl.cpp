@@ -19,6 +19,8 @@
 
 #include "VimusMachinePinControl.h"
 
+using namespace std;
+
 /**
  * VimusMachinePinControl constructor.
  */

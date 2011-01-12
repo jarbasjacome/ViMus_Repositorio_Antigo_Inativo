@@ -29,8 +29,6 @@
 
 #include <iostream>
 
-using namespace cv;
-
 /**
  * VimusMachineCVBlobDetection calls OpenCV cvBlobsLib blob detection function.
  *
@@ -106,27 +104,27 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
 
 		unsigned char** ppNullFrame;
 
-		Mat frame;
-		Mat frameDst;
+		cv::Mat frame;
+		cv::Mat frameDst;
 
         std::ostringstream infoStream;
         std::string infoString;
 
-        void drawInfo ( Mat frame,
+        void drawInfo ( cv::Mat frame,
                         const char* infoName,
                         int infoValue,
-                        Point pt,
+                        cv::Point pt,
                         std::ostringstream* infoStream,
                         std::string* infoString );
 
-        Mat frameGray;
-        Mat frameThresh;
+        cv::Mat frameGray;
+        cv::Mat frameThresh;
 
-        vector<vector<Point> > v;
+        std::vector<std::vector<cv::Point> > v;
 
         static const int MAX_NUM_BLOBS = 30;
-        Point blobs[MAX_NUM_BLOBS];
-        Point blobsSwap[MAX_NUM_BLOBS];
+        cv::Point blobs[MAX_NUM_BLOBS];
+        cv::Point blobsSwap[MAX_NUM_BLOBS];
         bool blobsId[MAX_NUM_BLOBS];
         bool blobsIdSwap[MAX_NUM_BLOBS];
 

@@ -19,6 +19,9 @@
 
 #include "VimusMachineCVThreshold.h"
 
+using namespace std;
+using namespace cv;
+
 /**
  * VimusMachineCVThreshold default constructor.
  */

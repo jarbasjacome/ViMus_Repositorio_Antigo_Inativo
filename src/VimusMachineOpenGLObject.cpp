@@ -19,6 +19,8 @@
 
 #include "VimusMachineOpenGLObject.h"
 
+using namespace std;
+
 /**
  * VimusMachineOpenGLObject default constructor.
  */

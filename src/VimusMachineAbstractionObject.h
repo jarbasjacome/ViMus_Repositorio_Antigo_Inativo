@@ -25,7 +25,6 @@
 
 #include <iostream>
 #include <string>
-using namespace std;
 
 /**
  * VimusMachineAbstractionObject represents an object which contains
@@ -52,7 +51,7 @@ class VimusMachineAbstractionObject : public VimusMachineNormalObject
 		/**
          * VimusMachineAbstractionObject constructor.
          */
-        VimusMachineAbstractionObject(const string& label);
+        VimusMachineAbstractionObject(const std::string& label);
 
         /**
          * VimusMachineAbstractionObject destructor.

@@ -19,6 +19,8 @@
 
 #include "VimusGUIEditor.h"
 
+using namespace std;
+
 VimusGUIEditor::VimusGUIEditor()
 {
     pickFlag = false;

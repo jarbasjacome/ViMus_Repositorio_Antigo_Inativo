@@ -19,6 +19,8 @@
 
 #include "VimusMachineVitalino.h"
 
+using namespace std;
+
 /**
  * VimusMachineVitalino default constructor.
  */

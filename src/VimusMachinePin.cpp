@@ -19,6 +19,8 @@
 
 #include "VimusMachinePin.h"
 
+using namespace std;
+
 /**
  * VimusMachinePin default constructor.
  */

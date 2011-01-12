@@ -19,6 +19,8 @@
 
 #include "VimusMachineVideoCapture.h"
 
+using namespace std;
+
 /**
  * VimusMachineVideoCapture default constructor.
  */

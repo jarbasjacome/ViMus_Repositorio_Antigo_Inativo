@@ -19,6 +19,8 @@
 
 #include "VimusGUIObject.h"
 
+using namespace std;
+
 /**
  * VimusGUIObject default constructor.
  */

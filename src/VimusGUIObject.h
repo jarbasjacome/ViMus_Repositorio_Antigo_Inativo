@@ -26,7 +26,6 @@
 
 #include <stdlib.h>
 #include <string>
-using namespace std;
 
 #include <GL/glut.h>
 
@@ -273,7 +272,7 @@ class VimusGUIObject
          */
         bool isMinimized3D;
 
-		void setLabel(const string& label);
+		void setLabel(const std::string& label);
 
 		void addInputPin();
 

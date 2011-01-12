@@ -19,6 +19,8 @@
 
 #include "VimusGUIGLUT.h"
 
+using namespace std;
+
 /**
  * Vimus User Interface Singleton object, to make it possible to
  * call non-static member functions from GLUT callback

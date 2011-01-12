@@ -31,7 +31,6 @@
 #include "VimusGUINormalObject.h"
 
 #include <iostream>
-using namespace std;
 
 /**
  * VimusGUICube represents a node (unit generator or object)
@@ -95,7 +94,7 @@ class VimusGUICube : public VimusGUINormalObject
         /**
          * VimusGUICube constructor.
          */
-        VimusGUICube( const string& label, float posX, float posY, float posZ,
+        VimusGUICube( const std::string& label, float posX, float posY, float posZ,
 						bool isFixedOnParent);
 
         /**

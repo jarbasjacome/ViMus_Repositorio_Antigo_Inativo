@@ -26,7 +26,6 @@
 #include "VideoCaptureOpenCV.h"
 
 #include <string>
-using namespace std;
 
 /**
  * VimusMachine is ViMus own machine implementation.
@@ -61,7 +60,7 @@ class VimusMachine// : public Machine //TODO: use abstract machine
 	/**
 	 * Creates a new machine object.
 	 */
-	VimusGUIObject * createObject(const string& label, float posX,
+	VimusGUIObject * createObject(const std::string& label, float posX,
 											float posY, float posZ);
 	/**
 	 * Removes an object by index.
@@ -86,7 +85,7 @@ class VimusMachine// : public Machine //TODO: use abstract machine
 	/**
 	 * Set currentAbsObj by son's name.
 	 */
-	void setCurrentAbsObj (const string& objName);
+	void setCurrentAbsObj (const std::string& objName);
 
 	/**
 	 * Set currentAbsObj to be the current cube's parent cube.

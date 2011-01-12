@@ -19,6 +19,8 @@
 
 #include "VimusMachineNormalObject.h"
 
+using namespace std;
+
 /**
  * VimusMachineNormalObject default constructor.
  */

@@ -30,9 +30,6 @@
 
 #include <iostream>
 
-using namespace cv;
-using namespace std;
-
 /**
  * This class encapsulates all OpenCV video capture code.
  *
@@ -77,11 +74,11 @@ class VideoCaptureOpenCV
 
 		int nextCapDev;
 
-        VideoCapture* videoCapDevices[10];
+        cv::VideoCapture* videoCapDevices[10];
 
-        Mat frame[10];
-        Mat frameDst[10];
-        Mat frameDstSwap[10];
+        cv::Mat frame[10];
+        cv::Mat frameDst[10];
+        cv::Mat frameDstSwap[10];
 
         bool swapBufferOn;
 

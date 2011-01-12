@@ -84,7 +84,7 @@ class VimusGUIEditor
 		/**
 		 * Creates a new object.
 		 */
-		VimusGUIObject* createObject(const string& label, float posX, float posY, float posZ);
+		VimusGUIObject* createObject(const std::string& label, float posX, float posY, float posZ);
 
 		/**
 		 * Removes an object by index.

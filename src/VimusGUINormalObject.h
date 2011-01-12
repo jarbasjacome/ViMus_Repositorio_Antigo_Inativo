@@ -27,7 +27,6 @@
 #include <stdlib.h>
 #include <string>
 #include <iostream>
-using namespace std;
 
 #include <GL/glut.h>
 
@@ -55,7 +54,7 @@ class VimusGUINormalObject : public VimusGUIObject
         /**
          * VimusGUINormalObject constructor.
          */
-        VimusGUINormalObject(	const string& label, float posX,
+        VimusGUINormalObject(	const std::string& label, float posX,
 								float posY, float posZ,
 								int numInputs, int numOutputs);
 

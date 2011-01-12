@@ -22,8 +22,6 @@
 
 #include <stdlib.h>
 #include <iostream>
-using namespace std;
-
 #include "Configuration.h"
 
 /**

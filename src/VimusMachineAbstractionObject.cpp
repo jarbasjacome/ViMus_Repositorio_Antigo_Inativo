@@ -19,6 +19,8 @@
 
 #include "VimusMachineAbstractionObject.h"
 
+using namespace std;
+
 /**
  * VimusGUICube constructor.
  */
