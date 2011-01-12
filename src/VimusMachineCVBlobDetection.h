@@ -128,9 +128,6 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
         bool blobsId[MAX_NUM_BLOBS];
         bool blobsIdSwap[MAX_NUM_BLOBS];
 
-        int numBlobs;
-        int nextId;
-
         float distance;
 
         float cam_z;

@@ -187,7 +187,6 @@ class VimusGUIEditor
 
         int zoomObjRef;
 
-        std::string fpsS;
         bool fpsFlag;
 
 //        clock_t lastFrameTime;

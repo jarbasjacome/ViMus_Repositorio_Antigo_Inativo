@@ -109,12 +109,13 @@ void VimusMachineCVBlobDetection::update()
         threshold( frameGray, frameThresh,  200, 255, CV_THRESH_BINARY);
 
         int numContours=0;
-
         findContours(frameThresh, v, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
         numContours = v.size();
         Point2f p;
         float radius;
-        int c = 0;
+        int numBlobs = 0;
+        int nextId = -1;
+        int currBlobId = -1;
 
         for (int i=0; i<MAX_NUM_BLOBS; i++)
         {
@@ -126,67 +127,50 @@ void VimusMachineCVBlobDetection::update()
 
         for (int i=0; i<numContours; i++)
         {
-            int j=0;
             int area = (int) abs(contourArea(v.at(i)));
-            if (area > 5)
+            if (area > 20)
             {
-                c++;
+                int j=0;
+                numBlobs++;
                 minEnclosingCircle(v.at(i), p, radius);
-                if (numBlobs > 0)
+                //verify if p is a new Point
+                for (j = 0; j<MAX_NUM_BLOBS; j++)
                 {
-                    for (j = 0; j<MAX_NUM_BLOBS; j++)
+                    if (blobsId[j])
                     {
-                        if (blobsId[j])
+                        int difX = blobs[j].x - p.x;
+                        int difY = blobs[j].y - p.y;
+                        if (abs(difX) <= 20 &&
+                            abs(difY) <= 20)
                         {
-                            if (abs(blobs[j].x - p.x) <= 5 ||
-                                abs(blobs[j].y - p.y) <= 5)
-                            {
-                                blobsSwap[j].x = p.x;
-                                blobsSwap[j].y = p.y;
-                                blobsIdSwap[j] = true;
-                                break;
-                            }
+                            //set current found point position for next position prevention;
+                            blobsSwap[j].x = p.x;
+                            blobsSwap[j].y = p.y;
+                            blobsIdSwap[j] = true;
+                            currBlobId = j;
+                            break;
                         }
                     }
-                    if (j==MAX_NUM_BLOBS)
+                }
+                if (j==MAX_NUM_BLOBS)
+                {
+                    for (int k=0; k<MAX_NUM_BLOBS; k++)
                     {
-                        j=nextId;
-                        blobsSwap[nextId] = p;
-                        blobsIdSwap[nextId] = true;
-                        blobs[nextId] = p;
-                        blobsId[nextId] = true;
+                        if (!blobsId[k])
+                        {
+                            nextId = k;
+                            break;
+                        }
                     }
+                    blobsSwap[nextId] = p;
+                    blobsIdSwap[nextId] = true;
+                    currBlobId = nextId;
                 }
-                else
-                {
-                    blobsSwap[0] = p;
-                    blobsIdSwap[0] = true;
-                    blobs[0] = p;
-                    blobsId[0] = true;
-                    nextId = 1;
-                    numBlobs++;
-                }
-//                drawInfo(frame, "Contour ", j, Point(20, i*20+40), &infoStream, &infoString);
-//                drawInfo(frame, "Area = ", area, Point(150, i*20+40), &infoStream, &infoString);
-//                drawInfo(frame, "posX = ", p.x, Point(p.x - 60, p.y), &infoStream, &infoString);
-//                drawInfo(frame, "posY = ", p.y, Point(p.x + 60, p.y), &infoStream, &infoString);
-                drawInfo(frame, "ID=", j, Point(p.x, p.y-30), &infoStream, &infoString);
+                drawInfo(frame, "ID=", currBlobId, Point(p.x, p.y-30), &infoStream, &infoString);
             }
-
-            for (int k=0; k<MAX_NUM_BLOBS; k++)
-            {
-                if (!blobsId[k] && !blobsIdSwap[k])
-                {
-                    nextId = k;
-                    break;
-                }
-            }
-
-            numBlobs = c;
-
         }
 
-        drawInfo(frame, "Number = ", c, Point(20, 20), &infoStream, &infoString);
+        drawInfo(frame, "Number = ", numBlobs, Point(20, 20), &infoStream, &infoString);
 
         (*this->ppOutputData) = this->frame.data;
     }
@@ -231,6 +215,9 @@ void VimusMachineCVBlobDetection::draw()
     if (blob2)
     {
         distance = sqrt( pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2) );
+
+
+
     }
 
     cam_z = abs (13 - distance/25);
@@ -339,3 +326,31 @@ void VimusMachineCVBlobDetection::drawInfo ( Mat frame,
     (*infoString) = infoStream->str();
     putText(frame, (*infoString), pt, FONT_HERSHEY_PLAIN,1, CV_RGB(255,0,0),1,8,false);
 }
+
+///**
+// * TODO: PUT THIS OUT OF THIS OBJECT!
+// * Renders a bitmap string.
+// */
+//void VimusMachineCVBlobDetection::renderBitmapString(
+//		float x,
+//		float y,
+//		float z,
+//		void *font,
+//		const char *string)
+//{
+//    const char *c;
+//    glRasterPos3f(x, y, z);
+//    for (c=string; *c != '\0'; c++) {
+//        glutBitmapCharacter(font, *c);
+//    }
+//
+//    std::ostringstream fpsStr;
+//    std::string fpsS;
+//    fpsStr << "FPS: " << fps;
+//    fpsS = fpsStr.str();
+//    glRasterPos3f(-1.0, -1.0, 0.0);
+//    for (int i=0; i<(int)fpsS.size(); i++)
+//    {
+//        glutBitmapCharacter(GLUT_BITMAP_9_BY_15, fpsS.at(i));
+//    }
+//}

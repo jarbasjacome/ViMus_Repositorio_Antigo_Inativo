@@ -316,17 +316,11 @@ void VimusGUIEditor::updateFps()
 
 void VimusGUIEditor::drawFps()
 {
-    glRasterPos3f(-1.0, -1.0, 0.0);
-    glutBitmapCharacter(GLUT_BITMAP_9_BY_15, 'F');
-    glutBitmapCharacter(GLUT_BITMAP_9_BY_15, 'P');
-    glutBitmapCharacter(GLUT_BITMAP_9_BY_15, 'S');
-    glutBitmapCharacter(GLUT_BITMAP_9_BY_15, ':');
-    glutBitmapCharacter(GLUT_BITMAP_9_BY_15, ' ');
-
-    std::ostringstream fpsStr;
-    fpsStr << fps;
+    ostringstream fpsStr;
+    string fpsS;
+    fpsStr << "FPS: " << fps;
     fpsS = fpsStr.str();
-    glRasterPos3f(-0.8, -1.0, 0.0);
+    glRasterPos3f(-1.0, -1.0, 0.0);
     for (int i=0; i<(int)fpsS.size(); i++)
     {
         glutBitmapCharacter(GLUT_BITMAP_9_BY_15, fpsS.at(i));
@@ -354,8 +348,6 @@ void VimusGUIEditor::drawEditor()
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-
-    if (fpsFlag) drawFps();
 
     glPushMatrix();
 
@@ -431,6 +423,8 @@ void VimusGUIEditor::drawEditor()
     }
 
     isShiftKeyPressed = false;
+
+    if (fpsFlag) drawFps();
 }
 
 void VimusGUIEditor::drawOutput()
@@ -1401,6 +1395,22 @@ void VimusGUIEditor :: createTestPatch()
 
 	this->setCurrentCubeToParent();
 */
+
+    VimusGUIObject* videocap =	this->createObject("videocap", -0.5, 0.6, 0.0);
+
+    VimusGUIObject* blobDetect = this->createObject("pixelCVBlob", 0.0, 0.0, 0.0);
+
+	VimusGUIObject* preview = this->createObject("video", -0.1, -0.6, 0.0);
+
+	this->connectPins(  videocap->indexOnParent,
+                        videocap->getOutputByIndex(0)->indexOnParent,
+                        blobDetect->indexOnParent,
+                        blobDetect->getInputByIndex(0)->indexOnParent);
+
+	this->connectPins(  blobDetect->indexOnParent,
+                        blobDetect->getOutputByIndex(0)->indexOnParent,
+                        preview->indexOnParent,
+                        preview->getInputByIndex(0)->indexOnParent);
 
     if (DEBUG_MODE)
         cout << "\nCreated a test patch.";
