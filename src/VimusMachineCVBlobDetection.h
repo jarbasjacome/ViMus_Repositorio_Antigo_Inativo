@@ -120,13 +120,6 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
         std::ostringstream infoStream;
         std::string infoString;
 
-        void drawInfo ( cv::Mat frame,
-                        const char* infoName,
-                        int infoValue,
-                        cv::Point pt,
-                        std::ostringstream* infoStream,
-                        std::string* infoString );
-
         cv::Mat frameGray;
         cv::Mat frameThresh;
 
@@ -142,6 +135,38 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
 
         float cam_z;
 
+        float posX;
+        float posY;
+
+        float posXorigin;
+        float posYorigin;
+
+        bool blobPressed;
+
+        cv::Point origin1;
+        int originId1;
+
+        cv::Point origin2;
+        int originId2;
+
+        cv::Point p1Origin;
+        cv::Point p2Origin;
+
+        /**
+         * Calculates zoom based on two blob distance.
+         */
+        void calculateZoom();
+
+        /**
+         * TODO: PUT THIS OUT OF THIS OBJECT!
+         * Renders a bitmap string.
+         */
+        void drawInfo ( cv::Mat frame,
+                        const char* infoName,
+                        int infoValue,
+                        cv::Point pt,
+                        std::ostringstream* infoStream,
+                        std::string* infoString );
 };
 
 #endif //_VIMUSMACHINECVBLOBDETECTION_H_

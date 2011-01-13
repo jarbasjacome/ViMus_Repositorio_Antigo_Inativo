@@ -85,6 +85,13 @@ VimusMachineCVBlobDetection::VimusMachineCVBlobDetection()
     distance = 6;
     cam_z = 6;
 
+    posXorigin = 0;
+    posYorigin = 0;
+    posX = 0;
+    posY = 0;
+
+    blobPressed = false;
+
 }
 
 /**
@@ -165,9 +172,29 @@ void VimusMachineCVBlobDetection::update()
                     blobsSwap[nextId] = p;
                     blobsIdSwap[nextId] = true;
                     currBlobId = nextId;
+                    if (numBlobs == 1)
+                    {
+                        origin1 = p;
+                        originId1 = nextId;
+
+                        posXorigin = posX;
+                        posYorigin = posY;
+                        blobPressed = true;
+                    }
+                    else if (numBlobs == 2)
+                    {
+                        origin2 = p;
+                        originId2 = nextId;
+                    }
                 }
                 drawInfo(frame, "ID=", currBlobId, Point(p.x, p.y-30), &infoStream, &infoString);
             }
+        }
+
+        // check if blob released! equivalent to mouseReleased.
+        if (numBlobs == 0 && blobPressed == true)
+        {
+            blobPressed = false;
         }
 
         drawInfo(frame, "Number = ", numBlobs, Point(20, 20), &infoStream, &infoString);
@@ -187,7 +214,35 @@ void VimusMachineCVBlobDetection::draw()
 {
     glPushMatrix();
 
+    calculateZoom();
+
+    gluLookAt (0.0, 0.0, cam_z*0.2, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+
+    glTranslatef (posX, posY, 0);
+
+    glBegin(GL_LINES);
+
+    for (int i=0; i<11; i++)
+    {
+        glVertex2f(-1, i*0.2 - 1);
+        glVertex2f(1, i*0.2 - 1);
+        glVertex2f(i*0.2 - 1, -1);
+        glVertex2f(i*0.2 - 1, 1);
+    }
+
+    glEnd();
+
+    glPopMatrix();
+}
+
+/**
+ * Calculates zoom based on two blob distance.
+ */
+void VimusMachineCVBlobDetection::calculateZoom()
+{
     bool blob2 = false;
+
+    ostringstream * strStream = new ostringstream;
 
     Point p1(-100,-100);
     Point p2(-100,-100);
@@ -198,6 +253,24 @@ void VimusMachineCVBlobDetection::draw()
         if (this->blobsId[i])
         {
             p1 = this->blobs[i];
+            if (i == originId1)
+            {
+                p1Origin = origin1;
+            }
+            else if (i == originId2)
+            {
+                p1Origin = origin2;
+            }
+
+            (*strStream) << " p1Ox = " << p1Origin.x <<
+                            " p1Oy = " << p1Origin.y <<
+                            " p1Ox - p1.x = " << p1Origin.x - p1.x <<
+                            " p1Oy - p1.y = " << p1Origin.y - p1.y;
+            renderBitmapString(-1.0,-0.8,0,GLUT_BITMAP_9_BY_15, strStream);
+
+            posX = posXorigin + ((float) (p1Origin.x - p1.x) / (float) VIDEO_WIDTH)*2;
+            posY = posYorigin + ((float) (p1Origin.y - p1.y) / (float) VIDEO_HEIGHT)*2;
+
             break;
         }
     }
@@ -208,6 +281,17 @@ void VimusMachineCVBlobDetection::draw()
         {
             p2 = this->blobs[j];
             blob2 = true;
+
+            if (i == originId1)
+            {
+                p2Origin = origin1;
+            }
+            else if (i == originId2)
+            {
+                p2Origin = origin2;
+            }
+
+
             break;
         }
     }
@@ -216,36 +300,17 @@ void VimusMachineCVBlobDetection::draw()
     {
         distance = sqrt( pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2) );
 
-        ostringstream * strStream = new ostringstream;
-        (*strStream) << "distance = " << distance;
-        renderBitmapString(0.0,-1.0,0,GLUT_BITMAP_9_BY_15, strStream);
+        strStream->clear();
+        (*strStream) << "Distance = " << distance <<
+                        " p1Ox = " << p1Origin.x <<
+                        " p1Oy = " << p1Origin.y <<
+                        " p2Ox = " << p2Origin.x <<
+                        " p3Oy = " << p2Origin.y;
+        renderBitmapString(-1.0,-1.0,0,GLUT_BITMAP_9_BY_15, strStream);
+
     }
 
     cam_z = abs (13 - distance/25);
-
-//    if (cam_z < 1)
-//        cam_z = 10;
-
-    gluLookAt (0.0, 0.0, cam_z*0.2, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-
-    glTranslatef(   abs(1 - (float) p1.x / (float) VIDEO_WIDTH) - 0.5,
-                    abs(1- (float) p1.y / (float) VIDEO_HEIGHT) - 0.5,
-                    0);
-
-//    glutWireTeapot(0.5);
-
-    glBegin(GL_LINES);
-
-    for (int i=0; i<11; i++)
-    {
-        glVertex2f(-1, i*0.2 - 1); glVertex2f(1, i*0.2 - 1);
-        glVertex2f(i*0.2 - 1, -1); glVertex2f(i*0.2 - 1, 1);
-    }
-
-    glEnd();
-
-
-    glPopMatrix();
 
 }
 
