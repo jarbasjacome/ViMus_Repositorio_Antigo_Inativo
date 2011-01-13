@@ -95,6 +95,16 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
 		 */
 		void disconnectInput (VimusMachineObject * srcObj, int outPin, int inPin);
 
+        /**
+         * TODO: PUT THIS OUT OF THIS OBJECT!
+         * Renders a bitmap string.
+         */
+        void renderBitmapString(
+                float x,
+                float y,
+                float z,
+                void *font,
+                std::ostringstream * strStream);
 
     private:
 

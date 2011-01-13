@@ -216,8 +216,9 @@ void VimusMachineCVBlobDetection::draw()
     {
         distance = sqrt( pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2) );
 
-
-
+        ostringstream * strStream = new ostringstream;
+        (*strStream) << "distance = " << distance;
+        renderBitmapString(0.0,-1.0,0,GLUT_BITMAP_9_BY_15, strStream);
     }
 
     cam_z = abs (13 - distance/25);
@@ -327,30 +328,22 @@ void VimusMachineCVBlobDetection::drawInfo ( Mat frame,
     putText(frame, (*infoString), pt, FONT_HERSHEY_PLAIN,1, CV_RGB(255,0,0),1,8,false);
 }
 
-///**
-// * TODO: PUT THIS OUT OF THIS OBJECT!
-// * Renders a bitmap string.
-// */
-//void VimusMachineCVBlobDetection::renderBitmapString(
-//		float x,
-//		float y,
-//		float z,
-//		void *font,
-//		const char *string)
-//{
-//    const char *c;
-//    glRasterPos3f(x, y, z);
-//    for (c=string; *c != '\0'; c++) {
-//        glutBitmapCharacter(font, *c);
-//    }
-//
-//    std::ostringstream fpsStr;
-//    std::string fpsS;
-//    fpsStr << "FPS: " << fps;
-//    fpsS = fpsStr.str();
-//    glRasterPos3f(-1.0, -1.0, 0.0);
-//    for (int i=0; i<(int)fpsS.size(); i++)
-//    {
-//        glutBitmapCharacter(GLUT_BITMAP_9_BY_15, fpsS.at(i));
-//    }
-//}
+/**
+ * TODO: PUT THIS OUT OF THIS OBJECT!
+ * Renders a bitmap string.
+ */
+void VimusMachineCVBlobDetection::renderBitmapString(
+		float x,
+		float y,
+		float z,
+		void *font,
+		ostringstream * strStream)
+{
+    string str;
+    str = strStream->str();
+    glRasterPos3f(x, y, z);
+    for (int i=0; i<(int)str.size(); i++)
+    {
+        glutBitmapCharacter(font, str.at(i));
+    }
+}
