@@ -132,14 +132,18 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
         bool blobsIdSwap[MAX_NUM_BLOBS];
 
         float distance;
+        float distanceOrigin;
 
-        float cam_z;
+        float camZ;
+        float camZOrigin;
 
         float posX;
         float posY;
 
         float posXorigin;
         float posYorigin;
+
+        int numBlobs;
 
         bool blobPressed;
 

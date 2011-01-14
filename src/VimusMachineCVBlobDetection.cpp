@@ -83,7 +83,10 @@ VimusMachineCVBlobDetection::VimusMachineCVBlobDetection()
     }
 
     distance = 6;
-    cam_z = 6;
+    distanceOrigin = 6;
+
+    camZ = 13;
+    camZOrigin = 13;
 
     posXorigin = 0;
     posYorigin = 0;
@@ -120,7 +123,7 @@ void VimusMachineCVBlobDetection::update()
         numContours = v.size();
         Point2f p;
         float radius;
-        int numBlobs = 0;
+        int countBlobs = 0;
         int nextId = -1;
         int currBlobId = -1;
 
@@ -138,7 +141,7 @@ void VimusMachineCVBlobDetection::update()
             if (area > 20)
             {
                 int j=0;
-                numBlobs++;
+                countBlobs++;
                 minEnclosingCircle(v.at(i), p, radius);
                 //verify if p is a new Point
                 for (j = 0; j<MAX_NUM_BLOBS; j++)
@@ -172,6 +175,8 @@ void VimusMachineCVBlobDetection::update()
                     blobsSwap[nextId] = p;
                     blobsIdSwap[nextId] = true;
                     currBlobId = nextId;
+                    numBlobs++;
+
                     if (numBlobs == 1)
                     {
                         origin1 = p;
@@ -185,6 +190,13 @@ void VimusMachineCVBlobDetection::update()
                     {
                         origin2 = p;
                         originId2 = nextId;
+
+                        distanceOrigin = sqrt(  pow(origin1.x - origin2.x, 2) +
+                                                pow(origin1.y - origin2.y, 2) );
+
+                        camZOrigin = camZ;
+
+                        cout << "\n surgiu 2o. blob!!!";
                     }
                 }
                 drawInfo(frame, "ID=", currBlobId, Point(p.x, p.y-30), &infoStream, &infoString);
@@ -196,6 +208,8 @@ void VimusMachineCVBlobDetection::update()
         {
             blobPressed = false;
         }
+
+        numBlobs = countBlobs;
 
         drawInfo(frame, "Number = ", numBlobs, Point(20, 20), &infoStream, &infoString);
 
@@ -216,9 +230,11 @@ void VimusMachineCVBlobDetection::draw()
 
     calculateZoom();
 
-    gluLookAt (0.0, 0.0, cam_z*0.2, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+    gluLookAt (0.0, 0.0, camZ, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0f);
 
     glTranslatef (posX, posY, 0);
+
+    glutWireTeapot(1.0f);
 
     glBegin(GL_LINES);
 
@@ -262,14 +278,11 @@ void VimusMachineCVBlobDetection::calculateZoom()
                 p1Origin = origin2;
             }
 
-            (*strStream) << " p1Ox = " << p1Origin.x <<
-                            " p1Oy = " << p1Origin.y <<
-                            " p1Ox - p1.x = " << p1Origin.x - p1.x <<
-                            " p1Oy - p1.y = " << p1Origin.y - p1.y;
-            renderBitmapString(-1.0,-0.8,0,GLUT_BITMAP_9_BY_15, strStream);
-
-            posX = posXorigin + ((float) (p1Origin.x - p1.x) / (float) VIDEO_WIDTH)*2;
-            posY = posYorigin + ((float) (p1Origin.y - p1.y) / (float) VIDEO_HEIGHT)*2;
+//            (*strStream) << " p1Ox = " << p1Origin.x <<
+//                            " p1Oy = " << p1Origin.y <<
+//                            " p1Ox - p1.x = " << p1Origin.x - p1.x <<
+//                            " p1Oy - p1.y = " << p1Origin.y - p1.y;
+//            renderBitmapString(-1.0,-0.8,0,GLUT_BITMAP_9_BY_15, strStream);
 
             break;
         }
@@ -296,21 +309,35 @@ void VimusMachineCVBlobDetection::calculateZoom()
         }
     }
 
+    if (numBlobs == 1)
+    {
+        posX = posXorigin + ((float) (p1Origin.x - p1.x) / (float) VIDEO_WIDTH)*2;
+        posY = posYorigin + ((float) (p1Origin.y - p1.y) / (float) VIDEO_HEIGHT)*2;
+    }
+
     if (blob2)
     {
         distance = sqrt( pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2) );
 
         strStream->clear();
-        (*strStream) << "Distance = " << distance <<
-                        " p1Ox = " << p1Origin.x <<
-                        " p1Oy = " << p1Origin.y <<
-                        " p2Ox = " << p2Origin.x <<
-                        " p3Oy = " << p2Origin.y;
+        (*strStream) << "Distance = " << distance;
+        renderBitmapString(-1.0,-0.9,0,GLUT_BITMAP_9_BY_15, strStream);
+        strStream->clear();
+        (*strStream) << " camZ = " <<  camZ;
         renderBitmapString(-1.0,-1.0,0,GLUT_BITMAP_9_BY_15, strStream);
+//                        " p1Ox = " << p1Origin.x <<
+//                        " p1Oy = " << p1Origin.y <<
+//                        " p2Ox = " << p2Origin.x <<
+//                        " p3Oy = " << p2Origin.y;
+
+
+        if (distance ==0)
+            distance = 0.0001;
+
+        camZ = camZOrigin * distanceOrigin/distance;
+//        camZ = camZOrigin + distanceOrigin - distance;
 
     }
-
-    cam_z = abs (13 - distance/25);
 
 }
 
