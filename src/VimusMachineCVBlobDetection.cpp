@@ -85,6 +85,9 @@ VimusMachineCVBlobDetection::VimusMachineCVBlobDetection()
     distance = 6;
     distanceOrigin = 6;
 
+    originId1 = -1;
+    originId2 = -1;
+
     camZ = 13;
     camZOrigin = 13;
 
@@ -122,6 +125,10 @@ void VimusMachineCVBlobDetection::update()
         findContours(frameThresh, v, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
         numContours = v.size();
         Point2f p;
+
+        Point2f tempOrigin1;
+        int tempOrigin1Id = 0;
+
         float radius;
         int countBlobs = 0;
         int nextId = -1;
@@ -153,11 +160,24 @@ void VimusMachineCVBlobDetection::update()
                         if (abs(difX) <= 20 &&
                             abs(difY) <= 20)
                         {
-                            //set current found point position for next position prevention;
                             blobsSwap[j].x = p.x;
                             blobsSwap[j].y = p.y;
                             blobsIdSwap[j] = true;
                             currBlobId = j;
+
+//                            if (numBlobs > 0)
+//                            {
+//                                if (j == originId1)
+//                                {
+//                                    tempOrigin1 = p;
+//                                    tempOrigin1Id = j;
+//                                }
+////                                else if (j ==  originId2 && numBlobs > 1)
+////                                {
+////                                    origin2 = p;
+////                                }
+//                            }
+
                             break;
                         }
                     }
@@ -188,15 +208,24 @@ void VimusMachineCVBlobDetection::update()
                     }
                     else if (numBlobs == 2)
                     {
+//                        origin1 = tempOrigin1;
+//                        originId1 = tempOrigin1Id;
+
                         origin2 = p;
                         originId2 = nextId;
 
                         distanceOrigin = sqrt(  pow(origin1.x - origin2.x, 2) +
                                                 pow(origin1.y - origin2.y, 2) );
 
+//                        cout << "\n 2o blob!!! origin1.x = " << origin1.x << " origin1.y =" << origin1.y;
+//                        cout << "\n origin2.x = " << origin2.x << " origin2.y =" << origin2.y;
+//                        cout << "\n tempOrigin1Id = " << tempOrigin1Id;
+//                        cout << "\n distanceOrigin = " << distanceOrigin;
+//                        cout << "\n camZOrigin = " << camZOrigin;
+//                        cout << "\n camZ = " << camZ;
+
                         camZOrigin = camZ;
 
-                        cout << "\n surgiu 2o. blob!!!";
                     }
                 }
                 drawInfo(frame, "ID=", currBlobId, Point(p.x, p.y-30), &infoStream, &infoString);
@@ -230,11 +259,9 @@ void VimusMachineCVBlobDetection::draw()
 
     calculateZoom();
 
-    gluLookAt (0.0, 0.0, camZ, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0f);
+    gluLookAt (0.0, 0.0, camZ, 0.0, 0.0, camZ - 5.0f, 0.0, 1.0, 0.0);
 
     glTranslatef (posX, posY, 0);
-
-    glutWireTeapot(1.0f);
 
     glBegin(GL_LINES);
 
@@ -277,13 +304,6 @@ void VimusMachineCVBlobDetection::calculateZoom()
             {
                 p1Origin = origin2;
             }
-
-//            (*strStream) << " p1Ox = " << p1Origin.x <<
-//                            " p1Oy = " << p1Origin.y <<
-//                            " p1Ox - p1.x = " << p1Origin.x - p1.x <<
-//                            " p1Oy - p1.y = " << p1Origin.y - p1.y;
-//            renderBitmapString(-1.0,-0.8,0,GLUT_BITMAP_9_BY_15, strStream);
-
             break;
         }
     }
@@ -303,8 +323,6 @@ void VimusMachineCVBlobDetection::calculateZoom()
             {
                 p2Origin = origin2;
             }
-
-
             break;
         }
     }
@@ -315,8 +333,15 @@ void VimusMachineCVBlobDetection::calculateZoom()
         posY = posYorigin + ((float) (p1Origin.y - p1.y) / (float) VIDEO_HEIGHT)*2;
     }
 
-    if (blob2)
+    if (numBlobs == 2 && blob2)
     {
+
+//        distanceOrigin = sqrt(  pow(origin1.x - origin2.x, 2) +
+//                                pow(origin1.y - origin2.y, 2) );
+
+//        distanceOrigin = sqrt(  pow(p1Origin.x - p2Origin.x, 2) +
+//                                pow(p1Origin.y - p2Origin.y, 2) );
+
         distance = sqrt( pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2) );
 
         strStream->clear();
@@ -325,18 +350,19 @@ void VimusMachineCVBlobDetection::calculateZoom()
         strStream->clear();
         (*strStream) << " camZ = " <<  camZ;
         renderBitmapString(-1.0,-1.0,0,GLUT_BITMAP_9_BY_15, strStream);
-//                        " p1Ox = " << p1Origin.x <<
-//                        " p1Oy = " << p1Origin.y <<
-//                        " p2Ox = " << p2Origin.x <<
-//                        " p3Oy = " << p2Origin.y;
 
+        camZ = camZOrigin + 20 * (distanceOrigin - distance) / VIDEO_WIDTH;
 
-        if (distance ==0)
-            distance = 0.0001;
-
-        camZ = camZOrigin * distanceOrigin/distance;
-//        camZ = camZOrigin + distanceOrigin - distance;
-
+        if (camZ < -10.0f)
+        {
+            camZ  = -10.0f;
+            camZOrigin = -10.0f;
+        }
+        if (camZ > 15.0f)
+        {
+            camZ = 15.0f;
+            camZOrigin = 15.0f;
+        }
     }
 
 }
