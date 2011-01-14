@@ -145,6 +145,10 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
 
         int numBlobs;
 
+        cv::Mat mapa;
+        cv::Mat mapaResized;
+        unsigned char * mapaData;
+
         bool blobPressed;
 
         cv::Point origin1;

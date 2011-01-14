@@ -232,21 +232,22 @@ void VimusGUIVideoPreview :: drawFrame(	float posX, float posY, float posZ,
 	if (*(this->ppCurrentFrame))
 	{
 		glColor4f (1.0f, 1.0f, 1.0f, 1.0f);
-		glTexSubImage2D (	GL_TEXTURE_2D,
-							0,
-							0,
-							0,
-							VIDEO_WIDTH,
-							VIDEO_HEIGHT,
-							GL_BGR,
-							GL_UNSIGNED_BYTE,
-							*(this->ppCurrentFrame)	);
+//		glTexSubImage2D (	GL_TEXTURE_2D,
+//							0,
+//							0,
+//							0,
+//							VIDEO_WIDTH,
+//							VIDEO_HEIGHT,
+//							GL_BGR,
+//							GL_UNSIGNED_BYTE,
+//							*(this->ppCurrentFrame)	);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, VIDEO_WIDTH, VIDEO_HEIGHT, 0, GL_BGR, GL_UNSIGNED_BYTE, (*this->ppCurrentFrame));
 
 		glBegin(GL_QUADS);
 			glTexCoord2f(1.0f, 1.0f); glVertex3f(posX, posY, posZ);
-			glTexCoord2f(0.0f, 1.0f); glVertex3f(posX+width, posY, 0.0f);
-			glTexCoord2f(0.0f, 0.0f); glVertex3f(posX+width, posY+height, 0.0f);
-			glTexCoord2f(1.0f, 0.0f); glVertex3f(posX, posY+height, 0.0f);
+			glTexCoord2f(0.0f, 1.0f); glVertex3f(posX+width, posY, posZ);
+			glTexCoord2f(0.0f, 0.0f); glVertex3f(posX+width, posY+height, posZ);
+			glTexCoord2f(1.0f, 0.0f); glVertex3f(posX, posY+height, posZ);
 		glEnd();
 	}
 

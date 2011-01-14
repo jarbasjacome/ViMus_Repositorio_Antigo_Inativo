@@ -82,14 +82,26 @@ VimusMachineCVBlobDetection::VimusMachineCVBlobDetection()
         blobsIdSwap[i] = false;
     }
 
+    mapa = imread("/home/jandila/mapa03.jpg", 1);
+
+    resize(mapa, mapaResized, Size(1024, 1024),0,0, INTER_LINEAR);
+
+    mapaData = mapaResized.data;
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+    unsigned char * mapaData;
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 1024, 0, GL_BGR, GL_UNSIGNED_BYTE, this->mapaData);
+
     distance = 6;
     distanceOrigin = 6;
 
     originId1 = -1;
     originId2 = -1;
 
-    camZ = 13;
-    camZOrigin = 13;
+    camZ = 6;
+    camZOrigin = 6;
 
     posXorigin = 0;
     posYorigin = 0;
@@ -133,14 +145,6 @@ void VimusMachineCVBlobDetection::update()
         int countBlobs = 0;
         int nextId = -1;
         int currBlobId = -1;
-
-        for (int i=0; i<MAX_NUM_BLOBS; i++)
-        {
-            blobs[i] = blobsSwap[i];
-            blobsId[i] = blobsIdSwap[i];
-            blobsSwap[i] = Point(-500,-500);
-            blobsIdSwap[i] = false;
-        }
 
         for (int i=0; i<numContours; i++)
         {
@@ -238,6 +242,14 @@ void VimusMachineCVBlobDetection::update()
             blobPressed = false;
         }
 
+        for (int i=0; i<MAX_NUM_BLOBS; i++)
+        {
+            blobs[i] = blobsSwap[i];
+            blobsId[i] = blobsIdSwap[i];
+            blobsSwap[i] = Point(-500,-500);
+            blobsIdSwap[i] = false;
+        }
+
         numBlobs = countBlobs;
 
         drawInfo(frame, "Number = ", numBlobs, Point(20, 20), &infoStream, &infoString);
@@ -263,17 +275,35 @@ void VimusMachineCVBlobDetection::draw()
 
     glTranslatef (posX, posY, 0);
 
-    glBegin(GL_LINES);
+//    glBegin(GL_LINES);
+//    for (int i=0; i<11; i++)
+//    {
+//        glVertex2f(-1, i*0.2 - 1);
+//        glVertex2f(1, i*0.2 - 1);
+//        glVertex2f(i*0.2 - 1, -1);
+//        glVertex2f(i*0.2 - 1, 1);
+//    }
+//    glEnd();
 
-    for (int i=0; i<11; i++)
-    {
-        glVertex2f(-1, i*0.2 - 1);
-        glVertex2f(1, i*0.2 - 1);
-        glVertex2f(i*0.2 - 1, -1);
-        glVertex2f(i*0.2 - 1, 1);
-    }
+    glScalef(0.684f * 0.625f, 1.0f, 1.0f);
 
-    glEnd();
+	glDisable(GL_BLEND);
+	glEnable(GL_TEXTURE_2D);
+	if (this->mapaData)
+	{
+		glColor4f (1.0f, 1.0f, 1.0f, 1.0f);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 1024, 0, GL_BGR, GL_UNSIGNED_BYTE, this->mapaData);
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(1.0f, 0.0f); glVertex3f(2.0f, 2.0f, 0.0f);
+			glTexCoord2f(0.0f, 0.0f); glVertex3f(-2.0f, 2.0f, 0.0f);
+			glTexCoord2f(0.0f, 1.0f); glVertex3f(-2.0, -2.0f, 0.0f);
+			glTexCoord2f(1.0f, 1.0f); glVertex3f(2.0f, -2.0f, 0.0f);
+		glEnd();
+	}
+	glDisable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
 
     glPopMatrix();
 }
@@ -329,8 +359,11 @@ void VimusMachineCVBlobDetection::calculateZoom()
 
     if (numBlobs == 1)
     {
-        posX = posXorigin + ((float) (p1Origin.x - p1.x) / (float) VIDEO_WIDTH)*2;
-        posY = posYorigin + ((float) (p1Origin.y - p1.y) / (float) VIDEO_HEIGHT)*2;
+//        posX = posXorigin + ((float) (p1Origin.x - p1.x) / (float) VIDEO_WIDTH)*2;
+//        posY = posYorigin + ((float) (p1Origin.y - p1.y) / (float) VIDEO_HEIGHT)*2;
+        posX = posXorigin + ((float) (p1Origin.x - p1.x) / (float) VIDEO_WIDTH)*((camZ+10) + 25)/25;
+        posY = posYorigin + ((float) (p1Origin.y - p1.y) / (float) VIDEO_HEIGHT)*((camZ+10) + 25)/25;
+
     }
 
     if (numBlobs == 2 && blob2)
