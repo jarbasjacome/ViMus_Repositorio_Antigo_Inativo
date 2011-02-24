@@ -108,6 +108,15 @@ VimusMachineCVBlobDetection::VimusMachineCVBlobDetection()
     posX = 0;
     posY = 0;
 
+    for (int i=0; i<AVERAGE_ARRAY_SIZE; i++)
+    {
+        posXarray[i] = 0;
+        posYarray[i] = 0;
+    }
+    posXlastSum = 0;
+    posYlastSum = 0;
+
+
     blobPressed = false;
 
 }
@@ -149,7 +158,7 @@ void VimusMachineCVBlobDetection::update()
         for (int i=0; i<numContours; i++)
         {
             int area = (int) abs(contourArea(v.at(i)));
-            if (area > 20)
+            if (area > MIN_BLOB_SIZE)
             {
                 int j=0;
                 countBlobs++;
@@ -161,26 +170,13 @@ void VimusMachineCVBlobDetection::update()
                     {
                         int difX = blobs[j].x - p.x;
                         int difY = blobs[j].y - p.y;
-                        if (abs(difX) <= 20 &&
-                            abs(difY) <= 20)
+                        if (abs(difX) <= MIN_BLOB_SIZE*2 &&
+                            abs(difY) <= MIN_BLOB_SIZE*2)
                         {
                             blobsSwap[j].x = p.x;
                             blobsSwap[j].y = p.y;
                             blobsIdSwap[j] = true;
                             currBlobId = j;
-
-//                            if (numBlobs > 0)
-//                            {
-//                                if (j == originId1)
-//                                {
-//                                    tempOrigin1 = p;
-//                                    tempOrigin1Id = j;
-//                                }
-////                                else if (j ==  originId2 && numBlobs > 1)
-////                                {
-////                                    origin2 = p;
-////                                }
-//                            }
 
                             break;
                         }
@@ -212,22 +208,12 @@ void VimusMachineCVBlobDetection::update()
                     }
                     else if (numBlobs == 2)
                     {
-//                        origin1 = tempOrigin1;
-//                        originId1 = tempOrigin1Id;
-
                         origin2 = p;
                         originId2 = nextId;
 
                         distanceOrigin = sqrt(  pow(origin1.x - origin2.x, 2) +
                                                 pow(origin1.y - origin2.y, 2) );
-
-//                        cout << "\n 2o blob!!! origin1.x = " << origin1.x << " origin1.y =" << origin1.y;
-//                        cout << "\n origin2.x = " << origin2.x << " origin2.y =" << origin2.y;
-//                        cout << "\n tempOrigin1Id = " << tempOrigin1Id;
-//                        cout << "\n distanceOrigin = " << distanceOrigin;
-//                        cout << "\n camZOrigin = " << camZOrigin;
 //                        cout << "\n camZ = " << camZ;
-
                         camZOrigin = camZ;
 
                     }
@@ -274,16 +260,6 @@ void VimusMachineCVBlobDetection::draw()
     gluLookAt (0.0, 0.0, camZ, 0.0, 0.0, camZ - 5.0f, 0.0, 1.0, 0.0);
 
     glTranslatef (posX, posY, 0);
-
-//    glBegin(GL_LINES);
-//    for (int i=0; i<11; i++)
-//    {
-//        glVertex2f(-1, i*0.2 - 1);
-//        glVertex2f(1, i*0.2 - 1);
-//        glVertex2f(i*0.2 - 1, -1);
-//        glVertex2f(i*0.2 - 1, 1);
-//    }
-//    glEnd();
 
     glScalef(0.684f * 0.625f, 1.0f, 1.0f);
 
@@ -359,21 +335,33 @@ void VimusMachineCVBlobDetection::calculateZoom()
 
     if (numBlobs == 1)
     {
-//        posX = posXorigin + ((float) (p1Origin.x - p1.x) / (float) VIDEO_WIDTH)*2;
-//        posY = posYorigin + ((float) (p1Origin.y - p1.y) / (float) VIDEO_HEIGHT)*2;
-        posX = posXorigin + ((float) (p1Origin.x - p1.x) / (float) VIDEO_WIDTH)*((camZ+10) + 25)/25;
-        posY = posYorigin + ((float) (p1Origin.y - p1.y) / (float) VIDEO_HEIGHT)*((camZ+10) + 25)/25;
+        // subtract oldest position value from the sum of positions array
+        posXlastSum -= posXarray[0];
+        posYlastSum -= posYarray[0];
+
+        // makes the positions queue walks one step
+        for (int i=0; i<AVERAGE_ARRAY_SIZE-1; i++)
+        {
+            posXarray[i] = posXarray[i+1];
+            posYarray[i] = posYarray[i+1];
+        }
+
+        // put the current frame point position value on the earliest position
+        posXarray[AVERAGE_ARRAY_SIZE-1] = posXorigin + ((float) (p1Origin.x - p1.x) / (float) VIDEO_WIDTH)*((camZ+10) + 25)/25;
+        posYarray[AVERAGE_ARRAY_SIZE-1] = posYorigin + ((float) (p1Origin.y - p1.y) / (float) VIDEO_HEIGHT)*((camZ+10) + 25)/25;
+
+        // add current frame point position to the sum of all positions
+        posXlastSum += posXarray[AVERAGE_ARRAY_SIZE-1];
+        posYlastSum += posYarray[AVERAGE_ARRAY_SIZE-1];
+
+        // calculate the average position to get a smooth object move
+        posX = posXlastSum / AVERAGE_ARRAY_SIZE;
+        posY = posYlastSum / AVERAGE_ARRAY_SIZE;
 
     }
 
     if (numBlobs == 2 && blob2)
     {
-
-//        distanceOrigin = sqrt(  pow(origin1.x - origin2.x, 2) +
-//                                pow(origin1.y - origin2.y, 2) );
-
-//        distanceOrigin = sqrt(  pow(p1Origin.x - p2Origin.x, 2) +
-//                                pow(p1Origin.y - p2Origin.y, 2) );
 
         distance = sqrt( pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2) );
 

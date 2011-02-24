@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug" />
+	<ActiveTarget name="Release" />
 	<File name="../../src/Configuration.h" open="1" top="0" tabpos="3">
 		<Cursor position="1971" topLine="55" />
 	</File>
@@ -80,7 +80,7 @@
 		<Cursor position="1507" topLine="47" />
 	</File>
 	<File name="../../src/VimusMachineCVBlobDetection.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="7562" topLine="236" />
+		<Cursor position="0" topLine="0" />
 	</File>
 	<File name="../../src/VimusMachineCVBlobDetection.h" open="1" top="0" tabpos="2">
 		<Cursor position="3771" topLine="138" />

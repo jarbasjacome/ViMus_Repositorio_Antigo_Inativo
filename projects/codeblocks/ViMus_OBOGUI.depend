@@ -11,10 +11,10 @@
 	"VimusGUINormalObject.h"
 	<iostream>
 
-1295029548 /dados/ViMus/ViMus_OBOGUI/src/Configuration.h
+1298501877 /dados/ViMus/ViMus_OBOGUI/src/Configuration.h
 	<windows.h>
 
-1287716278 /usr/include/stdio.h
+1294733666 /usr/include/stdio.h
 	<features.h>
 	<stddef.h>
 	<bits/types.h>
@@ -27,34 +27,34 @@
 	<bits/stdio2.h>
 	<bits/stdio-ldbl.h>
 
-1287716261 /usr/include/features.h
+1294733629 /usr/include/features.h
 	<bits/predefs.h>
 	<sys/cdefs.h>
 	<gnu/stubs.h>
 
-1287716261 /usr/include/bits/predefs.h
+1294733629 /usr/include/bits/predefs.h
 
-1287716285 /usr/include/sys/cdefs.h
+1294733680 /usr/include/sys/cdefs.h
 	<features.h>
 	<bits/wordsize.h>
 
-1287716277 /usr/include/bits/wordsize.h
+1294733663 /usr/include/bits/wordsize.h
 
-1287716261 /usr/include/gnu/stubs.h
+1294733629 /usr/include/gnu/stubs.h
 	<bits/wordsize.h>
 	<gnu/stubs-32.h>
 	<gnu/stubs-64.h>
 
-1287716306 /usr/include/gnu/stubs-64.h
+1294733721 /usr/include/gnu/stubs-64.h
 
-1287716283 /usr/include/bits/types.h
+1294733676 /usr/include/bits/types.h
 	<features.h>
 	<bits/wordsize.h>
 	<bits/typesizes.h>
 
-1287716283 /usr/include/bits/typesizes.h
+1294733676 /usr/include/bits/typesizes.h
 
-1287716278 /usr/include/libio.h
+1294733666 /usr/include/libio.h
 	<_G_config.h>
 	<stdarg.h>
 	<sys/cdefs.h>
@@ -62,13 +62,13 @@
 	<shlib-compat.h>
 	<bits/libio-ldbl.h>
 
-1287716278 /usr/include/_G_config.h
+1294733666 /usr/include/_G_config.h
 	<bits/types.h>
 	<stddef.h>
 	<wchar.h>
 	<gconv.h>
 
-1287716280 /usr/include/wchar.h
+1294733670 /usr/include/wchar.h
 	<features.h>
 	<stdio.h>
 	<stdarg.h>
@@ -82,41 +82,41 @@
 	<bits/wchar2.h>
 	<bits/wchar-ldbl.h>
 
-1287716280 /usr/include/bits/wchar.h
+1294733670 /usr/include/bits/wchar.h
 
-1287716287 /usr/include/wctype.h
+1294733683 /usr/include/wctype.h
 	<features.h>
 	<bits/types.h>
 	<stddef.h>
 	<endian.h>
 	<xlocale.h>
 
-1287716280 /usr/include/endian.h
+1294733669 /usr/include/endian.h
 	<features.h>
 	<bits/endian.h>
 	<bits/byteswap.h>
 
-1287716280 /usr/include/bits/endian.h
+1294733669 /usr/include/bits/endian.h
 
-1287716280 /usr/include/bits/byteswap.h
+1294733669 /usr/include/bits/byteswap.h
 	<bits/wordsize.h>
 
-1287716262 /usr/include/xlocale.h
+1294733632 /usr/include/xlocale.h
 
-1287716280 /usr/include/bits/wchar2.h
+1294733670 /usr/include/bits/wchar2.h
 
-1287716280 /usr/include/bits/wchar-ldbl.h
+1294733670 /usr/include/bits/wchar-ldbl.h
 
-1287716262 /usr/include/gconv.h
+1294733631 /usr/include/gconv.h
 	<features.h>
 	<wchar.h>
 	<stddef.h>
 
-1287716278 /usr/include/bits/stdio-lock.h
+1294733666 /usr/include/bits/stdio-lock.h
 	<bits/libc-lock.h>
 	<lowlevellock.h>
 
-1287716261 /usr/include/bits/libc-lock.h
+1294733629 /usr/include/bits/libc-lock.h
 	<pthread.h>
 	<stddef.h>
 	<lowlevellock.h>
@@ -124,7 +124,7 @@
 	<pthread-functions.h>
 	<bp-sym.h>
 
-1287716291 /usr/include/pthread.h
+1294733692 /usr/include/pthread.h
 	<features.h>
 	<endian.h>
 	<sched.h>
@@ -134,14 +134,14 @@
 	<bits/setjmp.h>
 	<bits/wordsize.h>
 
-1287716283 /usr/include/sched.h
+1294733676 /usr/include/sched.h
 	<features.h>
 	<bits/types.h>
 	<stddef.h>
 	<time.h>
 	<bits/sched.h>
 
-1287716282 /usr/include/time.h
+1294733673 /usr/include/time.h
 	<features.h>
 	<stddef.h>
 	<bits/time.h>
@@ -152,13 +152,13 @@
 	<bits/types.h>
 	<xlocale.h>
 
-1287716282 /usr/include/bits/time.h
+1294733673 /usr/include/bits/time.h
 	<bits/types.h>
 	<bits/types.h>
 
-1287716283 /usr/include/bits/sched.h
+1294733676 /usr/include/bits/sched.h
 
-1287716276 /usr/include/signal.h
+1294733662 /usr/include/signal.h
 	<features.h>
 	<bits/sigset.h>
 	<bits/types.h>
@@ -173,59 +173,59 @@
 	<bits/pthreadtypes.h>
 	<bits/sigthread.h>
 
-1287716276 /usr/include/bits/sigset.h
+1294733662 /usr/include/bits/sigset.h
 
-1287716276 /usr/include/bits/signum.h
+1294733662 /usr/include/bits/signum.h
 
-1287716276 /usr/include/bits/siginfo.h
+1294733662 /usr/include/bits/siginfo.h
 	<bits/wordsize.h>
 
-1287716276 /usr/include/bits/sigaction.h
+1294733662 /usr/include/bits/sigaction.h
 
-1287716276 /usr/include/bits/sigcontext.h
+1294733662 /usr/include/bits/sigcontext.h
 	<bits/wordsize.h>
 
-1287716276 /usr/include/bits/sigstack.h
+1294733662 /usr/include/bits/sigstack.h
 
-1287716277 /usr/include/sys/ucontext.h
+1294733663 /usr/include/sys/ucontext.h
 	<features.h>
 	<signal.h>
 	<bits/wordsize.h>
 	<bits/sigcontext.h>
 
-1287716283 /usr/include/bits/pthreadtypes.h
+1294733676 /usr/include/bits/pthreadtypes.h
 	<bits/wordsize.h>
 
-1287716276 /usr/include/bits/sigthread.h
+1294733662 /usr/include/bits/sigthread.h
 
-1287716276 /usr/include/bits/setjmp.h
+1294733661 /usr/include/bits/setjmp.h
 	<bits/wordsize.h>
 
-1287716278 /usr/include/bits/libio-ldbl.h
+1294733666 /usr/include/bits/libio-ldbl.h
 
-1287716277 /usr/include/bits/stdio_lim.h
+1294733664 /usr/include/bits/stdio_lim.h
 
-1287716278 /usr/include/bits/sys_errlist.h
+1294733666 /usr/include/bits/sys_errlist.h
 
-1287716283 /usr/include/getopt.h
+1294733676 /usr/include/getopt.h
 	<ctype.h>
 
-1287716273 /usr/include/ctype.h
+1294733655 /usr/include/ctype.h
 	<features.h>
 	<bits/types.h>
 	<endian.h>
 	<xlocale.h>
 
-1287716278 /usr/include/bits/stdio.h
+1294733666 /usr/include/bits/stdio.h
 
-1287716278 /usr/include/bits/stdio2.h
+1294733666 /usr/include/bits/stdio2.h
 
-1287716278 /usr/include/bits/stdio-ldbl.h
+1294733666 /usr/include/bits/stdio-ldbl.h
 
 1294242791 /dados/ViMus/ViMus_OBOGUI/src/Global.h
 	<stdlib.h>
 
-1287716277 /usr/include/stdlib.h
+1294733663 /usr/include/stdlib.h
 	<features.h>
 	<stddef.h>
 	<bits/waitflags.h>
@@ -236,12 +236,12 @@
 	<bits/stdlib.h>
 	<bits/stdlib-ldbl.h>
 
-1287716283 /usr/include/bits/waitflags.h
+1294733676 /usr/include/bits/waitflags.h
 
-1287716283 /usr/include/bits/waitstatus.h
+1294733676 /usr/include/bits/waitstatus.h
 	<endian.h>
 
-1287716283 /usr/include/sys/types.h
+1294733676 /usr/include/sys/types.h
 	<features.h>
 	<bits/types.h>
 	<time.h>
@@ -251,7 +251,7 @@
 	<sys/sysmacros.h>
 	<bits/pthreadtypes.h>
 
-1287716285 /usr/include/sys/select.h
+1294733680 /usr/include/sys/select.h
 	<features.h>
 	<bits/types.h>
 	<bits/select.h>
@@ -259,21 +259,21 @@
 	<time.h>
 	<bits/time.h>
 
-1287716285 /usr/include/bits/select.h
+1294733680 /usr/include/bits/select.h
 	<bits/wordsize.h>
 
-1287716283 /usr/include/sys/sysmacros.h
+1294733676 /usr/include/sys/sysmacros.h
 	<features.h>
 
-1287716277 /usr/include/alloca.h
+1294733663 /usr/include/alloca.h
 	<features.h>
 	<stddef.h>
 
-1287716277 /usr/include/bits/stdlib.h
+1294733663 /usr/include/bits/stdlib.h
 
-1287716277 /usr/include/bits/stdlib-ldbl.h
+1294733663 /usr/include/bits/stdlib-ldbl.h
 
-1287716274 /usr/include/math.h
+1294733658 /usr/include/math.h
 	<features.h>
 	<bits/huge_val.h>
 	<bits/huge_valf.h>
@@ -286,24 +286,24 @@
 	<bits/mathcalls.h>
 	<bits/mathinline.h>
 
-1287716274 /usr/include/bits/huge_val.h
+1294733658 /usr/include/bits/huge_val.h
 	<endian.h>
 
-1287716274 /usr/include/bits/huge_valf.h
+1294733658 /usr/include/bits/huge_valf.h
 
-1287716274 /usr/include/bits/huge_vall.h
+1294733658 /usr/include/bits/huge_vall.h
 
-1287716274 /usr/include/bits/inf.h
+1294733658 /usr/include/bits/inf.h
 
-1287716274 /usr/include/bits/nan.h
+1294733658 /usr/include/bits/nan.h
 	<endian.h>
 
-1287716274 /usr/include/bits/mathdef.h
+1294733658 /usr/include/bits/mathdef.h
 	<bits/wordsize.h>
 
-1287716274 /usr/include/bits/mathcalls.h
+1294733658 /usr/include/bits/mathcalls.h
 
-1287716274 /usr/include/bits/mathinline.h
+1294733658 /usr/include/bits/mathinline.h
 
 1227098116 /usr/include/GL/glut.h
 	"freeglut_std.h"
@@ -332,12 +332,12 @@
 	<stdint.h>
 	<inttypes.h>
 
-1287716277 /usr/include/inttypes.h
+1294733663 /usr/include/inttypes.h
 	<features.h>
 	<stdint.h>
 	<stddef.h>
 
-1287716277 /usr/include/stdint.h
+1294733663 /usr/include/stdint.h
 	<features.h>
 	<bits/wchar.h>
 	<bits/wordsize.h>
@@ -506,10 +506,10 @@
 	<ipl.h>
 	<ipl/ipl.h>
 
-1287716272 /usr/include/assert.h
+1294733654 /usr/include/assert.h
 	<features.h>
 
-1287716280 /usr/include/string.h
+1294733669 /usr/include/string.h
 	<features.h>
 	<stddef.h>
 	<xlocale.h>
@@ -517,14 +517,14 @@
 	<bits/string2.h>
 	<bits/string3.h>
 
-1287716280 /usr/include/bits/string.h
+1294733669 /usr/include/bits/string.h
 
-1287716280 /usr/include/bits/string2.h
+1294733669 /usr/include/bits/string2.h
 	<endian.h>
 	<bits/types.h>
 	<stdlib.h>
 
-1287716280 /usr/include/bits/string3.h
+1294733669 /usr/include/bits/string3.h
 
 1254356457 /usr/local/include/opencv/cxerror.h
 
@@ -551,28 +551,28 @@
 	<alloca.h>
 	<stdlib.h>
 
-1287716261 /usr/include/limits.h
+1294733629 /usr/include/limits.h
 	<features.h>
 	<bits/wordsize.h>
 	<bits/posix1_lim.h>
 	<bits/posix2_lim.h>
 	<bits/xopen_lim.h>
 
-1287716283 /usr/include/bits/posix1_lim.h
+1294733676 /usr/include/bits/posix1_lim.h
 	<bits/local_lim.h>
 
-1287716283 /usr/include/bits/local_lim.h
+1294733676 /usr/include/bits/local_lim.h
 	<linux/limits.h>
 
-1290593163 /usr/include/linux/limits.h
+1291250487 /usr/include/linux/limits.h
 
-1287716283 /usr/include/bits/posix2_lim.h
+1294733676 /usr/include/bits/posix2_lim.h
 
-1287716261 /usr/include/bits/xopen_lim.h
+1294733629 /usr/include/bits/xopen_lim.h
 	<bits/stdio_lim.h>
 	<bits/wordsize.h>
 
-1287716279 /usr/include/malloc.h
+1294733668 /usr/include/malloc.h
 	<features.h>
 	<stddef.h>
 	<stdio.h>
@@ -650,7 +650,7 @@
 1256067737 /usr/include/boost/config/posix_features.hpp
 	<unistd.h>
 
-1287716283 /usr/include/unistd.h
+1294733676 /usr/include/unistd.h
 	<features.h>
 	<bits/posix_opt.h>
 	<bits/environments.h>
@@ -660,14 +660,14 @@
 	<getopt.h>
 	<bits/unistd.h>
 
-1287716283 /usr/include/bits/posix_opt.h
+1294733676 /usr/include/bits/posix_opt.h
 
-1287716283 /usr/include/bits/environments.h
+1294733676 /usr/include/bits/environments.h
 	<bits/wordsize.h>
 
-1287716283 /usr/include/bits/confname.h
+1294733676 /usr/include/bits/confname.h
 
-1287716283 /usr/include/bits/unistd.h
+1294733676 /usr/include/bits/unistd.h
 
 1256067737 /usr/include/boost/config/suffix.hpp
 	<limits.h>
@@ -1966,7 +1966,7 @@
 	<sys/time.h>
 	<time.h>
 
-1287716282 /usr/include/sys/time.h
+1294733673 /usr/include/sys/time.h
 	<features.h>
 	<bits/types.h>
 	<time.h>
@@ -2504,23 +2504,23 @@
 	<boost/config/abi_prefix.hpp>
 	<boost/config/abi_suffix.hpp>
 
-1287716277 /usr/include/errno.h
+1294733663 /usr/include/errno.h
 	<features.h>
 	<bits/errno.h>
 
-1287716277 /usr/include/bits/errno.h
+1294733663 /usr/include/bits/errno.h
 	<linux/errno.h>
 
-1290593162 /usr/include/linux/errno.h
+1291250486 /usr/include/linux/errno.h
 	<asm/errno.h>
 
-1290593163 /usr/include/asm/errno.h
+1291250488 /usr/include/asm/errno.h
 	<asm-generic/errno.h>
 
-1290593161 /usr/include/asm-generic/errno.h
+1291250485 /usr/include/asm-generic/errno.h
 	<asm-generic/errno-base.h>
 
-1290593161 /usr/include/asm-generic/errno-base.h
+1291250485 /usr/include/asm-generic/errno-base.h
 
 1256067727 /usr/include/boost/thread/pthread/timespec.hpp
 	<boost/thread/thread_time.hpp>
@@ -2970,14 +2970,14 @@
 1294802757 source:/dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.cpp
 	"VideoCaptureOpenCV.h"
 
-1295025393 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVBlobDetection.h
+1298502530 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVBlobDetection.h
 	"VimusMachineOpenGLObject.h"
 	"cv.h"
 	"highgui.h"
 	"GL/glut.h"
 	<iostream>
 
-1295029820 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVBlobDetection.cpp
+1298501466 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVBlobDetection.cpp
 	"VimusMachineCVBlobDetection.h"
 
 1294345073 /usr/local/include/opencv/Blob.h

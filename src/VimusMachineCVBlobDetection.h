@@ -143,11 +143,24 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
         float posXorigin;
         float posYorigin;
 
+        // this value determines how smooth will be object move
+        const static int AVERAGE_ARRAY_SIZE = 5;
+
+        // array to accumulate object positions values to make its move smooth
+        float posXarray[AVERAGE_ARRAY_SIZE];
+        float posYarray[AVERAGE_ARRAY_SIZE];
+
+        // store last sum of positions for next average position
+        float posXlastSum;
+        float posYlastSum;
+
         int numBlobs;
 
         cv::Mat mapa;
         cv::Mat mapaResized;
         unsigned char * mapaData;
+
+        const static int MIN_BLOB_SIZE = 20;
 
         bool blobPressed;
 
