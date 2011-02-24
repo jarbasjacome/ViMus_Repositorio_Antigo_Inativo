@@ -274,14 +274,6 @@ void VimusGUIEditor::displayFunc()
     //"near" and "far" are distance values from camera origin point.
     gluPerspective(PERSP_FOV, PERSP_ASPECT, PERSP_NEAR, PERSP_FAR);
 
-    glMatrixMode (GL_MODELVIEW);
-    glLoadIdentity ();
-
-    //(eyex, eyey, eyez) is camera origin point.
-    //(centerx, centery, centerz) is camera target point.
-    //(upx, upy, upz) is  camera up side direction.
-    gluLookAt (0.0, 0.0, CAM_EYE_Z, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-
     glutSwapBuffers();
 }
 
@@ -351,10 +343,11 @@ void VimusGUIEditor::drawEditor()
 
     glPushMatrix();
 
+        glMatrixMode (GL_MODELVIEW);
+        glLoadIdentity ();
+
         if (zoomState != ZOOM_STOPPED)
         {
-            glMatrixMode (GL_MODELVIEW);
-            glLoadIdentity ();
             gluLookAt ( camEyeX + camEyeXTrans,
                         camEyeY + camEyeYTrans,
                         camEyeZ + camEyeZTrans,
@@ -362,6 +355,13 @@ void VimusGUIEditor::drawEditor()
                         camTargetY + camTargetYTrans,
                         camTargetZ + camTargetZTrans,
                         0.0, 1.0, 0.0);
+        }
+        else
+        {
+            //(eyex, eyey, eyez) is camera origin point.
+            //(centerx, centery, centerz) is camera target point.
+            //(upx, upy, upz) is  camera up side direction.
+            gluLookAt (0.0, 0.0, CAM_EYE_Z, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
         }
 
         currentCube->draw(GL_RENDER);

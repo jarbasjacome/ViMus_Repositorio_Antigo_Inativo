@@ -137,6 +137,8 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
         float camZ;
         float camZOrigin;
 
+        float zoom;
+
         float posX;
         float posY;
 

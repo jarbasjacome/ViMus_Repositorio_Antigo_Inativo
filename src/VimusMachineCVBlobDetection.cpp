@@ -94,14 +94,13 @@ VimusMachineCVBlobDetection::VimusMachineCVBlobDetection()
     unsigned char * mapaData;
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 1024, 0, GL_BGR, GL_UNSIGNED_BYTE, this->mapaData);
 
-    distance = 6;
-    distanceOrigin = 6;
+    distance = 21;
+    distanceOrigin = 21;
+    camZ = 21;
+    camZOrigin = 21;
 
     originId1 = -1;
     originId2 = -1;
-
-    camZ = 6;
-    camZOrigin = 6;
 
     posXorigin = 0;
     posYorigin = 0;
@@ -257,11 +256,14 @@ void VimusMachineCVBlobDetection::draw()
 
     calculateZoom();
 
-    gluLookAt (0.0, 0.0, camZ, 0.0, 0.0, camZ - 5.0f, 0.0, 1.0, 0.0);
+    glMatrixMode (GL_MODELVIEW);
+    glLoadIdentity ();
 
-    glTranslatef (posX, posY, 0);
+    gluLookAt (-posX, -posY, camZ, -posX, -posY, camZ - 5.0f, 0.0, 1.0, 0.0);
 
-    glScalef(0.684f * 0.625f, 1.0f, 1.0f);
+//    gluLookAt (0, 0, 21, 0, 0, 0, 0.0, 1.0, 0.0);
+
+//    glScalef(0.684f * 0.625f, 1.0f, 1.0f);
 
 	glDisable(GL_BLEND);
 	glEnable(GL_TEXTURE_2D);
@@ -347,8 +349,10 @@ void VimusMachineCVBlobDetection::calculateZoom()
         }
 
         // put the current frame point position value on the earliest position
-        posXarray[AVERAGE_ARRAY_SIZE-1] = posXorigin + ((float) (p1Origin.x - p1.x) / (float) VIDEO_WIDTH)*((camZ+10) + 25)/25;
-        posYarray[AVERAGE_ARRAY_SIZE-1] = posYorigin + ((float) (p1Origin.y - p1.y) / (float) VIDEO_HEIGHT)*((camZ+10) + 25)/25;
+        posXarray[AVERAGE_ARRAY_SIZE-1] = posXorigin +
+        ((float) (p1Origin.x - p1.x) / (float) VIDEO_WIDTH);//*((camZ+10) + 25)/25;
+        posYarray[AVERAGE_ARRAY_SIZE-1] = posYorigin +
+        ((float) (p1Origin.y - p1.y) / (float) VIDEO_HEIGHT);//*((camZ+10) + 25)/25;
 
         // add current frame point position to the sum of all positions
         posXlastSum += posXarray[AVERAGE_ARRAY_SIZE-1];
@@ -372,17 +376,17 @@ void VimusMachineCVBlobDetection::calculateZoom()
         (*strStream) << " camZ = " <<  camZ;
         renderBitmapString(-1.0,-1.0,0,GLUT_BITMAP_9_BY_15, strStream);
 
-        camZ = camZOrigin + 20 * (distanceOrigin - distance) / VIDEO_WIDTH;
+        camZ = camZOrigin + 21.0f * (distanceOrigin - distance) / VIDEO_WIDTH;
 
-        if (camZ < -10.0f)
+        if (camZ < 2.0f)
         {
-            camZ  = -10.0f;
-            camZOrigin = -10.0f;
+            camZ  = 2.0f;
+            camZOrigin = 2.0f;
         }
-        if (camZ > 15.0f)
+        if (camZ > 21.0f)
         {
-            camZ = 15.0f;
-            camZOrigin = 15.0f;
+            camZ = 21.0f;
+            camZOrigin = 21.0f;
         }
     }
 
