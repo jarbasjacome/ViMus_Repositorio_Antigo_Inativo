@@ -137,16 +137,19 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
         float camZ;
         float camZOrigin;
 
-        float zoom;
+        // this value determines how smooth will zoom and move object
+        const static int AVERAGE_ARRAY_SIZE = 5;
+
+        // array to accumulate zoom values to make its move smooth
+        float zoomArray[AVERAGE_ARRAY_SIZE];
+        // store last sum of zoom values for next average position
+        float zoomLastSum;
 
         float posX;
         float posY;
 
         float posXorigin;
         float posYorigin;
-
-        // this value determines how smooth will be object move
-        const static int AVERAGE_ARRAY_SIZE = 5;
 
         // array to accumulate object positions values to make its move smooth
         float posXarray[AVERAGE_ARRAY_SIZE];

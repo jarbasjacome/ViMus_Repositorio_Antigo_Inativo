@@ -111,9 +111,15 @@ VimusMachineCVBlobDetection::VimusMachineCVBlobDetection()
     {
         posXarray[i] = 0;
         posYarray[i] = 0;
+
+        zoomArray[i] = 0;
     }
+
     posXlastSum = 0;
     posYlastSum = 0;
+
+    zoomLastSum = 0;
+
 
 
     blobPressed = false;
@@ -376,7 +382,23 @@ void VimusMachineCVBlobDetection::calculateZoom()
         (*strStream) << " camZ = " <<  camZ;
         renderBitmapString(-1.0,-1.0,0,GLUT_BITMAP_9_BY_15, strStream);
 
-        camZ = camZOrigin + 21.0f * (distanceOrigin - distance) / VIDEO_WIDTH;
+        // subtract oldest zoom value from the sum of zoom values array
+        zoomLastSum -= zoomArray[0];
+
+        // makes the zoom values queue walks one step
+        for (int i=0; i<AVERAGE_ARRAY_SIZE-1; i++)
+        {
+            zoomArray[i] = zoomArray[i+1];
+        }
+
+        // put the current frame zoom value as the earliest one in the queue
+        zoomArray[AVERAGE_ARRAY_SIZE-1] = camZOrigin + 19.0f * (distanceOrigin - distance) / VIDEO_WIDTH;
+
+        // add current frame zoom value to the sum of all zoom values
+        zoomLastSum += zoomArray[AVERAGE_ARRAY_SIZE-1];
+
+        // calculate the average position to get a smooth zoom
+        camZ = zoomLastSum / AVERAGE_ARRAY_SIZE;
 
         if (camZ < 2.0f)
         {
