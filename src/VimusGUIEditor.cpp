@@ -259,22 +259,17 @@ void VimusGUIEditor::specialKeyBoardFunc(int key, int x, int y)
 	}
 }
 
+/**
+ * This function is called every time OS asks window to be redrawed
+ */
 void VimusGUIEditor::displayFunc()
 {
     // initialize viewing values
     glMatrixMode (GL_PROJECTION);
     glLoadIdentity ();
 
-    //left, right, bottom, top, near, far are absolute values in coordinate system.
-    //glOrtho(LEFT, RIGHT, BOTTOM, TOP, NEAR, FAR);
-
-    //"near" and "far" are distance values from camera origin point.
-    //glFrustum (-0.2, 0.2, -0.2, 0.2, 1.0, 30.0);
-
     //"near" and "far" are distance values from camera origin point.
     gluPerspective(PERSP_FOV, PERSP_ASPECT, PERSP_NEAR, PERSP_FAR);
-
-    glutSwapBuffers();
 }
 
 void VimusGUIEditor::updateFps()
@@ -448,18 +443,24 @@ void VimusGUIEditor::draw()
     switch (this->viewPortMode)
     {
         case VIEWPORT_EDITOR:
+            glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+
             glViewport(0, 0, windowWidth, windowHeight);
             glGetIntegerv( GL_VIEWPORT, viewport );
             glScissor(0, 0, windowWidth, windowHeight);
             this->drawEditor();
         break;
         case VIEWPORT_OUTPUT:
+            glutSetCursor(GLUT_CURSOR_NONE);
+
             glViewport(0, 0, windowWidth, windowHeight);
             glGetIntegerv( GL_VIEWPORT, viewport );
             glScissor(0, 0, windowWidth, windowHeight);
             this->drawOutput();
         break;
         case VIEWPORT_EDITOR_OUTPUT:
+            glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+
             glViewport(0, 0, screen0w, screen0h);
             glGetIntegerv( GL_VIEWPORT, viewport );
             glScissor(0, 0, screen0w, screen0h);
@@ -471,6 +472,8 @@ void VimusGUIEditor::draw()
             this->drawOutput();
          break;
         case VIEWPORT_OUTPUT_EDITOR:
+            glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+
             glViewport(0, 0, screen0w, screen0h);
             glGetIntegerv( GL_VIEWPORT, viewport );
             glScissor(0, 0, screen0w, screen0h);

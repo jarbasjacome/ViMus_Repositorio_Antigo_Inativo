@@ -66,12 +66,12 @@
 #define NEAR       -20.0f
 #define FAR         20.0f
 
-#define CAM_EYE_Z       13.0f
+#define CAM_EYE_Z       12.5f
 
 #define VIDEO_WIDTH			256
 #define VIDEO_HEIGHT		256
 
-#define PERSP_FOV       11.0f
+#define PERSP_FOV       11.25f
 #define PERSP_ASPECT     1.0f
 #define PERSP_NEAR       1.0f
 #define PERSP_FAR       30.0f

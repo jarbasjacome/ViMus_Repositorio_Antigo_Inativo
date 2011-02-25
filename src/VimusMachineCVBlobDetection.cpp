@@ -94,10 +94,10 @@ VimusMachineCVBlobDetection::VimusMachineCVBlobDetection()
     unsigned char * mapaData;
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 1024, 0, GL_BGR, GL_UNSIGNED_BYTE, this->mapaData);
 
-    distance = 21;
-    distanceOrigin = 21;
-    camZ = 21;
-    camZOrigin = 21;
+    distance = DEFAULT_ZOOM;
+    distanceOrigin = DEFAULT_ZOOM;
+    camZ = DEFAULT_ZOOM;
+    camZOrigin = DEFAULT_ZOOM;
 
     originId1 = -1;
     originId2 = -1;
@@ -267,8 +267,6 @@ void VimusMachineCVBlobDetection::draw()
 
     gluLookAt (-posX, -posY, camZ, -posX, -posY, camZ - 5.0f, 0.0, 1.0, 0.0);
 
-//    gluLookAt (0, 0, 21, 0, 0, 0, 0.0, 1.0, 0.0);
-
 //    glScalef(0.684f * 0.625f, 1.0f, 1.0f);
 
 	glDisable(GL_BLEND);
@@ -280,10 +278,10 @@ void VimusMachineCVBlobDetection::draw()
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 1024, 0, GL_BGR, GL_UNSIGNED_BYTE, this->mapaData);
 
 		glBegin(GL_QUADS);
-			glTexCoord2f(1.0f, 0.0f); glVertex3f(2.0f, 2.0f, 0.0f);
-			glTexCoord2f(0.0f, 0.0f); glVertex3f(-2.0f, 2.0f, 0.0f);
-			glTexCoord2f(0.0f, 1.0f); glVertex3f(-2.0, -2.0f, 0.0f);
-			glTexCoord2f(1.0f, 1.0f); glVertex3f(2.0f, -2.0f, 0.0f);
+			glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, 1.0f, 0.0f);
+			glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, 1.0f, 0.0f);
+			glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,-1.0f, 0.0f);
+			glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,-1.0f, 0.0f);
 		glEnd();
 	}
 	glDisable(GL_TEXTURE_2D);
@@ -368,6 +366,11 @@ void VimusMachineCVBlobDetection::calculateZoom()
         posX = posXlastSum / AVERAGE_ARRAY_SIZE;
         posY = posYlastSum / AVERAGE_ARRAY_SIZE;
 
+        posXarray[AVERAGE_ARRAY_SIZE-1] = posX;
+        posYarray[AVERAGE_ARRAY_SIZE-1] = posY;
+
+        checkLimits();
+
     }
 
     if (numBlobs == 2 && blob2)
@@ -405,13 +408,47 @@ void VimusMachineCVBlobDetection::calculateZoom()
             camZ  = 2.0f;
             camZOrigin = 2.0f;
         }
-        if (camZ > 21.0f)
+        if (camZ > DEFAULT_ZOOM)
         {
-            camZ = 21.0f;
-            camZOrigin = 21.0f;
+            camZ = DEFAULT_ZOOM;
+            camZOrigin = DEFAULT_ZOOM;
         }
+
+        checkLimits();
     }
 
+}
+
+/**
+ * Calculates the posX and posY limits based on zoom value.
+ * If zoom is high, user can move more.
+ */
+void VimusMachineCVBlobDetection::checkLimits()
+{
+    float zoomReason = 1 - camZ/DEFAULT_ZOOM;
+
+    if (abs(posX) > zoomReason)
+    {
+        if (posX > 0)
+        {
+            posX = zoomReason;
+        }
+        else
+        {
+            posX = -zoomReason;
+        }
+    }
+    if (abs(posY) > zoomReason)
+    {
+        if (posY > 0)
+        {
+            posY = zoomReason;
+        }
+        else
+        {
+            posY = -zoomReason;
+        }
+    }
 }
 
 /**

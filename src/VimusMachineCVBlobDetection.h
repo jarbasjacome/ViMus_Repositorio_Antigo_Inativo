@@ -137,6 +137,8 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
         float camZ;
         float camZOrigin;
 
+        const static float DEFAULT_ZOOM = 10.5f;
+
         // this value determines how smooth will zoom and move object
         const static int AVERAGE_ARRAY_SIZE = 5;
 
@@ -193,6 +195,12 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
                         cv::Point pt,
                         std::ostringstream* infoStream,
                         std::string* infoString );
+
+        /**
+         * Calculates the posX and posY limits based on zoom value.
+         * If zoom is high, user can move more.
+         */
+        void checkLimits();
 };
 
 #endif //_VIMUSMACHINECVBLOBDETECTION_H_

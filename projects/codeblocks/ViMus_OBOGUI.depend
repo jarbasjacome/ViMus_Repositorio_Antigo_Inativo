@@ -11,7 +11,7 @@
 	"VimusGUINormalObject.h"
 	<iostream>
 
-1298516812 /dados/ViMus/ViMus_OBOGUI/src/Configuration.h
+1298565387 /dados/ViMus/ViMus_OBOGUI/src/Configuration.h
 	<windows.h>
 
 1294733666 /usr/include/stdio.h
@@ -368,7 +368,7 @@
 	<stdlib.h>
 	<GL/glut.h>
 
-1298517902 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.cpp
+1298582771 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.cpp
 	"VimusGUIEditor.h"
 
 1294868937 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.h
@@ -564,7 +564,7 @@
 1294733676 /usr/include/bits/local_lim.h
 	<linux/limits.h>
 
-1291250487 /usr/include/linux/limits.h
+1297463736 /usr/include/linux/limits.h
 
 1294733676 /usr/include/bits/posix2_lim.h
 
@@ -2511,16 +2511,16 @@
 1294733663 /usr/include/bits/errno.h
 	<linux/errno.h>
 
-1291250486 /usr/include/linux/errno.h
+1297463734 /usr/include/linux/errno.h
 	<asm/errno.h>
 
-1291250488 /usr/include/asm/errno.h
+1297463739 /usr/include/asm/errno.h
 	<asm-generic/errno.h>
 
-1291250485 /usr/include/asm-generic/errno.h
+1297463729 /usr/include/asm-generic/errno.h
 	<asm-generic/errno-base.h>
 
-1291250485 /usr/include/asm-generic/errno-base.h
+1297463729 /usr/include/asm-generic/errno-base.h
 
 1256067727 /usr/include/boost/thread/pthread/timespec.hpp
 	<boost/thread/thread_time.hpp>
@@ -2970,14 +2970,14 @@
 1294802757 source:/dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.cpp
 	"VideoCaptureOpenCV.h"
 
-1298518764 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVBlobDetection.h
+1298582366 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVBlobDetection.h
 	"VimusMachineOpenGLObject.h"
 	"cv.h"
 	"highgui.h"
 	"GL/glut.h"
 	<iostream>
 
-1298519123 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVBlobDetection.cpp
+1298582425 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVBlobDetection.cpp
 	"VimusMachineCVBlobDetection.h"
 
 1294345073 /usr/local/include/opencv/Blob.h
