@@ -82,9 +82,27 @@ VimusMachineCVBlobDetection::VimusMachineCVBlobDetection()
         blobsIdSwap[i] = false;
     }
 
-    mapa = imread("/home/jandila/mapa03.jpg", 1);
+    mapa = imread("/home/jandila/mapa05.jpg", 1);
 
-    resize(mapa, mapaResized, Size(1024, 1024),0,0, INTER_LINEAR);
+    Size siz = mapa.size();
+
+    // map width divided by map height
+    float mapXratio = (float) siz.width/ (float) siz.height;
+    // win width divided by win height
+    float winXratio = (float) glutGet(GLUT_WINDOW_WIDTH)/
+                                (float) glutGet(GLUT_WINDOW_HEIGHT);
+
+    scaleX = scaleY = 1.0f;
+    if (mapXratio > winXratio)
+    {
+        scaleY = (1.0f/mapXratio) * winXratio;
+    }
+    else if (mapXratio < winXratio)
+    {
+        scaleX = mapXratio * (1.0f/winXratio);
+    }
+
+    resize(mapa, mapaResized, Size(4096, 4096),0,0, INTER_AREA);
 
     mapaData = mapaResized.data;
 
@@ -95,7 +113,7 @@ VimusMachineCVBlobDetection::VimusMachineCVBlobDetection()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
     unsigned char * mapaData;
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 1024, 0, GL_BGR, GL_UNSIGNED_BYTE, this->mapaData);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 4096, 4096, 0, GL_BGR, GL_UNSIGNED_BYTE, this->mapaData);
 
     distance = DEFAULT_ZOOM;
     distanceOrigin = DEFAULT_ZOOM;
@@ -270,7 +288,7 @@ void VimusMachineCVBlobDetection::draw()
 
     gluLookAt (-posX, -posY, camZ, -posX, -posY, camZ - 5.0f, 0.0, 1.0, 0.0);
 
-//    glScalef(0.684f * 0.625f, 1.0f, 1.0f);
+    glScalef(scaleX, scaleY, 1.0f);
 
 	glDisable(GL_BLEND);
 	glEnable(GL_TEXTURE_2D);
@@ -368,8 +386,8 @@ void VimusMachineCVBlobDetection::calculateZoom()
         posX = posXlastSum / AVERAGE_ARRAY_SIZE;
         posY = posYlastSum / AVERAGE_ARRAY_SIZE;
 
-        posXarray[AVERAGE_ARRAY_SIZE-1] = posX;
-        posYarray[AVERAGE_ARRAY_SIZE-1] = posY;
+//        posXarray[AVERAGE_ARRAY_SIZE-1] = posX;
+//        posYarray[AVERAGE_ARRAY_SIZE-1] = posY;
 
         checkLimits();
 
@@ -427,28 +445,37 @@ void VimusMachineCVBlobDetection::calculateZoom()
  */
 void VimusMachineCVBlobDetection::checkLimits()
 {
-    float zoomReason = 1 - camZ/DEFAULT_ZOOM;
+    float zoomRatioX = 1 - camZ/DEFAULT_ZOOM - (1 - scaleX);
+    float zoomRatioY = 1 - camZ/DEFAULT_ZOOM - (1 - scaleY);
 
-    if (abs(posX) > zoomReason)
+    if (zoomRatioX < 0)
+    {
+        posX = 0;
+    }
+    else if (abs(posX) > zoomRatioX)
     {
         if (posX > 0)
         {
-            posX = zoomReason;
+            posX = zoomRatioX;
         }
         else
         {
-            posX = -zoomReason;
+            posX = -zoomRatioX;
         }
     }
-    if (abs(posY) > zoomReason)
+    if (zoomRatioY < 0)
+    {
+        posY = 0;
+    }
+    else if (abs(posY) > zoomRatioY)
     {
         if (posY > 0)
         {
-            posY = zoomReason;
+            posY = zoomRatioY;
         }
         else
         {
-            posY = -zoomReason;
+            posY = -zoomRatioY;
         }
     }
 }

@@ -142,7 +142,7 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
         const static float DEFAULT_ZOOM = 10.5f;
 
         // this value determines how smooth will zoom and move object
-        const static int AVERAGE_ARRAY_SIZE = 5;
+        const static int AVERAGE_ARRAY_SIZE = 30;
 
         // array to accumulate zoom values to make its move smooth
         float zoomArray[AVERAGE_ARRAY_SIZE];
@@ -168,6 +168,9 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
         cv::Mat mapa;
         cv::Mat mapaResized;
         unsigned char * mapaData;
+
+        float scaleX;
+        float scaleY;
 
         const static int MIN_BLOB_SIZE = 20;
 
