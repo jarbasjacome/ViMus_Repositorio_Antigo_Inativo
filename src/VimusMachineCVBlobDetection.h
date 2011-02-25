@@ -123,8 +123,6 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
         cv::Mat frameGray;
         cv::Mat frameThresh;
 
-        GLuint texName;
-
         std::vector<std::vector<cv::Point> > v;
 
         static const int MAX_NUM_BLOBS = 30;
@@ -139,10 +137,11 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
         float camZ;
         float camZOrigin;
 
-        const static float DEFAULT_ZOOM = 10.5f;
+        const static float MAX_ZOOM = 10.5f;
+        const static float MIN_ZOOM = 3.0f;
 
         // this value determines how smooth will zoom and move object
-        const static int AVERAGE_ARRAY_SIZE = 30;
+        const static int AVERAGE_ARRAY_SIZE = 15;
 
         // array to accumulate zoom values to make its move smooth
         float zoomArray[AVERAGE_ARRAY_SIZE];
@@ -165,12 +164,34 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
 
         int numBlobs;
 
-        cv::Mat mapa;
-        cv::Mat mapaResized;
-        unsigned char * mapaData;
+        const static int NUM_MAPS = 5;
 
-        float scaleX;
-        float scaleY;
+        cv::Mat mapa[NUM_MAPS];
+        cv::Mat mapaResized[NUM_MAPS];
+        unsigned char * mapaData[NUM_MAPS];
+        float mapWidth[NUM_MAPS];
+        float mapHeight[NUM_MAPS];
+
+        GLuint texNames[NUM_MAPS];
+
+        float slideToLeft;
+        float slideToRight;
+
+        int state;
+        const static int STATE_SLIDING_RIGHT = 0;
+        const static int STATE_SLIDING_LEFT = 1;
+        const static int STATE_USER_INPUT = 2;
+        const static int NUM_OF_STATES = 3;
+
+        int currentMap;
+        int lastMap;
+
+        float mapsPosition;
+
+        // minimum distance needed to consider a slide gesture.
+        const static float SLIDE_VALUE = 0.2f;
+
+        const static float SPACE_BEETWEEN_MAPS = 0.8f;
 
         const static int MIN_BLOB_SIZE = 20;
 
@@ -186,9 +207,11 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
         cv::Point p2Origin;
 
         /**
-         * Calculates zoom based on two blob distance.
+         * Treat user blobs gestures.
+         * Calculates zoom and translation based on one blob position and
+         * two blobs distance.
          */
-        void calculateZoom();
+        void treatBlobsGestures();
 
         /**
          * TODO: PUT THIS OUT OF THIS OBJECT!
@@ -206,6 +229,17 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
          * If zoom is high, user can move more.
          */
         void checkLimits();
+
+        /**
+         * Moves camera softly to a new position.
+         */
+        void moveTo(float x, float y);
+
+        void setState(int state);
+
+        void updateState();
+
+        void resetPosArrays();
 };
 
 #endif //_VIMUSMACHINECVBLOBDETECTION_H_

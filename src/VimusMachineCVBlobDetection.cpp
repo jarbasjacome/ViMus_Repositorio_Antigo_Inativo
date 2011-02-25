@@ -82,66 +82,64 @@ VimusMachineCVBlobDetection::VimusMachineCVBlobDetection()
         blobsIdSwap[i] = false;
     }
 
-    mapa = imread("/home/jandila/mapa05.jpg", 1);
+    glGenTextures(NUM_MAPS, &texNames[0]);
 
-    Size siz = mapa.size();
+    mapa[0] = imread("/home/jandila/mapa01.jpg", 1);
+    mapa[1] = imread("/home/jandila/mapa02.jpg", 1);
+    mapa[2] = imread("/home/jandila/mapa03.jpg", 1);
+    mapa[3] = imread("/home/jandila/mapa04.jpg", 1);
+    mapa[4] = imread("/home/jandila/mapa05.jpg", 1);
 
-    // map width divided by map height
-    float mapXratio = (float) siz.width/ (float) siz.height;
     // win width divided by win height
     float winXratio = (float) glutGet(GLUT_WINDOW_WIDTH)/
                                 (float) glutGet(GLUT_WINDOW_HEIGHT);
 
-    scaleX = scaleY = 1.0f;
-    if (mapXratio > winXratio)
+    for (int i=0; i<NUM_MAPS; i++)
     {
-        scaleY = (1.0f/mapXratio) * winXratio;
+        Size siz = mapa[i].size();
+
+        // map width divided by map height
+        float mapXratio = (float) siz.width/ (float) siz.height;
+
+        mapWidth[i] = mapHeight[i] = 1.0f;
+        if (mapXratio > winXratio)
+        {
+            mapHeight[i] = (1.0f/mapXratio) * winXratio;
+        }
+        else if (mapXratio < winXratio)
+        {
+            mapWidth[i] = mapXratio * (1.0f/winXratio);
+        }
+
+        resize(mapa[i], mapaResized[i], Size(4096, 4096),0,0, INTER_AREA);
+
+        mapaData[i] = mapaResized[i].data;
+
+        glBindTexture(GL_TEXTURE_2D, texNames[i]);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 4096, 4096, 0, GL_BGR,
+                                    GL_UNSIGNED_BYTE, this->mapaData[i]);
+
     }
-    else if (mapXratio < winXratio)
-    {
-        scaleX = mapXratio * (1.0f/winXratio);
-    }
 
-    resize(mapa, mapaResized, Size(4096, 4096),0,0, INTER_AREA);
+    currentMap = 0;
+    lastMap = 0;
+    mapsPosition = 0;
 
-    mapaData = mapaResized.data;
+    state = STATE_USER_INPUT;
 
-    glGenTextures(1, &texName);
-    glBindTexture(GL_TEXTURE_2D, texName);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-    unsigned char * mapaData;
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 4096, 4096, 0, GL_BGR, GL_UNSIGNED_BYTE, this->mapaData);
-
-    distance = DEFAULT_ZOOM;
-    distanceOrigin = DEFAULT_ZOOM;
-    camZ = DEFAULT_ZOOM;
-    camZOrigin = DEFAULT_ZOOM;
+    distance = MAX_ZOOM;
+    distanceOrigin = MAX_ZOOM;
+    camZ = MAX_ZOOM;
+    camZOrigin = MAX_ZOOM;
 
     originId1 = -1;
     originId2 = -1;
 
-    posXorigin = 0;
-    posYorigin = 0;
-    posX = 0;
-    posY = 0;
-
-    for (int i=0; i<AVERAGE_ARRAY_SIZE; i++)
-    {
-        posXarray[i] = 0;
-        posYarray[i] = 0;
-
-        zoomArray[i] = 0;
-    }
-
-    posXlastSum = 0;
-    posYlastSum = 0;
-
-    zoomLastSum = 0;
-
-
+    resetPosArrays();
 
     blobPressed = false;
 
@@ -237,8 +235,11 @@ void VimusMachineCVBlobDetection::update()
                         origin2 = p;
                         originId2 = nextId;
 
-                        distanceOrigin = sqrt(  pow(origin1.x - origin2.x, 2) +
-                                                pow(origin1.y - origin2.y, 2) );
+                        distance = sqrt(    pow(origin1.x - origin2.x, 2) +
+                                            pow(origin1.y - origin2.y, 2) );
+
+                        distanceOrigin = distance;
+
 //                        cout << "\n camZ = " << camZ;
                         camZOrigin = camZ;
 
@@ -281,39 +282,74 @@ void VimusMachineCVBlobDetection::draw()
 {
     glPushMatrix();
 
-    calculateZoom();
+    updateState();
 
     glMatrixMode (GL_MODELVIEW);
     glLoadIdentity ();
 
     gluLookAt (-posX, -posY, camZ, -posX, -posY, camZ - 5.0f, 0.0, 1.0, 0.0);
 
-    glScalef(scaleX, scaleY, 1.0f);
-
 	glDisable(GL_BLEND);
 	glEnable(GL_TEXTURE_2D);
-	if (this->mapaData)
-	{
-		glColor4f (1.0f, 1.0f, 1.0f, 1.0f);
-        glBindTexture(GL_TEXTURE_2D, texName);
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, 1.0f, 0.0f);
-			glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, 1.0f, 0.0f);
-			glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,-1.0f, 0.0f);
-			glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,-1.0f, 0.0f);
-		glEnd();
-	}
+    glColor4f (1.0f, 1.0f, 1.0f, 1.0f);
+
+    glTranslatef(-mapsPosition, 0.0f, 0.0f);
+
+    for (int i=0; i<NUM_MAPS; i++)
+    {
+        glBindTexture(GL_TEXTURE_2D, texNames[i]);
+
+        glBegin(GL_QUADS);
+            glTexCoord2f(1.0f, 0.0f); glVertex3f( mapWidth[i], mapHeight[i], 0.0f);
+            glTexCoord2f(0.0f, 0.0f); glVertex3f(-mapWidth[i], mapHeight[i], 0.0f);
+            glTexCoord2f(0.0f, 1.0f); glVertex3f(-mapWidth[i],-mapHeight[i], 0.0f);
+            glTexCoord2f(1.0f, 1.0f); glVertex3f( mapWidth[i],-mapHeight[i], 0.0f);
+        glEnd();
+
+        if (i<NUM_MAPS - 1)
+            glTranslatef(mapWidth[i]+mapWidth[i+1]+SPACE_BEETWEEN_MAPS,0.0f,0.0f);
+    }
+
 	glDisable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 
     glPopMatrix();
 }
 
+void VimusMachineCVBlobDetection::updateState()
+{
+    float step;
+    switch (state)
+    {
+    case STATE_SLIDING_LEFT:
+        step = -mapWidth[currentMap] - mapWidth[lastMap] - SPACE_BEETWEEN_MAPS;
+        moveTo(step,0);
+        if (posX <= step + 0.05f)
+        {
+            setState(STATE_USER_INPUT);
+        }
+        break;
+    case STATE_SLIDING_RIGHT:
+        step = mapWidth[currentMap] + mapWidth[lastMap] + SPACE_BEETWEEN_MAPS;
+        moveTo(step,0);
+        if (posX >= step - 0.05f)
+        {
+            setState(STATE_USER_INPUT);
+        }
+        break;
+    case STATE_USER_INPUT:
+        treatBlobsGestures();
+        break;
+    }
+}
+
 /**
- * Calculates zoom based on two blob distance.
+ * Treat user blobs gestures.
+ * Calculates zoom and translation based on one blob position and
+ * two blobs distance.
  */
-void VimusMachineCVBlobDetection::calculateZoom()
+void VimusMachineCVBlobDetection::treatBlobsGestures()
 {
     bool blob2 = false;
 
@@ -361,34 +397,25 @@ void VimusMachineCVBlobDetection::calculateZoom()
 
     if (numBlobs == 1)
     {
-        // subtract oldest position value from the sum of positions array
-        posXlastSum -= posXarray[0];
-        posYlastSum -= posYarray[0];
-
-        // makes the positions queue walks one step
-        for (int i=0; i<AVERAGE_ARRAY_SIZE-1; i++)
+        if (camZ/MAX_ZOOM > 0.95)
         {
-            posXarray[i] = posXarray[i+1];
-            posYarray[i] = posYarray[i+1];
+
+            float difference = posXarray[AVERAGE_ARRAY_SIZE-1]+1 - (posXorigin+1);
+
+            if (difference > SLIDE_VALUE)
+            {
+                setState(STATE_SLIDING_RIGHT);
+            }
+            else if (difference < - (float) SLIDE_VALUE)
+            {
+                setState(STATE_SLIDING_LEFT);
+            }
+
         }
 
         // put the current frame point position value on the earliest position
-        posXarray[AVERAGE_ARRAY_SIZE-1] = posXorigin +
-        ((float) (p1Origin.x - p1.x) / (float) VIDEO_WIDTH);//*((camZ+10) + 25)/25;
-        posYarray[AVERAGE_ARRAY_SIZE-1] = posYorigin +
-        ((float) (p1Origin.y - p1.y) / (float) VIDEO_HEIGHT);//*((camZ+10) + 25)/25;
-
-        // add current frame point position to the sum of all positions
-        posXlastSum += posXarray[AVERAGE_ARRAY_SIZE-1];
-        posYlastSum += posYarray[AVERAGE_ARRAY_SIZE-1];
-
-        // calculate the average position to get a smooth object move
-        posX = posXlastSum / AVERAGE_ARRAY_SIZE;
-        posY = posYlastSum / AVERAGE_ARRAY_SIZE;
-
-//        posXarray[AVERAGE_ARRAY_SIZE-1] = posX;
-//        posYarray[AVERAGE_ARRAY_SIZE-1] = posY;
-
+        moveTo( posXorigin + ((float)(p1Origin.x - p1.x)/(float) VIDEO_WIDTH),//*((camZ+10) + 25)/25;
+                posYorigin + ((float)(p1Origin.y - p1.y)/(float) VIDEO_HEIGHT));//*((camZ+10) + 25)/25;
         checkLimits();
 
     }
@@ -415,7 +442,8 @@ void VimusMachineCVBlobDetection::calculateZoom()
         }
 
         // put the current frame zoom value as the earliest one in the queue
-        zoomArray[AVERAGE_ARRAY_SIZE-1] = camZOrigin + 19.0f * (distanceOrigin - distance) / VIDEO_WIDTH;
+        zoomArray[AVERAGE_ARRAY_SIZE-1] = camZOrigin + (MAX_ZOOM - MIN_ZOOM) *
+                                    (distanceOrigin - distance) / VIDEO_WIDTH;
 
         // add current frame zoom value to the sum of all zoom values
         zoomLastSum += zoomArray[AVERAGE_ARRAY_SIZE-1];
@@ -428,15 +456,109 @@ void VimusMachineCVBlobDetection::calculateZoom()
             camZ  = 2.0f;
             camZOrigin = 2.0f;
         }
-        if (camZ > DEFAULT_ZOOM)
+        if (camZ > MAX_ZOOM)
         {
-            camZ = DEFAULT_ZOOM;
-            camZOrigin = DEFAULT_ZOOM;
+            camZ = MAX_ZOOM;
+            camZOrigin = MAX_ZOOM;
         }
 
         checkLimits();
     }
 
+}
+
+void VimusMachineCVBlobDetection::setState(int nextState)
+{
+    switch (state)
+    {
+    case STATE_USER_INPUT:
+        if (nextState == STATE_SLIDING_LEFT)
+        {
+            if (currentMap < NUM_MAPS-1)
+            {
+                lastMap = currentMap;
+                currentMap++;
+                state = STATE_SLIDING_LEFT;
+            }
+        }
+        else if (nextState == STATE_SLIDING_RIGHT)
+        {
+            if (currentMap > 0)
+            {
+                lastMap = currentMap;
+                currentMap--;
+                state = STATE_SLIDING_RIGHT;
+            }
+        }
+        break;
+    case STATE_SLIDING_LEFT:
+    case STATE_SLIDING_RIGHT:
+        if (nextState == STATE_USER_INPUT)
+        {
+            mapsPosition = 0;
+            int c = 0;
+            while (c < currentMap)
+            {
+                mapsPosition += mapWidth[c] + mapWidth[c+1] + SPACE_BEETWEEN_MAPS;
+                c++;
+            }
+
+            resetPosArrays();
+
+            state = STATE_USER_INPUT;
+        }
+        break;
+    }
+}
+
+void VimusMachineCVBlobDetection::resetPosArrays()
+{
+    posXorigin = 0;
+    posYorigin = 0;
+    posX = 0;
+    posY = 0;
+    for (int i=0; i<AVERAGE_ARRAY_SIZE; i++)
+    {
+        posXarray[i] = 0;
+        posYarray[i] = 0;
+        zoomArray[i] = MAX_ZOOM;
+    }
+    posXlastSum = 0;
+    posYlastSum = 0;
+    zoomLastSum = MAX_ZOOM*AVERAGE_ARRAY_SIZE;
+}
+
+
+/**
+ * Moves camera softly to a new position.
+ */
+void VimusMachineCVBlobDetection::moveTo(float x, float y)
+{
+        // subtract oldest position value from the sum of positions array
+        posXlastSum -= posXarray[0];
+        posYlastSum -= posYarray[0];
+
+        // makes the positions queue walks one step
+        for (int i=0; i<AVERAGE_ARRAY_SIZE-1; i++)
+        {
+            posXarray[i] = posXarray[i+1];
+            posYarray[i] = posYarray[i+1];
+        }
+
+        // put the current frame point position value on the earliest position
+        posXarray[AVERAGE_ARRAY_SIZE-1] = x;
+        posYarray[AVERAGE_ARRAY_SIZE-1] = y;
+
+        // add current frame point position to the sum of all positions
+        posXlastSum += posXarray[AVERAGE_ARRAY_SIZE-1];
+        posYlastSum += posYarray[AVERAGE_ARRAY_SIZE-1];
+
+        // calculate the average position to get a smooth object move
+        posX = posXlastSum / AVERAGE_ARRAY_SIZE;
+        posY = posYlastSum / AVERAGE_ARRAY_SIZE;
+
+//        posXarray[AVERAGE_ARRAY_SIZE-1] = posX;
+//        posYarray[AVERAGE_ARRAY_SIZE-1] = posY;
 }
 
 /**
@@ -445,8 +567,8 @@ void VimusMachineCVBlobDetection::calculateZoom()
  */
 void VimusMachineCVBlobDetection::checkLimits()
 {
-    float zoomRatioX = 1 - camZ/DEFAULT_ZOOM - (1 - scaleX);
-    float zoomRatioY = 1 - camZ/DEFAULT_ZOOM - (1 - scaleY);
+    float zoomRatioX = 1 - camZ/MAX_ZOOM - (1 - mapWidth[currentMap]);
+    float zoomRatioY = 1 - camZ/MAX_ZOOM - (1 - mapHeight[currentMap]);
 
     if (zoomRatioX < 0)
     {
