@@ -94,6 +94,7 @@ class VimusGUIVideoPreview : public VimusGUIObject
 
 		unsigned char ** ppCurrentFrame;
 
+        GLuint texName;
 };
 
 #endif //_VIMUSGUIVIDEOPREVIEW_H_

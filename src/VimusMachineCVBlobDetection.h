@@ -123,6 +123,8 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
         cv::Mat frameGray;
         cv::Mat frameThresh;
 
+        GLuint texName;
+
         std::vector<std::vector<cv::Point> > v;
 
         static const int MAX_NUM_BLOBS = 30;

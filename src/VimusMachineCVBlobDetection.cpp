@@ -88,6 +88,9 @@ VimusMachineCVBlobDetection::VimusMachineCVBlobDetection()
 
     mapaData = mapaResized.data;
 
+    glGenTextures(1, &texName);
+    glBindTexture(GL_TEXTURE_2D, texName);
+
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
@@ -274,8 +277,7 @@ void VimusMachineCVBlobDetection::draw()
 	if (this->mapaData)
 	{
 		glColor4f (1.0f, 1.0f, 1.0f, 1.0f);
-
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 1024, 0, GL_BGR, GL_UNSIGNED_BYTE, this->mapaData);
+        glBindTexture(GL_TEXTURE_2D, texName);
 
 		glBegin(GL_QUADS);
 			glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, 1.0f, 0.0f);

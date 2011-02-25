@@ -65,6 +65,9 @@ VimusGUIVideoPreview::VimusGUIVideoPreview(float posX,
 	// exactly the same pp of VimusMachineVideoPreview
 	this->ppCurrentFrame = ppFrame;
 
+    glGenTextures(1, &texName);
+    glBindTexture(GL_TEXTURE_2D, texName);
+
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
@@ -232,15 +235,7 @@ void VimusGUIVideoPreview :: drawFrame(	float posX, float posY, float posZ,
 	if (*(this->ppCurrentFrame))
 	{
 		glColor4f (1.0f, 1.0f, 1.0f, 1.0f);
-//		glTexSubImage2D (	GL_TEXTURE_2D,
-//							0,
-//							0,
-//							0,
-//							VIDEO_WIDTH,
-//							VIDEO_HEIGHT,
-//							GL_BGR,
-//							GL_UNSIGNED_BYTE,
-//							*(this->ppCurrentFrame)	);
+        glBindTexture(GL_TEXTURE_2D, texName);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, VIDEO_WIDTH, VIDEO_HEIGHT, 0, GL_BGR, GL_UNSIGNED_BYTE, (*this->ppCurrentFrame));
 
 		glBegin(GL_QUADS);
