@@ -397,7 +397,7 @@ void VimusMachineCVBlobDetection::treatBlobsGestures()
 
     if (numBlobs == 1)
     {
-        if (camZ/MAX_ZOOM > 0.95)
+        if (camZ/MAX_ZOOM == 1.0)
         {
 
             float difference = posXarray[AVERAGE_ARRAY_SIZE-1]+1 - (posXorigin+1);
@@ -412,11 +412,11 @@ void VimusMachineCVBlobDetection::treatBlobsGestures()
             }
 
         }
-
         // put the current frame point position value on the earliest position
         moveTo( posXorigin + ((float)(p1Origin.x - p1.x)/(float) VIDEO_WIDTH),//*((camZ+10) + 25)/25;
                 posYorigin + ((float)(p1Origin.y - p1.y)/(float) VIDEO_HEIGHT));//*((camZ+10) + 25)/25;
         checkLimits();
+
 
     }
 
