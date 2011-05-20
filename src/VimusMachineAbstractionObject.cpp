@@ -54,9 +54,9 @@ VimusMachineAbstractionObject :: ~VimusMachineAbstractionObject()
     {
         for (int i=0; i<MAX_OBJ; i++)
         {
-            if (objects[i])
+            if (objects[i] != NULL)
             {
-                SAFE_DELETE(objects[i]);
+                delete objects[i];
                 objects[i] = NULL;
             }
 
@@ -123,7 +123,7 @@ void VimusMachineAbstractionObject::updatePatch()
  */
 void VimusMachineAbstractionObject::removeObject(int i)
 {
-	SAFE_DELETE(objects[i]);
+	delete objects[i];
     for (;i<numObjects;i++)
     {
         if (i < numObjects-1)

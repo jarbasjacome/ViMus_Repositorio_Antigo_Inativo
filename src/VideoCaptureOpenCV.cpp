@@ -22,7 +22,6 @@
 using namespace cv;
 using namespace std;
 
-
 /**
  * VimusCaptureOpenCV singleton object, to make it possible to
  * to call non-static member functions to use in threads
@@ -42,16 +41,69 @@ VideoCaptureOpenCV::VideoCaptureOpenCV()
  */
 int VideoCaptureOpenCV::getNextCaptureDevice()
 {
-    int ret = vidCapOpenCvPtr->nextCapDev;
+    int dev = 0;
 
+    while (dev < NUM_MAX_DEVICES)
+    {
+        if (vidCapOpenCvPtr->videoCapDevices[dev] == NULL)
+        {
+            break;
+        }
+        else
+        {
+            dev++;
+        }
+    }
 
+    if (dev == NUM_MAX_DEVICES)
+    {
+        dev = -1;
+        if (DEBUG_MODE)
+            cout << "\nViMus: All " << NUM_MAX_DEVICES << " VideoCapture devices are busy.\n";
+    }
+    else
+    {
+        try
+        {
+            vidCapOpenCvPtr->videoCapDevices[dev] = new VideoCapture(dev);
+            if (!vidCapOpenCvPtr->videoCapDevices[dev]->isOpened())
+            {
+                if (DEBUG_MODE)
+                    cout << "\nViMus: Failed to open video capture device " << dev << "\n\n\n";
+                vidCapOpenCvPtr->videoCapDevices[dev] = NULL;
+            }
+        }
+        catch ( ... )
+        {
+            cout << "\nOpenCV Exception when trying to open VideoCapture device " << dev << "\n";
+            vidCapOpenCvPtr->videoCapDevices[dev] = NULL;
+        }
+    }
 
-    vidCapOpenCvPtr->nextCapDev += 1;
+    return dev;
+}
 
-    if (DEBUG_MODE)
-        cout << "\ngetCaptureDeviceNumber = " << ret;
+/**
+ * Stop a capture device.
+ */
+void VideoCaptureOpenCV::stopCaptureDevice(int dev)
+{
+    if (vidCapOpenCvPtr->videoCapDevices[dev] != NULL && vidCapOpenCvPtr->videoCapDevices[dev]->isOpened())
+    {
+        // If we delete VideoCapture the grabThreadFund will immediatelly try to
+        // grab a frame of it and it will find anything so...
+        // Before delete VideoCapture, we have to mark its position in
+        // videoCapDevices[dev] as NULL, so grabThreadFunc will ignore this position.
 
-    return ret;
+        // Save temporally VideoCapture reference.
+        VideoCapture* vidCap = vidCapOpenCvPtr->videoCapDevices[dev];
+
+        // Turn videoCapDevices[dev] NULL, so grabThreadFunc is safe.
+        vidCapOpenCvPtr->videoCapDevices[dev] = NULL;
+
+        // Finally delete VideoCapture.
+        delete vidCap;
+    }
 }
 
 /**
@@ -60,9 +112,7 @@ int VideoCaptureOpenCV::getNextCaptureDevice()
 void VideoCaptureOpenCV::init()
 {
 
-    vidCapOpenCvPtr->nextCapDev = 0;
-
-    for (int i=0; i<10; i++)
+    for (int i=0; i<NUM_MAX_DEVICES; i++)
     {
         vidCapOpenCvPtr->videoCapDevices[i] = NULL;
     }
@@ -71,14 +121,14 @@ void VideoCaptureOpenCV::init()
 
 	for (int i=0; i<VIDEO_WIDTH*VIDEO_HEIGHT; i++)
 	{
-        vidCapOpenCvPtr->redFrame[i*3] = 0;
         vidCapOpenCvPtr->redFrame[i*3+1] = 0;
+        vidCapOpenCvPtr->redFrame[i*3] = 0;
         vidCapOpenCvPtr->redFrame[i*3+2] = 255;
 	}
 
 	Mat red(VIDEO_WIDTH, VIDEO_HEIGHT, CV_8UC3, vidCapOpenCvPtr->redFrame,0);
 
-    for (int i=0; i<10; i++)
+    for (int i=0; i<NUM_MAX_DEVICES; i++)
     {
         vidCapOpenCvPtr->frame[i] = red.clone();
         vidCapOpenCvPtr->frameDst[i] = red.clone();
@@ -93,13 +143,6 @@ void VideoCaptureOpenCV::init()
             vidCapOpenCvPtr->capturedFrame[i][j*3+1] = 100;
             vidCapOpenCvPtr->capturedFrame[i][j*3+2] = 100;
         }
-    }
-
-	vidCapOpenCvPtr->videoCapDevices[0] = new VideoCapture(1);
-    if (!vidCapOpenCvPtr->videoCapDevices[0]->isOpened())
-    {
-        cout << "\nFailed to open video capture device 0\n";
-        return;
     }
 
     boost::thread grabT(VideoCaptureOpenCV::grabThreadFuncStatic);
@@ -119,37 +162,58 @@ void VideoCaptureOpenCV::init()
 VideoCaptureOpenCV::~VideoCaptureOpenCV()
 {
 //    vidCapOpenCvPtr->grabThread->join(); //TODO:
+
+    for (int i=0; i<NUM_MAX_DEVICES; i++)
+    {
+        if (vidCapOpenCvPtr->videoCapDevices[i] != NULL)
+        {
+            delete vidCapOpenCvPtr->videoCapDevices[i];
+        }
+    }
+
 }
 
 void VideoCaptureOpenCV::grabThreadFunc()
 {
     while(1)
     {
-        vidCapOpenCvPtr->videoCapDevices[0]->grab();
+        for (int i=0; i<NUM_MAX_DEVICES; i++)
+        {
+            if (vidCapOpenCvPtr->videoCapDevices[i] != NULL)
+            {
+                vidCapOpenCvPtr->videoCapDevices[i]->grab();
+            }
+        }
 
         int check;
         IplImage img;
 
         try
         {
-            for (int i = 0; i < vidCapOpenCvPtr->nextCapDev; i++)
+            for (int i = 0; i < NUM_MAX_DEVICES; i++)
             {
-                if (vidCapOpenCvPtr->swapBufferOn)
+                if (vidCapOpenCvPtr->videoCapDevices[i] != NULL)
                 {
                     vidCapOpenCvPtr->videoCapDevices[i]->retrieve(frame[i], 0);
                     img = frame[i];
                     check = cvCheckArr(&img, 0, 0, 0);
-                    resize(vidCapOpenCvPtr->frame[i], vidCapOpenCvPtr->frameDstSwap[i], Size(VIDEO_WIDTH, VIDEO_HEIGHT),0,0, INTER_LINEAR);
-                    vidCapOpenCvPtr->swapBufferOn = false;
+                    if (vidCapOpenCvPtr->swapBufferOn)
+                    {
+                        resize(vidCapOpenCvPtr->frame[i], vidCapOpenCvPtr->frameDstSwap[i], Size(VIDEO_WIDTH, VIDEO_HEIGHT),0,0, INTER_LINEAR);
+                    }
+                    else
+                    {
+                        resize(vidCapOpenCvPtr->frame[i], vidCapOpenCvPtr->frameDst[i], Size(VIDEO_WIDTH, VIDEO_HEIGHT),0,0, INTER_LINEAR);
+                    }
                 }
-                else
-                {
-                    vidCapOpenCvPtr->videoCapDevices[i]->retrieve(frame[i], 0);
-                    img = frame[i];
-                    check = cvCheckArr(&img, 0, 0, 0);
-                    resize(vidCapOpenCvPtr->frame[i], vidCapOpenCvPtr->frameDst[i], Size(VIDEO_WIDTH, VIDEO_HEIGHT),0,0, INTER_LINEAR);
-                    vidCapOpenCvPtr->swapBufferOn = true;
-                }
+            }
+            if (vidCapOpenCvPtr->swapBufferOn)
+            {
+                vidCapOpenCvPtr->swapBufferOn = false;
+            }
+            else
+            {
+                vidCapOpenCvPtr->swapBufferOn = true;
             }
         }
         catch (...)
@@ -159,7 +223,6 @@ void VideoCaptureOpenCV::grabThreadFunc()
 
     }
 }
-
 
 void VideoCaptureOpenCV::grabCapturedFrame(int dev)
 {

@@ -67,7 +67,6 @@ VimusGUICube :: VimusGUICube (const std::string& label, float posX, float posY, 
 /**
  * VimusGUICube constructor.
  */
-/*
 VimusGUICube :: VimusGUICube (const string& label, float posX, float posY, float posZ,
                         VimusGUIObject * objs[MAX_OBJ], int numObjs,
                         bool isFixedOnParent)
@@ -138,7 +137,6 @@ VimusGUICube :: VimusGUICube (const string& label, float posX, float posY, float
     setPosMinimized(posX, posY, posZ);
 
 }
-*/
 
 /**
 * VimusGUICube destructor.
@@ -1086,7 +1084,8 @@ void VimusGUICube::translate(float x, float y, float z)
 
 void VimusGUICube::removeObject(int i)
 {
-	SAFE_DELETE(objects[i]);
+    if (objects[i] != NULL)
+        delete objects[i];
     for (;i<numObjects;i++)
     {
         if (i < numObjects-1)

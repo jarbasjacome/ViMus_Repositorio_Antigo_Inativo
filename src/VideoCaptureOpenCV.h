@@ -62,9 +62,15 @@ class VideoCaptureOpenCV
 		unsigned char* getCurrentFrame(int dev);
 
         /**
-         * Get next avaiable Capture device number.
+         * Start next avaiable Capture device and get its number.
          */
 		int getNextCaptureDevice();
+
+		/**
+		 * Stop a capture device.
+		 */
+        void stopCaptureDevice(int dev);
+
 
     private:
 
@@ -72,17 +78,17 @@ class VideoCaptureOpenCV
 		// to use in threads
 		static VideoCaptureOpenCV* vidCapOpenCvPtr;
 
-		int nextCapDev;
+		const static int NUM_MAX_DEVICES = 10;
 
-        cv::VideoCapture* videoCapDevices[10];
+        cv::VideoCapture* videoCapDevices[NUM_MAX_DEVICES];
 
-        cv::Mat frame[10];
-        cv::Mat frameDst[10];
-        cv::Mat frameDstSwap[10];
+        cv::Mat frame[NUM_MAX_DEVICES];
+        cv::Mat frameDst[NUM_MAX_DEVICES];
+        cv::Mat frameDstSwap[NUM_MAX_DEVICES];
 
         bool swapBufferOn;
 
-		unsigned char* capturedFrame[10];
+		unsigned char* capturedFrame[NUM_MAX_DEVICES];
 
 		unsigned char* redFrame;
 

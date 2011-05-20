@@ -22,11 +22,4 @@
 
 #include <stdlib.h>
 
-// Macro for releasing a COM object
-#define RELEASE(x) { if ((x)!=NULL) (x)->Release();  (x)=NULL; }
-#define SAFE_RELEASE(p)   { if(p) { (p)->Release(); (p)=NULL; } }
-// Garbage Colletion Defines
-#define SAFE_DELETE(p)   { if(p) { delete (p);     (p)=NULL; } }
-#define SAFE_DELETE_ARRAY(p) { if(p) { delete[] (p);   (p)=NULL; } }
-
 #endif //_GLOBAL_H_

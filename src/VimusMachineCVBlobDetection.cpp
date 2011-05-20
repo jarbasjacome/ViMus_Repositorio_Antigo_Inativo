@@ -94,6 +94,10 @@ VimusMachineCVBlobDetection::VimusMachineCVBlobDetection()
     float winXratio = (float) glutGet(GLUT_WINDOW_WIDTH)/
                                 (float) glutGet(GLUT_WINDOW_HEIGHT);
 
+    // TODO: plug
+    winXratio = 1.3333f;
+
+
     for (int i=0; i<NUM_MAPS; i++)
     {
         Size siz = mapa[i].size();

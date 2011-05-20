@@ -36,7 +36,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add directory="/usr/include" />
-			<Add directory="/usr/local/include/opencv" />
+			<Add directory="/usr/include/opencv" />
 		</Compiler>
 		<Linker>
 			<Add library="glut" />
@@ -45,7 +45,6 @@
 			<Add library="Xxf86vm" />
 			<Add library="highgui" />
 			<Add library="boost_thread-mt" />
-			<Add library="libblob" />
 			<Add directory="/usr/lib" />
 		</Linker>
 		<Unit filename="../../src/Configuration.h" />

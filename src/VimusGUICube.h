@@ -98,6 +98,13 @@ class VimusGUICube : public VimusGUINormalObject
 						bool isFixedOnParent);
 
         /**
+         * VimusGUICube constructor.
+         */
+        VimusGUICube (const std::string& label, float posX, float posY, float posZ,
+                        VimusGUIObject * objs[MAX_OBJ], int numObjs,
+                        bool isFixedOnParent);
+
+        /**
          * VimusGUICube destructor.
          */
         ~VimusGUICube();

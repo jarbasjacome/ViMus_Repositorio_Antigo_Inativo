@@ -53,6 +53,7 @@ VimusMachineVideoCapture::VimusMachineVideoCapture(VideoCaptureOpenCV *vidCap)
  */
 VimusMachineVideoCapture::~VimusMachineVideoCapture()
 {
+    this->vidCap->stopCaptureDevice(this->deviceNumber);
 }
 
 /**

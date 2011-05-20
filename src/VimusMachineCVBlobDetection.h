@@ -140,8 +140,8 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
         const static float MAX_ZOOM = 10.5f;
         const static float MIN_ZOOM = 3.0f;
 
-        // this value determines how smooth will zoom and move object
         const static int AVERAGE_ARRAY_SIZE = 20;
+        // this value determines how smooth will zoom and move object
 
         // array to accumulate zoom values to make its move smooth
         float zoomArray[AVERAGE_ARRAY_SIZE];

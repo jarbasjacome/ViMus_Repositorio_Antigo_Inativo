@@ -43,7 +43,7 @@ VimusGUIEditor::VimusGUIEditor()
     resetEditorState();
     connectingPin = NULL;
 
-    mainCube = new VimusGUICube("VJ app", 0.0, 0.0, 0.0, true);
+    mainCube = new VimusGUICube("ViMus", 0.0, 0.0, 0.0, true);
 	currentCube = mainCube;
     mainCube->maximize();
 	mainCube->setCurrentSide(VimusGUIObject::SIDE_CONTROLPANEL);
@@ -433,12 +433,12 @@ void VimusGUIEditor::draw()
 {
     this->windowWidth = glutGet(GLUT_WINDOW_WIDTH);
     this->windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
-    this->screen0w = this->screen1w = glutGet(GLUT_WINDOW_WIDTH)/2;
-    this->screen0h = this->screen1h = glutGet(GLUT_WINDOW_HEIGHT);
+//    this->screen0w = this->screen1w = glutGet(GLUT_WINDOW_WIDTH)/2;
+//    this->screen0h = this->screen1h = glutGet(GLUT_WINDOW_HEIGHT);
 
-//    this->screen0w = 1280;
-//    this->screen1w = 1024;
-//    this->screen0h = this->screen1h = 800;
+    this->screen0w = 1280;
+    this->screen1w = 1024;
+    this->screen0h = this->screen1h = 800;
 
     switch (this->viewPortMode)
     {
@@ -1262,6 +1262,25 @@ void VimusGUIEditor :: setCurrentCubeToParent ()
 void VimusGUIEditor :: createTestPatch()
 {
 /* VJ App -> Resolume
+
+    this->createObject("abs videos", -0.5, 0.3, 0.0);
+    this->currentCube->objects[0]->isFixedOnParent = true;
+    this->currentCube->objects[0]->setPosControlPanel(-0.9, -0.9, 0.0);
+    this->currentCube->objects[0]->setSizeControlPanel(1.4, 0.7);
+
+    this->setCurrentCube(0);
+
+    this->createObject("inlet", -0.5, 0.7, 0.0);
+    this->createObject("outlet", -0.5, -0.8, 0.0);
+    this->createObject("outlet",  0.0, -0.8, 0.0);
+    this->createObject("outlet",  0.5, -0.8, 0.0);
+
+    this->setCurrentCubeToParent();
+
+
+
+/*
+
     VimusGUIObject * objArrayVJapp[VimusGUICube::MAX_OBJ];
 
     VimusGUIObject * objArrayVideos[VimusGUICube::MAX_OBJ];
@@ -1294,10 +1313,6 @@ void VimusGUIEditor :: createTestPatch()
     objArrayVideos[7]->setPosControlPanel(0.4, 0.0, 0.0);
     objArrayVideos[7]->setSizeControlPanel(0.3, 0.7);
 
-    objArrayVJapp[0] = new VimusGUICube("videos", -0.5, 0.3, 0.0, objArrayVideos, 8, true);
-    objArrayVJapp[0]->setPosControlPanel(-0.9, -0.9, 0.0);
-    objArrayVJapp[0]->setSizeControlPanel(1.4, 0.7);
-
     VimusGUIObject * objArrayLayers[VimusGUICube::MAX_OBJ];
     objArrayLayers[0] = new VimusGUINormalObject("inlet", -0.5, 0.7, 0.0, 0, 1);
     objArrayLayers[1] = new VimusGUINormalObject("inlet",  0.0, 0.7, 0.0, 0, 1);
@@ -1317,24 +1332,29 @@ void VimusGUIEditor :: createTestPatch()
 
     mainCube = new VimusGUICube("VJ app", 0.0, 0.0, 0.0, objArrayVJapp, 3, true);
 
+	currentCube = mainCube;
+    mainCube->maximize();
+	mainCube->setCurrentSide(VimusGUIObject::SIDE_CONTROLPANEL);
+
 //    VimusGUINormalObject * vazio = new VimusGUINormalObject(0.2, -1.0, 0.0);
 //    mainCube->addObject(vazio);
 
-    mainCube->connect(  objArrayVJapp[0]->getOutputByIndex(0),
-                                objArrayVJapp[1]->getInputByIndex(0));
+/*
+    this->connectPins(  0, objArrayVJapp[0]->getOutputByIndex(0)->indexOnParent,
+                        1, objArrayVJapp[1]->getInputByIndex(0)->indexOnParent);
 
-    mainCube->connect(  objArrayVJapp[0]->getOutputByIndex(1),
-                                objArrayVJapp[1]->getInputByIndex(1));
+/*
+    this->connectPins(  0, objArrayVJapp[0]->getOutputByIndex(1)->indexOnParent,
+                        1, objArrayVJapp[1]->getInputByIndex(1)->indexOnParent);
 
-    mainCube->connect(  objArrayVJapp[0]->getOutputByIndex(2),
-                                objArrayVJapp[1]->getInputByIndex(2));
+    this->connectPins(  0, objArrayVJapp[0]->getOutputByIndex(2)->indexOnParent,
+                        1, objArrayVJapp[1]->getInputByIndex(2)->indexOnParent);
 
-    mainCube->connect(  objArrayVJapp[1]->getOutputByIndex(0),
-                                objArrayVJapp[2]->getInputByIndex(0));
+    this->connectPins(  1, objArrayVJapp[1]->getOutputByIndex(0)->indexOnParent,
+                        2, objArrayVJapp[2]->getInputByIndex(0)->indexOnParent);
 
-    mainCube->connect(  objArrayVJapp[1]->getOutputByIndex(1),
-                                objArrayVJapp[0]->getInputByIndex(0));
-
+    this->connectPins(  1, objArrayVJapp[1]->getOutputByIndex(1)->indexOnParent,
+                        0, objArrayVJapp[0]->getInputByIndex(0)->indexOnParent);
 */
 
 /*
@@ -1381,14 +1401,14 @@ void VimusGUIEditor :: createTestPatch()
                         threshold2->getOutputByIndex(0)->indexOnParent,
                         preview2->indexOnParent,
                         preview2->getInputByIndex(0)->indexOnParent);
-*/
+//*/
 
+/*
+    this->createObject("pixelAdd", -0.3, 0.0, 0.0);
 
-    //this->createObject("pixelAdd", -0.3, 0.0, 0.0);
+	this->createObject("audiocap", 0.5, 0.3, 0.0);
 
-//	this->createObject("audiocap", 0.5, 0.3, 0.0);
-
-/*	this->createObject("abs AVeffect", -0.3, -0.15, 0.0);
+	this->createObject("abs AVeffect", -0.3, -0.15, 0.0);
 
 	this->setCurrentCube (2);
 
@@ -1397,24 +1417,8 @@ void VimusGUIEditor :: createTestPatch()
 	this->createObject("outlet", -0.5, -0.8, 0.0);
 
 	this->setCurrentCubeToParent();
-*/
-
-    VimusGUIObject* videocap =	this->createObject("videocap", -0.5, 0.6, 0.0);
-
-    VimusGUIObject* blobDetect = this->createObject("pixelCVBlob", 0.0, 0.0, 0.0);
-
-	VimusGUIObject* preview = this->createObject("video", -0.1, -0.6, 0.0);
-
-	this->connectPins(  videocap->indexOnParent,
-                        videocap->getOutputByIndex(0)->indexOnParent,
-                        blobDetect->indexOnParent,
-                        blobDetect->getInputByIndex(0)->indexOnParent);
-
-	this->connectPins(  blobDetect->indexOnParent,
-                        blobDetect->getOutputByIndex(0)->indexOnParent,
-                        preview->indexOnParent,
-                        preview->getInputByIndex(0)->indexOnParent);
 
     if (DEBUG_MODE)
         cout << "\nCreated a test patch.";
+*/
 }
