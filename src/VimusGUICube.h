@@ -21,7 +21,6 @@
 #define _VIMUSGUICUBE_H_
 
 #include "Configuration.h"
-#include "Global.h"
 
 #include <stdlib.h>
 #include <math.h>

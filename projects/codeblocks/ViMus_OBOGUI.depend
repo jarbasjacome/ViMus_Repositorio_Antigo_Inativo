@@ -2,16 +2,15 @@
 1305932170 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUICube.cpp
 	"VimusGUICube.h"
 
-1302492484 /dados/ViMus/ViMus_OBOGUI/src/VimusGUICube.h
+1306102784 /dados/ViMus/ViMus_OBOGUI/src/VimusGUICube.h
 	"Configuration.h"
-	"Global.h"
 	<stdlib.h>
 	<math.h>
 	<GL/glut.h>
 	"VimusGUINormalObject.h"
 	<iostream>
 
-1301514415 /dados/ViMus/ViMus_OBOGUI/src/Configuration.h
+1306103132 /dados/ViMus/ViMus_OBOGUI/src/Configuration.h
 	<windows.h>
 
 1295648355 /usr/include/stdio.h
@@ -407,14 +406,14 @@
 	<string>
 	<GL/glut.h>
 
-1294795155 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineOpenGLObject.h
-	"Global.h"
+1306102843 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineOpenGLObject.h
+	<stdlib.h>
 	"Configuration.h"
 	"VimusMachineObject.h"
 	<string>
 
-1294795662 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineObject.h
-	"Global.h"
+1306102853 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineObject.h
+	<stdlib.h>
 	"Configuration.h"
 	"VimusMachinePin.h"
 	"VimusMachinePinVideo.h"
@@ -2958,7 +2957,7 @@
 1294795904 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachinePixelAdd.cpp
 	"VimusMachinePixelAdd.h"
 
-1305922700 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineVideoCapture.cpp
+1305932552 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineVideoCapture.cpp
 	"VimusMachineVideoCapture.h"
 
 1294795937 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineVideoPreview.cpp

@@ -20,7 +20,7 @@
 #ifndef _VIMUSMACHINEOBJECT_H_
 #define _VIMUSMACHINEOBJECT_H_
 
-#include "Global.h"
+#include <stdlib.h>
 #include "Configuration.h"
 
 #include "VimusMachinePin.h"

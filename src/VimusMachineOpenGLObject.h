@@ -20,7 +20,7 @@
 #ifndef _VIMUSMACHINEOPENGLOBJECT_H_
 #define _VIMUSMACHINEOPENGLOBJECT_H_
 
-#include "Global.h"
+#include <stdlib.h>
 #include "Configuration.h"
 
 #include "VimusMachineObject.h"
