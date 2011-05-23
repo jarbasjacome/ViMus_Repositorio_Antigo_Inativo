@@ -103,6 +103,7 @@ VimusGUIObject * VimusMachineEditor :: createObject(const string& label, float p
 		}
 		else if (!this->msgTokens[0].compare("videocap"))
 		{
+		    //Create VimusMachineVideoCapture passing video capture manager
 			macObj = new VimusMachineVideoCapture(this->videoCap);
 			guiObj = new VimusGUINormalObject(label, posX, posY, posZ, 0, 1);
 		}
@@ -136,6 +137,14 @@ VimusGUIObject * VimusMachineEditor :: createObject(const string& label, float p
 			guiObj = new VimusGUIOpenGLObject(label, posX, posY, posZ, 2, 1, vitalino);
 
 			this->addOpenGLObject(vitalino);
+		}
+		else if (!this->msgTokens[0].compare("lanterna"))
+		{
+		    VimusMachineLanternaMagica * lanterna = new VimusMachineLanternaMagica();
+			macObj = lanterna;
+			guiObj = new VimusGUIOpenGLObject(label, posX, posY, posZ, 2, 1, lanterna);
+
+			this->addOpenGLObject(lanterna);
 		}
         if (macObj)
 			this->currentAbsObj->addObject(macObj);

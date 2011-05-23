@@ -220,6 +220,8 @@ void VimusGUIEditor::keyBoardFunc(unsigned char key, int x, int y)
         case 'm':
             this->createObject("vitalino", 0.0, -0.6, 0.0);
             break;
+        case 'l':
+            this->createObject("lanterna", 0.2, -0.5, 0.0);
         case 127:
 		case 8:
             removeSelected();
@@ -433,12 +435,12 @@ void VimusGUIEditor::draw()
 {
     this->windowWidth = glutGet(GLUT_WINDOW_WIDTH);
     this->windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
-//    this->screen0w = this->screen1w = glutGet(GLUT_WINDOW_WIDTH)/2;
-//    this->screen0h = this->screen1h = glutGet(GLUT_WINDOW_HEIGHT);
+    this->screen0w = this->screen1w = glutGet(GLUT_WINDOW_WIDTH)/2;
+    this->screen0h = this->screen1h = glutGet(GLUT_WINDOW_HEIGHT);
 
-    this->screen0w = 1280;
-    this->screen1w = 1024;
-    this->screen0h = this->screen1h = 800;
+//    this->screen0w = 1280;
+//    this->screen1w = 1024;
+//    this->screen0h = this->screen1h = 800;
 
     switch (this->viewPortMode)
     {

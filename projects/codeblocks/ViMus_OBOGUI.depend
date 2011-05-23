@@ -10,7 +10,7 @@
 	"VimusGUINormalObject.h"
 	<iostream>
 
-1306103132 /dados/ViMus/ViMus_OBOGUI/src/Configuration.h
+1306122658 /dados/ViMus/ViMus_OBOGUI/src/Configuration.h
 	<windows.h>
 
 1295648355 /usr/include/stdio.h
@@ -371,7 +371,7 @@
 	<stdlib.h>
 	<GL/glut.h>
 
-1302500971 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.cpp
+1306110020 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.cpp
 	"VimusGUIEditor.h"
 
 1302496694 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.h
@@ -446,7 +446,7 @@
 	<sstream>
 	<vector>
 
-1294343360 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineObjects.h
+1306108193 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineObjects.h
 	"VimusMachineNormalObject.h"
 	"VimusMachineAbstractionObject.h"
 	"VimusMachineVideoPreview.h"
@@ -455,6 +455,7 @@
 	"VimusMachineCVThreshold.h"
 	"VimusMachineVitalino.h"
 	"VimusMachineCVBlobDetection.h"
+	"VimusMachineLanternaMagica.h"
 
 1294795662 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineNormalObject.h
 	"VimusMachineObject.h"
@@ -2933,7 +2934,7 @@
 1294795859 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVThreshold.cpp
 	"VimusMachineCVThreshold.h"
 
-1294795122 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineEditor.cpp
+1306108586 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineEditor.cpp
 	"VimusMachineEditor.h"
 
 1294795870 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineNormalObject.cpp
@@ -2957,7 +2958,7 @@
 1294795904 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachinePixelAdd.cpp
 	"VimusMachinePixelAdd.h"
 
-1305932552 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineVideoCapture.cpp
+1306103635 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineVideoCapture.cpp
 	"VimusMachineVideoCapture.h"
 
 1294795937 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineVideoPreview.cpp
@@ -3084,4 +3085,14 @@
 	"highgui.hpp"
 
 1263954937 /usr/include/opencv/highgui.hpp
+
+1306120592 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.h
+	"VimusMachineOpenGLObject.h"
+	"cv.h"
+	"highgui.h"
+	"GL/glut.h"
+	<iostream>
+
+1306122857 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.cpp
+	"VimusMachineLanternaMagica.h"
 

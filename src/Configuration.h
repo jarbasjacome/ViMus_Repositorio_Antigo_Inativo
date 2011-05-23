@@ -68,8 +68,8 @@
 
 #define CAM_EYE_Z       12.5f
 
-#define VIDEO_WIDTH			256
-#define VIDEO_HEIGHT		256
+#define VIDEO_WIDTH			512
+#define VIDEO_HEIGHT		512
 
 #define PERSP_FOV       11.25f
 #define PERSP_ASPECT     1.0f
