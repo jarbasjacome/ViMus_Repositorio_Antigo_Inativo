@@ -35,7 +35,8 @@
 #include <sstream>
 
 #include <GL/glut.h>
-//#include <boost/thread/xtime.hpp>
+#include <boost/thread/xtime.hpp>
+
 
 
 class VimusGUIGLUT
@@ -68,9 +69,9 @@ class VimusGUIGLUT
 
         bool isFullscreen;
 
-//        boost::xtime lastSysTime;
-//        boost::xtime currSysTime;
-//        double pastTime;
+        boost::xtime lastSysTime;
+        boost::xtime currSysTime;
+        double pastTime;
 
 		VimusMachine * machine;
 

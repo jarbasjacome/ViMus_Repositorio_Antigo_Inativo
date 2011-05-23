@@ -48,7 +48,6 @@
 			<Add directory="/usr/lib" />
 		</Linker>
 		<Unit filename="../../src/Configuration.h" />
-		<Unit filename="../../src/Global.h" />
 		<Unit filename="../../src/Machine.h" />
 		<Unit filename="../../src/VideoCaptureOpenCV.cpp" />
 		<Unit filename="../../src/VideoCaptureOpenCV.h" />
@@ -79,6 +78,8 @@
 		<Unit filename="../../src/VimusMachineCVThreshold.h" />
 		<Unit filename="../../src/VimusMachineEditor.cpp" />
 		<Unit filename="../../src/VimusMachineEditor.h" />
+		<Unit filename="../../src/VimusMachineLanternaMagica.cpp" />
+		<Unit filename="../../src/VimusMachineLanternaMagica.h" />
 		<Unit filename="../../src/VimusMachineNormalObject.cpp" />
 		<Unit filename="../../src/VimusMachineNormalObject.h" />
 		<Unit filename="../../src/VimusMachineObject.cpp" />

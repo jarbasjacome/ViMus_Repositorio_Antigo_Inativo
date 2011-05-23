@@ -35,3 +35,4 @@ VimusMachineOpenGLObject :: VimusMachineOpenGLObject ()
 VimusMachineOpenGLObject :: ~VimusMachineOpenGLObject()
 {
 }
+

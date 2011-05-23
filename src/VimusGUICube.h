@@ -218,6 +218,10 @@ class VimusGUICube : public VimusGUINormalObject
          */
         void setCurrentSide(int side);
 
+        void keyBoardFunc(unsigned char key, int x, int y);
+
+		void specialKeyBoardFunc(int key, int x, int y);
+
     private:
 
         /**

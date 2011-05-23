@@ -90,6 +90,10 @@ class VimusGUIVideoPreview : public VimusGUIObject
          */
         void translate(float x, float y, float z);
 
+   		void keyBoardFunc(unsigned char key, int x, int y);
+
+		void specialKeyBoardFunc(int key, int x, int y);
+
     private:
 
 		unsigned char ** ppCurrentFrame;

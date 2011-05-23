@@ -94,6 +94,10 @@ class VimusMachineVitalino : public VimusMachineOpenGLObject
 		 */
 		void disconnectInput (VimusMachineObject * srcObj, int outPin, int inPin);
 
+        void keyBoardFunc(unsigned char key, int x, int y);
+
+		void specialKeyBoardFunc(int key, int x, int y);
+
     private:
 
 		unsigned char** ppInputData[2];

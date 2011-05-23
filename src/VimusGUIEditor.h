@@ -28,7 +28,8 @@
 
 #include <string>
 #include <sstream>
-#include <time.h>
+//#include <time.h>
+#include <boost/thread/xtime.hpp>
 #include <GL/glut.h>
 
 /**
@@ -189,17 +190,12 @@ class VimusGUIEditor
 
         bool fpsFlag;
 
-//        clock_t lastFrameTime;
-//        clock_t currentFrameTime;
-//        float fpsArray[100];
-//        float fpsAcum;
-//        float fps;
-
         float fps;
-        clock_t lastTime;
-        clock_t currTime;
-        float timePast;
         float fpsAcum;
+
+        boost::xtime lastSysTime;
+        boost::xtime currSysTime;
+        double pastTime;
 
         // TODO: multi-monitor configuration suport for more then 2 monitors
         int screen0w;

@@ -26,6 +26,7 @@
 #include "highgui.h"
 
 #include "GL/glut.h"
+#include <boost/thread/xtime.hpp>
 
 #include <iostream>
 
@@ -106,6 +107,9 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
                 void *font,
                 std::ostringstream * strStream);
 
+        void keyBoardFunc(unsigned char key, int x, int y);
+        void specialKeyBoardFunc(int key, int x, int y);
+
     private:
 
 		unsigned char** ppInputData;
@@ -114,7 +118,11 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 
 		unsigned char** ppNullFrame;
 
-        cv::VideoCapture video;
+        const static int NUM_VIDEOS = 20;
+
+        cv::VideoCapture video[NUM_VIDEOS];
+
+        int currVideo;
 
         cv::Mat frame;
         cv::Mat frameDest;
@@ -127,6 +135,18 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 
         const static float MAX_ZOOM = 10.5f;
         const static float MIN_ZOOM = 3.0f;
+
+//        clock_t startClock;
+//        clock_t lastClock;
+//        clock_t currClock;
+
+        boost::xtime currSysTime2;
+        boost::xtime lastSysTime2;
+        boost::xtime startSysTime2;
+        double pastTime2;
+
+        double timePast;
+        int currFrame;
 
 };
 

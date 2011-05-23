@@ -1108,3 +1108,19 @@ void VimusGUICube::removeObject(int i)
         }
     }
 }
+
+void VimusGUICube::keyBoardFunc(unsigned char key, int x, int y)
+{
+    for (int i=0; i<numObjects; i++)
+    {
+        objects[i]->keyBoardFunc(key, x, y);
+    }
+}
+
+void VimusGUICube::specialKeyBoardFunc(int key, int x, int y)
+{
+    for (int i=0; i<numObjects; i++)
+    {
+        objects[i]->specialKeyBoardFunc(key, x, y);
+    }
+}

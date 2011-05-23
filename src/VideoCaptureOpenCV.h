@@ -100,6 +100,10 @@ class VideoCaptureOpenCV
 		inline static void grabThreadFuncStatic()
 		{	vidCapOpenCvPtr->grabThreadFunc();	};
         boost::thread* grabThread;
+
         boost::xtime sleepGrab;
+        boost::xtime lastTimeSys;
+        double elapsedTime;
+
 };
 #endif // VIDEOCAPTUREOPENCV_H

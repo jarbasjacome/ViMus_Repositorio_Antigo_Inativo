@@ -99,6 +99,10 @@ class VimusGUINormalObject : public VimusGUIObject
          */
         void setSizeByLabel();
 
+        void keyBoardFunc(unsigned char key, int x, int y);
+
+		void specialKeyBoardFunc(int key, int x, int y);
+
     private:
 
 };

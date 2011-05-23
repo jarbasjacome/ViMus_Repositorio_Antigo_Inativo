@@ -278,6 +278,10 @@ class VimusGUIObject
 
 		void addOutputPin();
 
+		virtual void keyBoardFunc(unsigned char key, int x, int y) = 0;
+
+		virtual void specialKeyBoardFunc(int key, int x, int y) = 0;
+
     private:
 
 };

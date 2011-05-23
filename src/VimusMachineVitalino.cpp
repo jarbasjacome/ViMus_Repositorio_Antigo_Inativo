@@ -459,3 +459,11 @@ void VimusMachineVitalino::disconnectInput (VimusMachineObject * srcObj, int out
 	srcObj->outputPins[outPin]->disconnect(this->inputPins[inPin]);
 	this->ppInputData[inPin] = this->ppNullFrame;
 }
+
+void VimusMachineVitalino::keyBoardFunc(unsigned char key, int x, int y)
+{
+}
+
+void VimusMachineVitalino::specialKeyBoardFunc(int key, int x, int y)
+{
+}

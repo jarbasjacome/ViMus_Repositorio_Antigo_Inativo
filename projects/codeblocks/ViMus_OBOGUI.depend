@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1305932170 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUICube.cpp
+1306155004 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUICube.cpp
 	"VimusGUICube.h"
 
-1306102784 /dados/ViMus/ViMus_OBOGUI/src/VimusGUICube.h
+1306155225 /dados/ViMus/ViMus_OBOGUI/src/VimusGUICube.h
 	"Configuration.h"
 	<stdlib.h>
 	<math.h>
@@ -10,7 +10,7 @@
 	"VimusGUINormalObject.h"
 	<iostream>
 
-1306122658 /dados/ViMus/ViMus_OBOGUI/src/Configuration.h
+1306159824 /dados/ViMus/ViMus_OBOGUI/src/Configuration.h
 	<windows.h>
 
 1295648355 /usr/include/stdio.h
@@ -351,7 +351,7 @@
 
 1272520269 /usr/include/GL/glu_mangle.h
 
-1294795487 /dados/ViMus/ViMus_OBOGUI/src/VimusGUINormalObject.h
+1306154565 /dados/ViMus/ViMus_OBOGUI/src/VimusGUINormalObject.h
 	"Configuration.h"
 	"VimusGUIObject.h"
 	<stdlib.h>
@@ -359,7 +359,7 @@
 	<iostream>
 	<GL/glut.h>
 
-1294795434 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIObject.h
+1306154273 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIObject.h
 	"Configuration.h"
 	"VimusGUIPin.h"
 	<stdlib.h>
@@ -371,17 +371,17 @@
 	<stdlib.h>
 	<GL/glut.h>
 
-1306110020 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.cpp
+1306182932 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.cpp
 	"VimusGUIEditor.h"
 
-1302496694 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.h
+1306182826 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.h
 	"Configuration.h"
 	"VimusGUIObjects.h"
 	"VimusGUIPin.h"
 	"VimusMachine.h"
 	<string>
 	<sstream>
-	<time.h>
+	<boost/thread/xtime.hpp>
 	<GL/glut.h>
 
 1292816108 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIObjects.h
@@ -390,7 +390,7 @@
 	"VimusGUIVideoPreview.h"
 	"VimusGUIOpenGLObject.h"
 
-1298604770 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIVideoPreview.h
+1306154427 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIVideoPreview.h
 	"Configuration.h"
 	"VimusGUIObject.h"
 	<stdlib.h>
@@ -398,7 +398,7 @@
 	<GL/glut.h>
 	<iostream>
 
-1294795662 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIOpenGLObject.h
+1306156323 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIOpenGLObject.h
 	"Configuration.h"
 	"VimusGUINormalObject.h"
 	"VimusMachineOpenGLObject.h"
@@ -406,7 +406,7 @@
 	<string>
 	<GL/glut.h>
 
-1306102843 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineOpenGLObject.h
+1306156883 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineOpenGLObject.h
 	<stdlib.h>
 	"Configuration.h"
 	"VimusMachineObject.h"
@@ -474,7 +474,7 @@
 	"VimusMachineObject.h"
 	"VideoCaptureOpenCV.h"
 
-1305924663 /dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.h
+1306183530 /dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.h
 	"Configuration.h"
 	"cv.h"
 	"highgui.h"
@@ -2892,16 +2892,16 @@
 	"highgui.h"
 	<iostream>
 
-1292945058 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineVitalino.h
+1306157353 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineVitalino.h
 	"VimusMachineOpenGLObject.h"
 	"GL/glut.h"
 	<boost/thread.hpp>
 	<boost/thread/xtime.hpp>
 
-1294795817 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIGLUT.cpp
+1306183178 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIGLUT.cpp
 	"VimusGUIGLUT.h"
 
-1292981535 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIGLUT.h
+1306177320 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIGLUT.h
 	"Configuration.h"
 	"VimusGUIEditor.h"
 	"VimusMachine.h"
@@ -2909,20 +2909,21 @@
 	<string>
 	<sstream>
 	<GL/glut.h>
+	<boost/thread/xtime.hpp>
 
-1294794998 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUINormalObject.cpp
+1306154624 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUINormalObject.cpp
 	"VimusGUINormalObject.h"
 
 1294795011 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIObject.cpp
 	"VimusGUIObject.h"
 
-1294795028 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIOpenGLObject.cpp
+1306157564 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIOpenGLObject.cpp
 	"VimusGUIOpenGLObject.h"
 
 1292815941 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIPin.cpp
 	"VimusGUIPin.h"
 
-1298605707 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIVideoPreview.cpp
+1306154482 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIVideoPreview.cpp
 	"VimusGUIVideoPreview.h"
 
 1294795059 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachine.cpp
@@ -2943,7 +2944,7 @@
 1294795146 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineObject.cpp
 	"VimusMachineObject.h"
 
-1294795161 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineOpenGLObject.cpp
+1306157110 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineOpenGLObject.cpp
 	"VimusMachineOpenGLObject.h"
 
 1294795180 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachinePin.cpp
@@ -2964,24 +2965,24 @@
 1294795937 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineVideoPreview.cpp
 	"VimusMachineVideoPreview.h"
 
-1302636382 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineVitalino.cpp
+1306157390 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineVitalino.cpp
 	"VimusMachineVitalino.h"
 
 1292945563 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMain.cpp
 	"VimusGUIGLUT.h"
 	"VimusMachine.h"
 
-1305931999 source:/dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.cpp
+1306179298 source:/dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.cpp
 	"VideoCaptureOpenCV.h"
 
-1298651696 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVBlobDetection.h
+1306157295 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVBlobDetection.h
 	"VimusMachineOpenGLObject.h"
 	"cv.h"
 	"highgui.h"
 	"GL/glut.h"
 	<iostream>
 
-1301414446 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVBlobDetection.cpp
+1306157291 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVBlobDetection.cpp
 	"VimusMachineCVBlobDetection.h"
 
 1294345073 /usr/local/include/opencv/Blob.h
@@ -3086,13 +3087,14 @@
 
 1263954937 /usr/include/opencv/highgui.hpp
 
-1306120592 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.h
+1306184744 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.h
 	"VimusMachineOpenGLObject.h"
 	"cv.h"
 	"highgui.h"
 	"GL/glut.h"
+	<boost/thread/xtime.hpp>
 	<iostream>
 
-1306122857 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.cpp
+1306174980 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.cpp
 	"VimusMachineLanternaMagica.h"
 

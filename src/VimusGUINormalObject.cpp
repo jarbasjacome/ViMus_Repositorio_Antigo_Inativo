@@ -230,3 +230,11 @@ void VimusGUINormalObject::translate(float x, float y, float z)
         outputPins[i]->posZ += z;
     }
 }
+
+void VimusGUINormalObject::keyBoardFunc(unsigned char key, int x, int y)
+{
+}
+
+void VimusGUINormalObject::specialKeyBoardFunc(int key, int x, int y)
+{
+}

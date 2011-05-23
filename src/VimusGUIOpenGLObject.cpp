@@ -75,3 +75,13 @@ void VimusGUIOpenGLObject::draw(int rendermode)
 {
     VimusGUINormalObject::draw(rendermode);
 }
+
+void VimusGUIOpenGLObject::keyBoardFunc(unsigned char key, int x, int y)
+{
+    this->machineGLObj->keyBoardFunc(key,x,y);
+}
+
+void VimusGUIOpenGLObject::specialKeyBoardFunc(int key, int x, int y)
+{
+    this->machineGLObj->specialKeyBoardFunc(key,x,y);
+}

@@ -80,6 +80,9 @@ class VimusMachineOpenGLObject : public VimusMachineObject
 		 */
 		virtual void disconnectInput (VimusMachineObject * srcObj, int outPin, int inPin) = 0;
 
+        virtual void keyBoardFunc(unsigned char key, int x, int y) = 0;
+        virtual void specialKeyBoardFunc(int key, int x, int y) = 0;
+
     private:
 
 };

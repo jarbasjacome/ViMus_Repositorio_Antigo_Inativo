@@ -106,6 +106,10 @@ class VimusMachineCVBlobDetection : public VimusMachineOpenGLObject
                 void *font,
                 std::ostringstream * strStream);
 
+        void keyBoardFunc(unsigned char key, int x, int y);
+		void specialKeyBoardFunc(int key, int x, int y);
+
+
     private:
 
 		unsigned char** ppInputData;

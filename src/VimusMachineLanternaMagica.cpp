@@ -102,13 +102,31 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
 
     try
     {
-        video = VideoCapture("/dados/jabahpureza/mother_popcorn_01_raw_i420_noaudio.avi");
-        //video = VideoCapture("/usr/share/doc/opencv-doc/examples/c/tree.avi");
+        video[0] = VideoCapture("/dados/jabahpureza/video_samples/soul_of_the_funky_drummers_raw_i420_noaudio.avi");
+        video[1] = VideoCapture("/dados/jabahpureza/video_samples/cold_sweat_01_raw_i420_noaudio.avi");
+        video[2] = VideoCapture("/dados/jabahpureza/video_samples/cold_sweat_02_raw_i420_noaudio.avi");
+        video[3] = VideoCapture("/dados/jabahpureza/video_samples/funky_drummer_01_raw_i420_noaudio.avi");
+        video[4] = VideoCapture("/dados/jabahpureza/video_samples/funky_drummer_02_raw_i420_noaudio.avi");
+        video[5] = VideoCapture("/dados/jabahpureza/video_samples/i_got_a_feeling_01_raw_i420_noaudio.avi");
+        for (int i=6; i<20; i++)
+        {
+            video[i] = VideoCapture("/dados/jabahpureza/video_samples/mother_popcorn_01_raw_i420_noaudio.avi");
+        }
     }
     catch ( ... )
     {
         cout << "erro opencv videocapture";
     }
+
+    currVideo = 1;
+//    startClock = clock();
+//    lastClock = clock();
+//    currClock = clock();
+
+    boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
+
+    timePast = 0;
+    currFrame = 0;
 
 }
 
@@ -125,17 +143,47 @@ VimusMachineLanternaMagica::~VimusMachineLanternaMagica()
 void VimusMachineLanternaMagica::update()
 {
 
-    int check;
-    IplImage img;
+//    int check;
+//    IplImage img;
 
     try
     {
-        video.grab();
-        video.retrieve(this->frame, 0);
-        img = this->frame;
-        check = cvCheckArr(&img, 0, 0, 0);
-        resize(this->frame, this->frameDest, Size(VIDEO_WIDTH, VIDEO_HEIGHT),0,0, INTER_LINEAR);
-        this->capturedFrame = (unsigned char *) this->frameDest.data;
+//        boost::xtime_get(&(this->currSysTime2), boost::TIME_UTC);
+//        this->pastTime2 = this->currSysTime2.nsec - this->lastSysTime2.nsec;
+//        if (this->pastTime2 > 1.0f / 3.0f)
+//        {
+//            currFrame++;
+//            boost::xtime_get(&(this->lastSysTime2), boost::TIME_UTC);
+//        }
+
+        boost::xtime_get(&(this->currSysTime2), boost::TIME_UTC);
+        this->pastTime2 = this->currSysTime2.nsec - this->startSysTime2.nsec +
+            this->currSysTime2.sec*1000000000 - this->startSysTime2.sec*1000000000;
+
+        if (this->pastTime2/1000000 < 0.001)
+            this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, 0);
+        else
+            this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, this->pastTime2/1000000);
+
+        if (video[currVideo].grab())
+        {
+            video[currVideo].retrieve(this->frame, 0);
+            this->capturedFrame = (unsigned char *) this->frame.data;
+//            img = this->frame;
+//            check = cvCheckArr(&img, 0, 0, 0);
+//            if (check)
+//            {
+////                resize(this->frame, this->frameDest, Size(VIDEO_WIDTH, VIDEO_HEIGHT),0,0, INTER_LINEAR);
+////                this->capturedFrame = (unsigned char *) this->frameDest.data;
+//                this->capturedFrame = (unsigned char *) this->frame.data;
+//            }
+        }
+        else
+        {
+            this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, 0);
+            currFrame = 0;
+            boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
+        }
     }
     catch ( ... )
     {
@@ -262,4 +310,52 @@ void VimusMachineLanternaMagica::renderBitmapString(
     {
         glutBitmapCharacter(font, str.at(i));
     }
+}
+
+void VimusMachineLanternaMagica::keyBoardFunc(unsigned char key, int x, int y)
+{
+	switch (key)
+	{
+        case 'a':
+            this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, 0);
+            boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
+            break;
+        case 'j':
+            if (currVideo > 1)
+            {
+                currVideo--;
+                boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
+            }
+            else
+            {
+                currVideo = NUM_VIDEOS-1;
+                boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
+            }
+            break;
+        case 13:
+            if (currVideo < 19)
+            {
+                currVideo++;
+                boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
+            }
+            else
+            {
+                currVideo = 0;
+                boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
+            }
+            break;
+        case '5':
+            break;
+	}
+}
+
+void VimusMachineLanternaMagica::specialKeyBoardFunc(int key, int x, int y)
+{
+	switch (key)
+	{
+		case GLUT_KEY_F1:
+           	break;
+		case GLUT_KEY_F2:
+			break;
+	}
 }

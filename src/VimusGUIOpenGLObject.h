@@ -61,6 +61,10 @@ class VimusGUIOpenGLObject : public VimusGUINormalObject
          */
         void draw(int rendermode);
 
+        void keyBoardFunc(unsigned char key, int x, int y);
+
+		void specialKeyBoardFunc(int key, int x, int y);
+
     private:
 
         VimusMachineOpenGLObject* machineGLObj;

@@ -704,3 +704,11 @@ void VimusMachineCVBlobDetection::renderBitmapString(
         glutBitmapCharacter(font, str.at(i));
     }
 }
+
+void VimusMachineCVBlobDetection::keyBoardFunc(unsigned char key, int x, int y)
+{
+}
+
+void VimusMachineCVBlobDetection::specialKeyBoardFunc(int key, int x, int y)
+{
+}

@@ -250,3 +250,11 @@ void VimusGUIVideoPreview :: drawFrame(	float posX, float posY, float posZ,
 	glEnable(GL_BLEND);
 
 }
+
+void VimusGUIVideoPreview::keyBoardFunc(unsigned char key, int x, int y)
+{
+}
+
+void VimusGUIVideoPreview::specialKeyBoardFunc(int key, int x, int y)
+{
+}

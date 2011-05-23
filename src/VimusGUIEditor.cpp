@@ -26,13 +26,9 @@ VimusGUIEditor::VimusGUIEditor()
     pickFlag = false;
     fpsFlag = false;
 
-//    lastFrameTime = 0;
-//    for (int i=0; i<100; i++)
-//    {
-//        fpsArray[i] = 60;
-//    }
+    this->pastTime = 0;
+    boost::xtime_get(&(this->lastSysTime), boost::TIME_UTC);
 
-    lastTime = 0;
     fpsAcum = 0;
 
     zoomState = ZOOM_STOPPED;
@@ -225,7 +221,9 @@ void VimusGUIEditor::keyBoardFunc(unsigned char key, int x, int y)
         case 127:
 		case 8:
             removeSelected();
+
 	}
+	this->mainCube->keyBoardFunc(key,x,y);
 }
 
 void VimusGUIEditor::specialKeyBoardFunc(int key, int x, int y)
@@ -259,6 +257,7 @@ void VimusGUIEditor::specialKeyBoardFunc(int key, int x, int y)
             currentCube->turnLeft();
 			break;
 	}
+	this->mainCube->specialKeyBoardFunc(key,x,y);
 }
 
 /**
@@ -276,31 +275,32 @@ void VimusGUIEditor::displayFunc()
 
 void VimusGUIEditor::updateFps()
 {
-//    currentFrameTime = clock();
-//    fpsArray[99] = 1.0f/(float (currentFrameTime - lastFrameTime)/ (float) CLOCKS_PER_SEC);
-//    lastFrameTime = currentFrameTime;
-//    fpsAcum = 0;
-//    for (int i=0; i<99; i++)
+//    currTime = clock();
+//    timePast = (float) (currTime - lastTime)/ (float) CLOCKS_PER_SEC;
+//    if ( timePast > 1.0f)
 //    {
-//        fpsArray[i] = fpsArray[i+1];
-//        fpsAcum += fpsArray[i];
+//        fps = fpsAcum + (timePast - 1.0f);
+//        lastTime = clock();
+//        fpsAcum = 0;
 //    }
-//    fpsAcum += fpsArray[99];
-//    fps = fpsAcum / 100.0f;
+//    else
+//    {
+//        fpsAcum+= 1.0f;
+//    }
 
-    currTime = clock();
-    timePast = (float) (currTime - lastTime)/ (float) CLOCKS_PER_SEC;
-    if ( timePast > 1.0f)
+    boost::xtime_get(&(this->currSysTime), boost::TIME_UTC);
+    this->pastTime = this->currSysTime.nsec - this->lastSysTime.nsec +
+                      this->currSysTime.sec*1000000000 - this->lastSysTime.sec*1000000000;
+    if (this->pastTime > 1000000000)
     {
-        fps = fpsAcum + (timePast - 1.0f);
-        lastTime = clock();
+        fps = fpsAcum + (this->pastTime - 1000000000.0f)/1000000000.0f;
+        boost::xtime_get(&(this->lastSysTime), boost::TIME_UTC);
         fpsAcum = 0;
     }
     else
     {
         fpsAcum+= 1.0f;
     }
-
 }
 
 void VimusGUIEditor::drawFps()
