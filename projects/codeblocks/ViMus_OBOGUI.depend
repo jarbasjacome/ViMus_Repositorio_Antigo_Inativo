@@ -3087,14 +3087,37 @@
 
 1263954937 /usr/include/opencv/highgui.hpp
 
-1306184744 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.h
+1306209329 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.h
 	"VimusMachineOpenGLObject.h"
 	"cv.h"
 	"highgui.h"
 	"GL/glut.h"
 	<boost/thread/xtime.hpp>
+	"OpenALSampler.h"
 	<iostream>
 
-1306174980 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.cpp
+1306209400 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.cpp
 	"VimusMachineLanternaMagica.h"
+
+1306210569 /dados/ViMus/ViMus_OBOGUI/src/OpenALSampler.h
+	<stdlib.h>
+	<stdio.h>
+	<al.h>
+	<alc.h>
+	<alut.h>
+
+1269843812 /usr/include/AL/al.h
+
+1269843832 /usr/include/AL/alc.h
+
+1225964892 /usr/include/AL/alut.h
+	<alc.h>
+	<al.h>
+	<OpenAL/alc.h>
+	<OpenAL/al.h>
+	<AL/al.h>
+	<AL/alc.h>
+
+1306211138 source:/dados/ViMus/ViMus_OBOGUI/src/OpenALSampler.cpp
+	"OpenALSampler.h"
 

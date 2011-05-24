@@ -28,6 +28,8 @@
 #include "GL/glut.h"
 #include <boost/thread/xtime.hpp>
 
+#include "OpenALSampler.h"
+
 #include <iostream>
 
 /**
@@ -118,7 +120,7 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 
 		unsigned char** ppNullFrame;
 
-        const static int NUM_VIDEOS = 20;
+        const static int NUM_VIDEOS = 13;
 
         cv::VideoCapture video[NUM_VIDEOS];
 
@@ -147,6 +149,8 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 
         double timePast;
         int currFrame;
+
+        OpenALSampler * audioSampler;
 
 };
 

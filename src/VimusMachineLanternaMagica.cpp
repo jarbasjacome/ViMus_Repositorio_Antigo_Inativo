@@ -108,7 +108,7 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
         video[3] = VideoCapture("/dados/jabahpureza/video_samples/funky_drummer_01_raw_i420_noaudio.avi");
         video[4] = VideoCapture("/dados/jabahpureza/video_samples/funky_drummer_02_raw_i420_noaudio.avi");
         video[5] = VideoCapture("/dados/jabahpureza/video_samples/i_got_a_feeling_01_raw_i420_noaudio.avi");
-        for (int i=6; i<20; i++)
+        for (int i=6; i<NUM_VIDEOS; i++)
         {
             video[i] = VideoCapture("/dados/jabahpureza/video_samples/mother_popcorn_01_raw_i420_noaudio.avi");
         }
@@ -119,14 +119,13 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
     }
 
     currVideo = 1;
-//    startClock = clock();
-//    lastClock = clock();
-//    currClock = clock();
 
     boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
 
     timePast = 0;
     currFrame = 0;
+
+    this->audioSampler = new OpenALSampler();
 
 }
 
@@ -135,6 +134,7 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
  */
 VimusMachineLanternaMagica::~VimusMachineLanternaMagica()
 {
+    delete(this->audioSampler);
 }
 
 /**
@@ -143,24 +143,13 @@ VimusMachineLanternaMagica::~VimusMachineLanternaMagica()
 void VimusMachineLanternaMagica::update()
 {
 
-//    int check;
-//    IplImage img;
-
     try
     {
-//        boost::xtime_get(&(this->currSysTime2), boost::TIME_UTC);
-//        this->pastTime2 = this->currSysTime2.nsec - this->lastSysTime2.nsec;
-//        if (this->pastTime2 > 1.0f / 3.0f)
-//        {
-//            currFrame++;
-//            boost::xtime_get(&(this->lastSysTime2), boost::TIME_UTC);
-//        }
-
         boost::xtime_get(&(this->currSysTime2), boost::TIME_UTC);
         this->pastTime2 = this->currSysTime2.nsec - this->startSysTime2.nsec +
             this->currSysTime2.sec*1000000000 - this->startSysTime2.sec*1000000000;
 
-        if (this->pastTime2/1000000 < 0.001)
+        if (this->pastTime2/1000000 < 0.002)
             this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, 0);
         else
             this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, this->pastTime2/1000000);
@@ -169,20 +158,13 @@ void VimusMachineLanternaMagica::update()
         {
             video[currVideo].retrieve(this->frame, 0);
             this->capturedFrame = (unsigned char *) this->frame.data;
-//            img = this->frame;
-//            check = cvCheckArr(&img, 0, 0, 0);
-//            if (check)
-//            {
-////                resize(this->frame, this->frameDest, Size(VIDEO_WIDTH, VIDEO_HEIGHT),0,0, INTER_LINEAR);
-////                this->capturedFrame = (unsigned char *) this->frameDest.data;
-//                this->capturedFrame = (unsigned char *) this->frame.data;
-//            }
         }
         else
         {
             this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, 0);
             currFrame = 0;
             boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
+            this->audioSampler->playSample(currVideo);
         }
     }
     catch ( ... )
@@ -319,21 +301,27 @@ void VimusMachineLanternaMagica::keyBoardFunc(unsigned char key, int x, int y)
         case 'a':
             this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, 0);
             boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
+            this->audioSampler->playSample(currVideo);
             break;
         case 'j':
-            if (currVideo > 1)
+            this->audioSampler->stopSample(currVideo);
+            if (currVideo > 0)
             {
                 currVideo--;
                 boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
+                this->audioSampler->playSample(currVideo);
             }
             else
             {
                 currVideo = NUM_VIDEOS-1;
                 boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
+                this->audioSampler->playSample(currVideo);
             }
+            this->audioSampler->playSample(currVideo);
             break;
         case 13:
-            if (currVideo < 19)
+            this->audioSampler->stopSample(currVideo);
+            if (currVideo < 12)
             {
                 currVideo++;
                 boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
@@ -343,8 +331,10 @@ void VimusMachineLanternaMagica::keyBoardFunc(unsigned char key, int x, int y)
                 currVideo = 0;
                 boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
             }
+            this->audioSampler->playSample(currVideo);
             break;
         case '5':
+            this->audioSampler->playSample(11);
             break;
 	}
 }
