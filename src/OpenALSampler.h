@@ -45,10 +45,14 @@ class OpenALSampler
 		void playSample (int sNumber);
 		void stopSample (int sNumber);
 
+		void setSamplePitch (int sNumber, float pitch);
+
+		void setPlaybackPos (int sNumber, float sec);
+
 	private:
 
-		static const int NUM_BUFFERS = 13;
-		static const int NUM_SOURCES = 13;
+		static const int NUM_BUFFERS = 28;
+		static const int NUM_SOURCES = 28;
 
 		ALuint buffers[NUM_BUFFERS];
 		ALuint source[NUM_SOURCES];

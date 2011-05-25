@@ -37,6 +37,7 @@
 			<Add option="-Wall" />
 			<Add directory="/usr/include" />
 			<Add directory="/usr/include/opencv" />
+			<Add directory="/usr/include/AL" />
 		</Compiler>
 		<Linker>
 			<Add library="glut" />
@@ -45,10 +46,13 @@
 			<Add library="Xxf86vm" />
 			<Add library="highgui" />
 			<Add library="boost_thread-mt" />
+			<Add library="libalut.a" />
 			<Add directory="/usr/lib" />
 		</Linker>
 		<Unit filename="../../src/Configuration.h" />
 		<Unit filename="../../src/Machine.h" />
+		<Unit filename="../../src/OpenALSampler.cpp" />
+		<Unit filename="../../src/OpenALSampler.h" />
 		<Unit filename="../../src/VideoCaptureOpenCV.cpp" />
 		<Unit filename="../../src/VideoCaptureOpenCV.h" />
 		<Unit filename="../../src/VimusGUICube.cpp" />

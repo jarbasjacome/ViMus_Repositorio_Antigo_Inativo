@@ -120,7 +120,7 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 
 		unsigned char** ppNullFrame;
 
-        const static int NUM_VIDEOS = 13;
+        const static int NUM_VIDEOS = 23;
 
         cv::VideoCapture video[NUM_VIDEOS];
 
@@ -138,14 +138,11 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
         const static float MAX_ZOOM = 10.5f;
         const static float MIN_ZOOM = 3.0f;
 
-//        clock_t startClock;
-//        clock_t lastClock;
-//        clock_t currClock;
-
         boost::xtime currSysTime2;
         boost::xtime lastSysTime2;
         boost::xtime startSysTime2;
-        double pastTime2;
+        double pastTimeMSecs;
+        double sampleStartTimeMSecs;
 
         double timePast;
         int currFrame;

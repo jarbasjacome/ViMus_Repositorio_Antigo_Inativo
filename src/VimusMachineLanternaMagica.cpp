@@ -103,22 +103,35 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
     try
     {
         video[0] = VideoCapture("/dados/jabahpureza/video_samples/soul_of_the_funky_drummers_raw_i420_noaudio.avi");
-        video[1] = VideoCapture("/dados/jabahpureza/video_samples/cold_sweat_01_raw_i420_noaudio.avi");
-        video[2] = VideoCapture("/dados/jabahpureza/video_samples/cold_sweat_02_raw_i420_noaudio.avi");
-        video[3] = VideoCapture("/dados/jabahpureza/video_samples/funky_drummer_01_raw_i420_noaudio.avi");
-        video[4] = VideoCapture("/dados/jabahpureza/video_samples/funky_drummer_02_raw_i420_noaudio.avi");
-        video[5] = VideoCapture("/dados/jabahpureza/video_samples/i_got_a_feeling_01_raw_i420_noaudio.avi");
-        for (int i=6; i<NUM_VIDEOS; i++)
-        {
-            video[i] = VideoCapture("/dados/jabahpureza/video_samples/mother_popcorn_01_raw_i420_noaudio.avi");
-        }
+        video[1] = VideoCapture("/dados/jabahpureza/video_samples/bootsy_01_raw_i420_noaudio.avi");
+        video[2] = VideoCapture("/dados/jabahpureza/video_samples/cold_sweat_01_raw_i420_noaudio.avi");
+        video[3] = VideoCapture("/dados/jabahpureza/video_samples/cold_sweat_02_raw_i420_noaudio.avi");
+        video[4] = VideoCapture("/dados/jabahpureza/video_samples/do_it_to_death_01_raw_i420_noaudio.avi");
+        video[5] = VideoCapture("/dados/jabahpureza/video_samples/do_it_to_death_02_raw_i420_noaudio.avi");
+        video[6] = VideoCapture("/dados/jabahpureza/video_samples/funky_drummer_01_raw_i420_noaudio.avi");
+        video[7] = VideoCapture("/dados/jabahpureza/video_samples/give_it_up_or_turnit_a_loose_01_raw_i420_noaudio.avi");
+        video[8] = VideoCapture("/dados/jabahpureza/video_samples/give_it_up_or_turnit_a_loose_02_raw_i420_noaudio.avi");
+        video[9] = VideoCapture("/dados/jabahpureza/video_samples/i_dont_want_nobody_to_give_me_nothing_01_raw_i420_noaudio.avi");
+        video[10] = VideoCapture("/dados/jabahpureza/video_samples/i_dont_want_nobody_to_give_me_nothing_02_raw_i420_noaudio.avi");
+        video[11] = VideoCapture("/dados/jabahpureza/video_samples/i_dont_want_nobody_to_give_me_nothing_03_raw_i420_noaudio.avi");
+        video[12] = VideoCapture("/dados/jabahpureza/video_samples/i_feel_good_01_raw_i420_noaudio.avi");
+        video[13] = VideoCapture("/dados/jabahpureza/video_samples/i_feel_good_02_raw_i420_noaudio.avi");
+        video[14] = VideoCapture("/dados/jabahpureza/video_samples/i_got_a_feeling_01_raw_i420_noaudio.avi");
+        video[15] = VideoCapture("/dados/jabahpureza/video_samples/licking_stick_01_raw_i420_noaudio.avi");
+        video[16] = VideoCapture("/dados/jabahpureza/video_samples/licking_stick_02_raw_i420_noaudio.avi");
+        video[17] = VideoCapture("/dados/jabahpureza/video_samples/make_it_funky_01_raw_i420_noaudio.avi");
+        video[18] = VideoCapture("/dados/jabahpureza/video_samples/mother_popcorn_01_raw_i420_noaudio.avi");
+        video[19] = VideoCapture("/dados/jabahpureza/video_samples/papa_dont_take_no_mess_01_raw_i420_noaudio.avi");
+        video[20] = VideoCapture("/dados/jabahpureza/video_samples/sex_machine_01_raw_i420_noaudio.avi");
+        video[21] = VideoCapture("/dados/jabahpureza/video_samples/super_bad_01_raw_i420_noaudio.avi");
+        video[22] = VideoCapture("/dados/jabahpureza/video_samples/thank_you_raw_i420_noaudio.avi");
     }
     catch ( ... )
     {
         cout << "erro opencv videocapture";
     }
 
-    currVideo = 1;
+    currVideo = 0;
 
     boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
 
@@ -127,6 +140,8 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
 
     this->audioSampler = new OpenALSampler();
 
+    pastTimeMSecs = 0;
+    sampleStartTimeMSecs = 0;
 }
 
 /**
@@ -146,13 +161,12 @@ void VimusMachineLanternaMagica::update()
     try
     {
         boost::xtime_get(&(this->currSysTime2), boost::TIME_UTC);
-        this->pastTime2 = this->currSysTime2.nsec - this->startSysTime2.nsec +
-            this->currSysTime2.sec*1000000000 - this->startSysTime2.sec*1000000000;
+        this->pastTimeMSecs = (this->currSysTime2.nsec - this->startSysTime2.nsec) / 1000000.0f;
+        this->pastTimeMSecs += (this->currSysTime2.sec - this->startSysTime2.sec)*1000;
 
-        if (this->pastTime2/1000000 < 0.002)
-            this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, 0);
-        else
-            this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, this->pastTime2/1000000);
+        this->pastTimeMSecs += this->sampleStartTimeMSecs;
+
+        this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, this->pastTimeMSecs);
 
         if (video[currVideo].grab())
         {
@@ -161,6 +175,7 @@ void VimusMachineLanternaMagica::update()
         }
         else
         {
+            this->sampleStartTimeMSecs = 0;
             this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, 0);
             currFrame = 0;
             boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
@@ -189,14 +204,13 @@ void VimusMachineLanternaMagica::draw()
 	glDisable(GL_BLEND);
 	glEnable(GL_TEXTURE_2D);
 
-    glColor4f (1.0f, 1.0f, 1.0f, 1.0f);
+    glColor4f (1.0f, 0.0f, 0.0f, 1.0f);
 
     glBindTexture(GL_TEXTURE_2D, texName);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, VIDEO_WIDTH, VIDEO_HEIGHT, 0, GL_BGR,
                                 GL_UNSIGNED_BYTE, this->capturedFrame);
 
     glScalef(0.8,1,1);
-
 
     glBegin(GL_QUADS);
         glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, 1.0f, 0.0f);
@@ -299,42 +313,33 @@ void VimusMachineLanternaMagica::keyBoardFunc(unsigned char key, int x, int y)
 	switch (key)
 	{
         case 'a':
-            this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, 0);
+            this->sampleStartTimeMSecs = 0;
             boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
             this->audioSampler->playSample(currVideo);
             break;
         case 'j':
             this->audioSampler->stopSample(currVideo);
             if (currVideo > 0)
-            {
                 currVideo--;
-                boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
-                this->audioSampler->playSample(currVideo);
-            }
             else
-            {
                 currVideo = NUM_VIDEOS-1;
-                boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
-                this->audioSampler->playSample(currVideo);
-            }
+            boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
+            this->audioSampler->playSample(currVideo);
+            this->sampleStartTimeMSecs = 0;
             this->audioSampler->playSample(currVideo);
             break;
         case 13:
             this->audioSampler->stopSample(currVideo);
-            if (currVideo < 12)
-            {
+            if (currVideo < NUM_VIDEOS-1)
                 currVideo++;
-                boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
-            }
             else
-            {
                 currVideo = 0;
-                boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
-            }
+            boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
+            this->sampleStartTimeMSecs = 0;
             this->audioSampler->playSample(currVideo);
             break;
         case '5':
-            this->audioSampler->playSample(11);
+            this->audioSampler->playSample(27);
             break;
 	}
 }
