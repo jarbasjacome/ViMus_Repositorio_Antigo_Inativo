@@ -47,51 +47,49 @@ OpenALSampler::OpenALSampler()
 		alDeleteBuffers(NUM_BUFFERS, buffers);
 	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/do_it_to_death_01.wav", buffers[4]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/do_it_to_death_02.wav", buffers[5]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/funky_drummer_01.wav", buffers[5]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/funky_drummer_01.wav", buffers[6]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/give_it_up_or_turnit_a_loose_01.wav", buffers[6]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/give_it_up_or_turnit_a_loose_01.wav", buffers[7]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/give_it_up_or_turnit_a_loose_02.wav", buffers[7]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/give_it_up_or_turnit_a_loose_02.wav", buffers[8]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/i_dont_want_nobody_to_give_me_nothing_01.wav", buffers[8]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/i_dont_want_nobody_to_give_me_nothing_01.wav", buffers[9]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/i_dont_want_nobody_to_give_me_nothing_02.wav", buffers[9]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/i_dont_want_nobody_to_give_me_nothing_02.wav", buffers[10]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/i_dont_want_nobody_to_give_me_nothing_03.wav", buffers[10]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/i_dont_want_nobody_to_give_me_nothing_03.wav", buffers[11]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/i_feel_good_01.wav", buffers[11]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/i_feel_good_01.wav", buffers[12]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/i_feel_good_02.wav", buffers[12]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/i_feel_good_02.wav", buffers[13]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/i_got_a_feeling_01.wav", buffers[13]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/i_got_a_feeling_01.wav", buffers[14]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/licking_stick_01.wav", buffers[14]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/licking_stick_01.wav", buffers[15]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/licking_stick_02.wav", buffers[15]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/licking_stick_02.wav", buffers[16]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/make_it_funky_01.wav", buffers[16]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/make_it_funky_01.wav", buffers[17]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/mother_popcorn_01.wav", buffers[17]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/mother_popcorn_01.wav", buffers[18]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/papa_dont_take_no_mess_01.wav", buffers[18]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/papa_dont_take_no_mess_01.wav", buffers[19]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/sex_machine_01.wav", buffers[19]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/sex_machine_01.wav", buffers[20]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/super_bad_01.wav", buffers[20]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/super_bad_01.wav", buffers[21]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/thank_you.wav", buffers[21]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/thank_you.wav", buffers[22]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/sample_ataque_give_it_up_or_turnit_a_loose.wav", buffers[22]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/sample_ataque_give_it_up_or_turnit_a_loose.wav", buffers[23]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/sample_clap_your_hand.wav", buffers[23]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/sample_clap_your_hand.wav", buffers[24]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/sample_clap_your_hand_com_batera.wav", buffers[24]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/sample_clap_your_hand_com_batera.wav", buffers[25]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/sample_papa_fala.wav", buffers[25]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/sample_papa_fala.wav", buffers[26]))
-		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/sample_papa_brass02.wav", buffers[27]))
+	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/sample_papa_brass02.wav", buffers[26]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
 
 	// Generate the sources
@@ -111,6 +109,7 @@ OpenALSampler::OpenALSampler()
 	alSourcef(source[27],AL_GAIN,0.2f);
 	alSourcef(source[1],AL_GAIN,0.2f);
 	alSourcef(source[0],AL_GAIN,0.2f);
+	alSourcef(source[3],AL_GAIN,0.5f);
 }
 
 OpenALSampler::~OpenALSampler()

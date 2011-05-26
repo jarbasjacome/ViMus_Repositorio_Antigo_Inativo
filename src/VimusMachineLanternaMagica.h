@@ -120,9 +120,11 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 
 		unsigned char** ppNullFrame;
 
-        const static int NUM_VIDEOS = 23;
+        const static int NUM_VIDEOS = 22;
 
         cv::VideoCapture video[NUM_VIDEOS];
+
+        bool videoPlaying;
 
         int currVideo;
 
@@ -148,6 +150,23 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
         int currFrame;
 
         OpenALSampler * audioSampler;
+
+        int timeStamps[NUM_VIDEOS][20];
+
+        int currMeasure;
+
+        int repeatMode;
+        static const int REPEAT_MODE_GROOVE = 0;
+        static const int REPEAT_MODE_MEASURE = 1;
+        static const int REPEAT_MODE_OFF = 2;
+        static const int NUM_OF_REPEAT_MODES = 3;
+
+        int schedMeasureChange;
+        int schedGrooveChange;
+
+        void playCurrVideo();
+        void nextTrack();
+        void prevTrack();
 
 };
 

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug" />
+	<ActiveTarget name="Release" />
 	<File name="../../src/Configuration.h" open="0" top="0" tabpos="5">
 		<Cursor position="1903" topLine="61" />
 	</File>
 	<File name="../../src/Machine.h" open="0" top="0" tabpos="3">
 		<Cursor position="804" topLine="19" />
 	</File>
-	<File name="../../src/OpenALSampler.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="0" topLine="0" />
+	<File name="../../src/OpenALSampler.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="4909" topLine="76" />
 	</File>
-	<File name="../../src/OpenALSampler.h" open="0" top="0" tabpos="3">
-		<Cursor position="1332" topLine="38" />
+	<File name="../../src/OpenALSampler.h" open="1" top="0" tabpos="3">
+		<Cursor position="1332" topLine="47" />
 	</File>
 	<File name="../../src/VideoCaptureOpenCV.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="6871" topLine="218" />
@@ -98,10 +98,10 @@
 		<Cursor position="3368" topLine="130" />
 	</File>
 	<File name="../../src/VimusMachineLanternaMagica.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="3353" topLine="96" />
+		<Cursor position="6611" topLine="157" />
 	</File>
 	<File name="../../src/VimusMachineLanternaMagica.h" open="1" top="0" tabpos="2">
-		<Cursor position="3149" topLine="118" />
+		<Cursor position="3150" topLine="117" />
 	</File>
 	<File name="../../src/VimusMachineNormalObject.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="770" topLine="13" />
