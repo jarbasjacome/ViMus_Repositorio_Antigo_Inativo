@@ -78,11 +78,17 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
 
     this->capturedFrame = new unsigned char[VIDEO_WIDTH*VIDEO_HEIGHT*3];
 
+    this->distorcedFrame = new unsigned char[VIDEO_WIDTH*VIDEO_HEIGHT*3];
+
 	for (int i=0; i<VIDEO_WIDTH*VIDEO_HEIGHT; i++)
 	{
-        this->capturedFrame[i*3+1] = 255;
-        this->capturedFrame[i*3] = 0;
+        this->capturedFrame[i*3+0] = 255;
+        this->capturedFrame[i*3+1] = 0;
         this->capturedFrame[i*3+2] = 0;
+
+        this->distorcedFrame[i*3] = 0;      //B
+        this->distorcedFrame[i*3+1] = 0;    //G
+        this->distorcedFrame[i*3+2] = 255;  //R
 	}
 
 	Mat red(VIDEO_WIDTH, VIDEO_HEIGHT, CV_8UC3, capturedFrame,0);
@@ -98,7 +104,7 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, VIDEO_WIDTH, VIDEO_HEIGHT, 0, GL_BGR,
-                                GL_UNSIGNED_BYTE, this->capturedFrame);
+                                GL_UNSIGNED_BYTE, this->distorcedFrame);
 
     try
     {
@@ -163,22 +169,20 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
     int coldsweat01[] = {50, 3902,   7771,   11605,  15423};
     int coldsweat02[] = {6,	3976,	7907,	11822,  15690};
     int doittodeath[] = {1118,	5395,	9671,	14022,	18323,	22723};//,	27123};
-    int funkydrummer[]= { 	0,	4482,	8941,	13424,	17858,	22292};//	26726};
+    int funkydrummer[]= {43,	4515,	8967,	13440,	17893,	22314};//{0,	4482,	8941,	13424,	17858,	22292};//	26726};
     int giveitup01[]=   {3215,	11355,	19555};
     int giveitup02[]=   {8427 ,	16528,	24687,	32873,	41035,	49082,	57073,  65071,  73001};
     int i_dont_want_nobody01[] = {  2748,	11183,	19637};
     int i_dont_want_nobody02[] = {	0,      8443,	16809,	25226};
     int i_dont_want_nobody03[] = {  0,      16802,	33639};
-    int i_feel_good_01[] = { 6907,	10532,	14149,	17785};
-    int i_feel_good_02[] = { 0,	7130,	14153 };
     int i_got_a_feeling_01[]	= { 0,	7613,	15227,	22862};
-    int licking_stick_01[] = { 12767,	22264,	31684,	41216};
+    int licking_stick_01[] = {2335,	12836,	22264,	31712,	41202};//{ 12767,	22264,	31684,	41216};
     int licking_stick_02[] = { 0,	10668,	20146};
-    int make_it_funky_01[] = { 3840,	13321,	25703,	35200};
+    int make_it_funky_01[] = {3834,	13344,	25723,	35200};
     int mother_popcorn_01[] = { 51,	8465,	16777,	25095};
-    int papa_dont_take_no_mess[]	= { 0,	4662,	9549,	13907,	18494};
-    int sex_machine_01[] = { 2654,	4752,	13364,	22065 };
-    int super_bad_01[] = { 69,	7179,	14129,	21228,	28362,	31889,	39083,	46176};
+    int papa_dont_take_no_mess[]	= {15,	4678,	9569,	13907,	18500};//{ 0,	4662,	9549,	13907,	18494};
+    int sex_machine_01[] = {2671,	4749,	13364,	22095};//{ 2654,	4752,	13364,	22065 };
+    int super_bad_01[] = {69,	7179,	14129,	21228,	28362,	31927,	39083,	46176};//{ 69,	7179,	14129,	21228,	28362,	31889,	39083,	46176};
 
     for (int i=0; i<11; i++)
     {
@@ -192,22 +196,24 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
         if (i<3) this->timeStamps[8][i] = i_dont_want_nobody01[i];
         if (i<4) this->timeStamps[9][i] = i_dont_want_nobody02[i];
         if (i<3) this->timeStamps[10][i] = i_dont_want_nobody03[i];
-        if (i<4) this->timeStamps[11][i] = i_feel_good_01[i];
-        if (i<3) this->timeStamps[12][i] = i_feel_good_02[i];
-        if (i<4) this->timeStamps[13][i] = i_got_a_feeling_01[i];
-        if (i<4) this->timeStamps[14][i] = licking_stick_01[i];
-        if (i<3) this->timeStamps[15][i] = licking_stick_02[i];
-        if (i<4) this->timeStamps[16][i] = make_it_funky_01[i];
-        if (i<4) this->timeStamps[17][i] = mother_popcorn_01[i];
-        if (i<5) this->timeStamps[18][i] = papa_dont_take_no_mess[i];
-        if (i<4) this->timeStamps[19][i] = sex_machine_01[i];
-        if (i<8) this->timeStamps[20][i] = super_bad_01[i];
+        if (i<4) this->timeStamps[11][i] = i_got_a_feeling_01[i];
+        if (i<5) this->timeStamps[12][i] = licking_stick_01[i];
+        if (i<3) this->timeStamps[13][i] = licking_stick_02[i];
+        if (i<4) this->timeStamps[14][i] = make_it_funky_01[i];
+        if (i<4) this->timeStamps[15][i] = mother_popcorn_01[i];
+        if (i<5) this->timeStamps[16][i] = papa_dont_take_no_mess[i];
+        if (i<4) this->timeStamps[17][i] = sex_machine_01[i];
+        if (i<8) this->timeStamps[18][i] = super_bad_01[i];
     }
 
     videoPlaying = true;
 
+    this->audioCapture = new OpenALCapture();
+
     this->audioSampler->playSample(currVideo);
     boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
+
+    previousC = 0;
 }
 
 /**
@@ -223,7 +229,7 @@ VimusMachineLanternaMagica::~VimusMachineLanternaMagica()
  */
 void VimusMachineLanternaMagica::update()
 {
-
+    this->audioCapture->grabSamples();
     try
     {
         boost::xtime_get(&(this->currSysTime2), boost::TIME_UTC);
@@ -283,6 +289,37 @@ void VimusMachineLanternaMagica::update()
         {
             video[currVideo].retrieve(this->frame, 0);
             this->capturedFrame = (unsigned char *) this->frame.data;
+
+//            for (int i=0; i<VIDEO_HEIGHT; i++)
+//            {
+//                for (int j=0; j<VIDEO_WIDTH;j++)
+//                {
+//                    this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3]+this->audioCapture->getSample(i);//*255*10;
+//                    this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+1]+this->audioCapture->getSample(i);//*255*10;
+//                    this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+2]+this->audioCapture->getSample(i)*255*10;
+//                }
+//            }
+
+
+//            int zara;
+//            int antizara;
+//            for (int i=0; i<VIDEO_HEIGHT; i++)
+//            {
+//                zara = this->audioCapture->getSample(i)*VIDEO_WIDTH;
+//                antizara = VIDEO_WIDTH - 1 - zara;
+//                for (int j=0; j<antizara;j++)
+//                {
+//                    this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j+zara)*3];
+//                    this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j+zara)*3+1];
+//                    this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+2];
+//                }
+//                for (int j=antizara; j<VIDEO_WIDTH;j++)
+//                {
+//                    this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j-antizara)*3];
+//                    this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j-antizara)*3+1];
+//                    this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+2];
+//                }
+//            }
         }
         else
         {
@@ -322,6 +359,8 @@ void VimusMachineLanternaMagica::draw()
 
     glBindTexture(GL_TEXTURE_2D, texName);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, VIDEO_WIDTH, VIDEO_HEIGHT, 0, GL_BGR,
+                                GL_UNSIGNED_BYTE, this->distorcedFrame);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, VIDEO_WIDTH, VIDEO_HEIGHT, 0, GL_BGR,
                                 GL_UNSIGNED_BYTE, this->capturedFrame);
 
     glScalef(0.8,1,1);
@@ -336,7 +375,24 @@ void VimusMachineLanternaMagica::draw()
 	glDisable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 
-    glPopMatrix();
+//    glPopMatrix();
+//
+//    glPushMatrix();
+//
+//    glBegin(GL_LINES);
+//        for(int i = 0; i < OpenALCapture::BUFFER_SIZE-1; i++) {
+//            glVertex2f(- 1 + 4*i/(float)OpenALCapture::BUFFER_SIZE, this->audioCapture->getSample(i));
+//            glVertex2f(- 1 + 4*(i+1)/(float)OpenALCapture::BUFFER_SIZE, this->audioCapture->getSample(i+1));
+//        }
+//    glEnd();
+//
+//    glPopMatrix();
+
+//    ostringstream * strStream = new ostringstream;
+//    strStream->clear();
+//    (*strStream) << "Samples = " << this->audioCapture->getSample(0);
+//    this->renderBitmapString(-1.12,0,1,GLUT_BITMAP_HELVETICA_10, strStream);
+
 }
 
 

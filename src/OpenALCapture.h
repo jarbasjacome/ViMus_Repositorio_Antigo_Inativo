@@ -17,49 +17,57 @@
  * along with ViMus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _OPENALSAMPLER_H_
-#define _OPENALSAMPLER_H_
+#ifndef _OPENALCAPTURE_H_
+#define _OPENALCAPTURE_H_
 
 #include <stdlib.h>
-#include <stdio.h>
 
 #include <al.h>
 #include <alc.h>
 #include <alut.h>
 
+#include <iostream>
+#include <stdio.h>
+#include <string.h>
+
 /**
- * OpenALSampler class do sampling control.
+ * OpenALCapture class to audio captue management.
  *
  * @author Jarbas Jácome
  * Based on Lee Winder OpenAL Tutorial.
  * http://www.gamedev.net/reference/articles/article2008.asp
  *
+ * @date 05.27.2011
+ *
  */
-class OpenALSampler
+class OpenALCapture
 {
 	public:
 
-		OpenALSampler();
-		virtual ~OpenALSampler();
+		OpenALCapture();
+		virtual ~OpenALCapture();
 
-		void playSample (int sNumber);
-		void stopSample (int sNumber);
+		void startCapture();
+		void stopCapture();
+		void grabSamples();
+        float getSample(int index);
+        void softWave();
 
-		void setSamplePitch (int sNumber, float pitch);
-
-		void setPlaybackPos (int sNumber, float sec);
+        static const int BUFFER_SIZE = 1024;
+        static const int SAMPLE_RATE = 44100;
 
 	private:
 
-		static const int NUM_BUFFERS = 25;
-		static const int NUM_SOURCES = 25;
+        static const int DEVICE = 4;
+        ALCdevice* capDevice;
 
-		ALuint buffers[NUM_BUFFERS];
-		ALuint source[NUM_SOURCES];
+        float buffer[BUFFER_SIZE];
+        ALint tempBuffer[BUFFER_SIZE];
 
-		int	loadWaveBuffer (char* _fileName, ALuint _buffer);
-		void displayOpenALError (char* _string, ALenum error);
+        ALint numAvailSamples;
+
+        void error(ALCenum error);
 
 };
 
-#endif //_OPENALSAMPLER_H_
+#endif //_OPENALCAPTURE_H_

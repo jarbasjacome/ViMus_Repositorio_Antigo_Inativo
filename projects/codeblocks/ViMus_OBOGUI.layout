@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Release" />
+	<ActiveTarget name="Debug" />
 	<File name="../../src/Configuration.h" open="0" top="0" tabpos="5">
-		<Cursor position="1903" topLine="61" />
+		<Cursor position="1930" topLine="61" />
 	</File>
 	<File name="../../src/Machine.h" open="0" top="0" tabpos="3">
 		<Cursor position="804" topLine="19" />
 	</File>
-	<File name="../../src/OpenALSampler.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="4909" topLine="76" />
+	<File name="../../src/OpenALCapture.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="3081" topLine="95" />
 	</File>
-	<File name="../../src/OpenALSampler.h" open="1" top="0" tabpos="3">
-		<Cursor position="1332" topLine="47" />
+	<File name="../../src/OpenALCapture.h" open="1" top="0" tabpos="4">
+		<Cursor position="1131" topLine="54" />
+	</File>
+	<File name="../../src/OpenALSampler.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="0" topLine="71" />
+	</File>
+	<File name="../../src/OpenALSampler.h" open="0" top="0" tabpos="3">
+		<Cursor position="852" topLine="18" />
 	</File>
 	<File name="../../src/VideoCaptureOpenCV.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="6871" topLine="218" />
@@ -20,7 +26,7 @@
 		<Cursor position="2543" topLine="91" />
 	</File>
 	<File name="../../src/VimusGUICube.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="30696" topLine="1108" />
+		<Cursor position="5001" topLine="199" />
 	</File>
 	<File name="../../src/VimusGUICube.h" open="0" top="0" tabpos="0">
 		<Cursor position="5131" topLine="211" />
@@ -32,19 +38,19 @@
 		<Cursor position="4694" topLine="190" />
 	</File>
 	<File name="../../src/VimusGUIGLUT.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="5623" topLine="192" />
+		<Cursor position="6268" topLine="202" />
 	</File>
 	<File name="../../src/VimusGUIGLUT.h" open="0" top="0" tabpos="2">
-		<Cursor position="1561" topLine="67" />
+		<Cursor position="2442" topLine="86" />
 	</File>
 	<File name="../../src/VimusGUINormalObject.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="708" topLine="18" />
 	</File>
 	<File name="../../src/VimusGUIObject.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="5374" topLine="226" />
+		<Cursor position="5813" topLine="264" />
 	</File>
 	<File name="../../src/VimusGUIObject.h" open="0" top="0" tabpos="0">
-		<Cursor position="6692" topLine="270" />
+		<Cursor position="3447" topLine="127" />
 	</File>
 	<File name="../../src/VimusGUIObjects.h" open="0" top="0" tabpos="0">
 		<Cursor position="865" topLine="10" />
@@ -80,7 +86,7 @@
 		<Cursor position="1507" topLine="47" />
 	</File>
 	<File name="../../src/VimusMachineCVBlobDetection.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="19240" topLine="695" />
+		<Cursor position="11883" topLine="424" />
 	</File>
 	<File name="../../src/VimusMachineCVBlobDetection.h" open="0" top="0" tabpos="2">
 		<Cursor position="2989" topLine="101" />
@@ -98,10 +104,10 @@
 		<Cursor position="3368" topLine="130" />
 	</File>
 	<File name="../../src/VimusMachineLanternaMagica.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="6611" topLine="157" />
+		<Cursor position="15282" topLine="356" />
 	</File>
 	<File name="../../src/VimusMachineLanternaMagica.h" open="1" top="0" tabpos="2">
-		<Cursor position="3150" topLine="117" />
+		<Cursor position="3405" topLine="127" />
 	</File>
 	<File name="../../src/VimusMachineNormalObject.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="770" topLine="13" />
@@ -167,6 +173,6 @@
 		<Cursor position="2701" topLine="82" />
 	</File>
 	<File name="../../src/VimusMain.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="736" topLine="20" />
+		<Cursor position="1060" topLine="27" />
 	</File>
 </CodeBlocks_layout_file>

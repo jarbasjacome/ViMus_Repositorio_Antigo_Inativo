@@ -29,8 +29,11 @@
 #include <boost/thread/xtime.hpp>
 
 #include "OpenALSampler.h"
+#include "OpenALCapture.h"
 
 #include <iostream>
+
+#include <math.h>
 
 /**
  * VimusMachineLanternaMagica is funk soul brother.
@@ -132,6 +135,7 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
         cv::Mat frameDest;
 
 		unsigned char* capturedFrame;
+		unsigned char* distorcedFrame;
 
         GLuint texName;
 
@@ -163,6 +167,10 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 
         int schedMeasureChange;
         int schedGrooveChange;
+
+        OpenALCapture* audioCapture;
+
+        int previousC;
 
         void playCurrVideo();
         void nextTrack();

@@ -51,6 +51,8 @@
 		</Linker>
 		<Unit filename="../../src/Configuration.h" />
 		<Unit filename="../../src/Machine.h" />
+		<Unit filename="../../src/OpenALCapture.cpp" />
+		<Unit filename="../../src/OpenALCapture.h" />
 		<Unit filename="../../src/OpenALSampler.cpp" />
 		<Unit filename="../../src/OpenALSampler.h" />
 		<Unit filename="../../src/VideoCaptureOpenCV.cpp" />
