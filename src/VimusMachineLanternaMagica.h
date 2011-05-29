@@ -101,17 +101,6 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 		 */
 		void disconnectInput (VimusMachineObject * srcObj, int outPin, int inPin);
 
-        /**
-         * TODO: PUT THIS OUT OF THIS OBJECT!
-         * Renders a bitmap string.
-         */
-        void renderBitmapString(
-                float x,
-                float y,
-                float z,
-                void *font,
-                std::ostringstream * strStream);
-
         void keyBoardFunc(unsigned char key, int x, int y);
         void specialKeyBoardFunc(int key, int x, int y);
 
@@ -123,7 +112,7 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 
 		unsigned char** ppNullFrame;
 
-        const static int NUM_VIDEOS = 22;
+        const static int NUM_VIDEOS = 21;
 
         cv::VideoCapture video[NUM_VIDEOS];
 
@@ -170,11 +159,35 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 
         OpenALCapture* audioCapture;
 
-        int previousC;
+        int JabahZ;
+        int JabahZInc;
 
         void playCurrVideo();
         void nextTrack();
         void prevTrack();
+
+        /**
+         * Renders a stroke font string.
+         */
+        void renderStrokeFontString(
+                float x,
+                float y,
+                float z,
+                void *font,
+                const char *lab,
+                float stroke);
+
+        /**
+         * TODO: PUT THIS OUT OF THIS OBJECT!
+         * Renders a bitmap string.
+         */
+        void renderBitmapString(
+                float x,
+                float y,
+                float z,
+                void *font,
+                std::ostringstream * strStream);
+
 
 };
 

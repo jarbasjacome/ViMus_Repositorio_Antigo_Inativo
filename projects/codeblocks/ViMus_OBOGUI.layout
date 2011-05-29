@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug" />
+	<ActiveTarget name="Release" />
 	<File name="../../src/Configuration.h" open="0" top="0" tabpos="5">
 		<Cursor position="1930" topLine="61" />
 	</File>
@@ -8,7 +8,7 @@
 		<Cursor position="804" topLine="19" />
 	</File>
 	<File name="../../src/OpenALCapture.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="3081" topLine="95" />
+		<Cursor position="3081" topLine="94" />
 	</File>
 	<File name="../../src/OpenALCapture.h" open="1" top="0" tabpos="4">
 		<Cursor position="1131" topLine="54" />
@@ -32,7 +32,7 @@
 		<Cursor position="5131" topLine="211" />
 	</File>
 	<File name="../../src/VimusGUIEditor.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="795" topLine="24" />
+		<Cursor position="11620" topLine="455" />
 	</File>
 	<File name="../../src/VimusGUIEditor.h" open="0" top="0" tabpos="2">
 		<Cursor position="4694" topLine="190" />
@@ -104,7 +104,7 @@
 		<Cursor position="3368" topLine="130" />
 	</File>
 	<File name="../../src/VimusMachineLanternaMagica.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="15282" topLine="356" />
+		<Cursor position="12595" topLine="291" />
 	</File>
 	<File name="../../src/VimusMachineLanternaMagica.h" open="1" top="0" tabpos="2">
 		<Cursor position="3405" topLine="127" />
