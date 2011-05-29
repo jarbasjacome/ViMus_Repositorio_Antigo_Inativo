@@ -112,7 +112,7 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 
 		unsigned char** ppNullFrame;
 
-        const static int NUM_VIDEOS = 21;
+        const static int NUM_VIDEOS = 20;
 
         cv::VideoCapture video[NUM_VIDEOS];
 
@@ -125,6 +125,15 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 
 		unsigned char* capturedFrame;
 		unsigned char* distorcedFrame;
+
+		int videoEffect;
+		const static int VIDEO_EFFECT_OFF = 0;
+		const static int VIDEO_EFFECT_RED = 1;
+		const static int VIDEO_EFFECT_BLUE = 2;
+		const static int VIDEO_EFFECT_YELLOW = 3;
+		const static int VIDEO_EFFECT_WAVE = 4;
+		const static int VIDEO_EFFECT_BRIGHTNESS = 5;
+		const static int VIDEO_EFFECT_THRESHOLD = 6;
 
         GLuint texName;
 
@@ -159,12 +168,11 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 
         OpenALCapture* audioCapture;
 
-        int JabahZ;
-        int JabahZInc;
-
         void playCurrVideo();
         void nextTrack();
         void prevTrack();
+
+        void setCurrVideo(int video);
 
         /**
          * Renders a stroke font string.

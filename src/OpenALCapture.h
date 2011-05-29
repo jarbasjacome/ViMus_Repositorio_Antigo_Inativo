@@ -52,6 +52,7 @@ class OpenALCapture
 		void grabSamples();
         float getSample(int index);
         void softWave();
+        float getSoftAmp();
 
         static const int BUFFER_SIZE = 1024;
         static const int SAMPLE_RATE = 44100;
@@ -66,8 +67,12 @@ class OpenALCapture
 
         ALint numAvailSamples;
 
-        void error(ALCenum error);
+        static const int SOFT_AMP_BUFFER_SIZE = 5;
+        float softAmp;
+        float softAmpArray[SOFT_AMP_BUFFER_SIZE];
+        float soma;
 
+        void error(ALCenum error);
 };
 
 #endif //_OPENALCAPTURE_H_

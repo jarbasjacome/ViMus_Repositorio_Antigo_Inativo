@@ -57,6 +57,12 @@ OpenALCapture::OpenALCapture()
         this->tempBuffer[i] = 0;
     }
 
+    for (int i=0; i<SOFT_AMP_BUFFER_SIZE; i++)
+    {
+        this->softAmpArray[i] = 0;
+    }
+    soma = 0;
+
     this->startCapture();
 }
 
@@ -103,12 +109,21 @@ void OpenALCapture::softWave()
     int antiZara = BUFFER_SIZE-1-zarathustra;
     for (int i=0; i<antiZara; i++)
     {
-        this->buffer[i] = ((float) this->tempBuffer[i+zarathustra]) / 4294967296.0f;
+        this->buffer[i] = ((float) this->tempBuffer[i+zarathustra]) / 2147483648.0f;
     }
     for (int i=antiZara; i<BUFFER_SIZE-1; i++)
     {
-        this->buffer[i] = ((float) this->tempBuffer[i-(antiZara)]) / 4294967296.0f;
+        this->buffer[i] = ((float) this->tempBuffer[i-(antiZara)]) / 2147483648.0f;
     }
+
+    soma = soma - this->softAmpArray[SOFT_AMP_BUFFER_SIZE-1];
+    for (int i=SOFT_AMP_BUFFER_SIZE-1; i>=0; i--)
+    {
+        this->softAmpArray[i] = this->softAmpArray[i-1];
+    }
+    soma = soma + this->buffer[0];
+    this->softAmpArray[0]=this->buffer[0];
+    this->softAmp = soma / (float) (SOFT_AMP_BUFFER_SIZE-1);
 }
 
 float OpenALCapture::getSample(int index)
@@ -116,6 +131,10 @@ float OpenALCapture::getSample(int index)
     return this->buffer[index];
 }
 
+float OpenALCapture::getSoftAmp()
+{
+    return this->softAmp;
+}
 
 void OpenALCapture::error(ALCenum error)
 {

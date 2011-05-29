@@ -49,6 +49,8 @@ class OpenALSampler
 
 		void setPlaybackPos (int sNumber, float sec);
 
+		void setGain(int sNumber, float gain);
+
 	private:
 
 		static const int NUM_BUFFERS = 25;

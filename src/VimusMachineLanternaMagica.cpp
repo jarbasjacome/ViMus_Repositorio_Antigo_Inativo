@@ -108,33 +108,33 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
 
     try
     {
-        video[1] = VideoCapture("/dados/jabahpureza/video_samples/soul_of_the_funky_drummers_raw_i420_noaudio.avi");
-        video[2] = VideoCapture("/dados/jabahpureza/video_samples/super_bad_01_raw_i420_noaudio.avi");
-        video[3] = VideoCapture("/dados/jabahpureza/video_samples/cold_sweat_01_raw_i420_noaudio.avi");
-        video[4] = VideoCapture("/dados/jabahpureza/video_samples/cold_sweat_02_raw_i420_noaudio.avi");
+        video[0] = VideoCapture("/dados/jabahpureza/video_samples/soul_of_the_funky_drummers_raw_i420_noaudio.avi");
+        video[1] = VideoCapture("/dados/jabahpureza/video_samples/cold_sweat_02_raw_i420_noaudio.avi");
+        video[2] = VideoCapture("/dados/jabahpureza/video_samples/cold_sweat_01_raw_i420_noaudio.avi");
+        video[3] = VideoCapture("/dados/jabahpureza/video_samples/super_bad_01_raw_i420_noaudio.avi");
+        video[4] = VideoCapture("/dados/jabahpureza/video_samples/funky_drummer_01_raw_i420_noaudio.avi");
         video[5] = VideoCapture("/dados/jabahpureza/video_samples/do_it_to_death_01_raw_i420_noaudio.avi");
-        video[6] = VideoCapture("/dados/jabahpureza/video_samples/funky_drummer_01_raw_i420_noaudio.avi");
-        video[7] = VideoCapture("/dados/jabahpureza/video_samples/give_it_up_or_turnit_a_loose_01_raw_i420_noaudio.avi");
-        video[8] = VideoCapture("/dados/jabahpureza/video_samples/give_it_up_or_turnit_a_loose_02_raw_i420_noaudio.avi");
-        video[9] = VideoCapture("/dados/jabahpureza/video_samples/i_dont_want_nobody_to_give_me_nothing_01_raw_i420_noaudio.avi");
-        video[10] = VideoCapture("/dados/jabahpureza/video_samples/i_dont_want_nobody_to_give_me_nothing_02_raw_i420_noaudio.avi");
-        video[11] = VideoCapture("/dados/jabahpureza/video_samples/i_dont_want_nobody_to_give_me_nothing_03_raw_i420_noaudio.avi");
-        video[12] = VideoCapture("/dados/jabahpureza/video_samples/i_got_a_feeling_01_raw_i420_noaudio.avi");
-        video[13] = VideoCapture("/dados/jabahpureza/video_samples/licking_stick_01_raw_i420_noaudio.avi");
-        video[14] = VideoCapture("/dados/jabahpureza/video_samples/licking_stick_02_raw_i420_noaudio.avi");
-        video[15] = VideoCapture("/dados/jabahpureza/video_samples/make_it_funky_01_raw_i420_noaudio.avi");
-        video[16] = VideoCapture("/dados/jabahpureza/video_samples/mother_popcorn_01_raw_i420_noaudio.avi");
-        video[17] = VideoCapture("/dados/jabahpureza/video_samples/papa_dont_take_no_mess_01_raw_i420_noaudio.avi");
-        video[18] = VideoCapture("/dados/jabahpureza/video_samples/sex_machine_01_raw_i420_noaudio.avi");
-        video[19] = VideoCapture("/dados/jabahpureza/video_samples/thank_you_raw_i420_noaudio.avi");
-        video[20] = VideoCapture("/dados/jabahpureza/video_samples/bootsy_01_raw_i420_noaudio.avi");
+        video[6] = VideoCapture("/dados/jabahpureza/video_samples/give_it_up_or_turnit_a_loose_01_raw_i420_noaudio.avi");
+        video[7] = VideoCapture("/dados/jabahpureza/video_samples/give_it_up_or_turnit_a_loose_02_raw_i420_noaudio.avi");
+        video[8] = VideoCapture("/dados/jabahpureza/video_samples/i_dont_want_nobody_to_give_me_nothing_01_raw_i420_noaudio.avi");
+        video[9] = VideoCapture("/dados/jabahpureza/video_samples/i_dont_want_nobody_to_give_me_nothing_02_raw_i420_noaudio.avi");
+        video[10] = VideoCapture("/dados/jabahpureza/video_samples/i_dont_want_nobody_to_give_me_nothing_03_raw_i420_noaudio.avi");
+        video[11] = VideoCapture("/dados/jabahpureza/video_samples/i_got_a_feeling_01_raw_i420_noaudio.avi");
+        video[12] = VideoCapture("/dados/jabahpureza/video_samples/licking_stick_01_raw_i420_noaudio.avi");
+        video[13] = VideoCapture("/dados/jabahpureza/video_samples/licking_stick_02_raw_i420_noaudio.avi");
+        video[14] = VideoCapture("/dados/jabahpureza/video_samples/make_it_funky_01_raw_i420_noaudio.avi");
+        video[15] = VideoCapture("/dados/jabahpureza/video_samples/mother_popcorn_01_raw_i420_noaudio.avi");
+        video[16] = VideoCapture("/dados/jabahpureza/video_samples/papa_dont_take_no_mess_01_raw_i420_noaudio.avi");
+        video[17] = VideoCapture("/dados/jabahpureza/video_samples/sex_machine_01_raw_i420_noaudio.avi");
+        video[18] = VideoCapture("/dados/jabahpureza/video_samples/thank_you_raw_i420_noaudio.avi");
+        video[19] = VideoCapture("/dados/jabahpureza/video_samples/bootsy_01_raw_i420_noaudio.avi");
     }
     catch ( ... )
     {
         cout << "erro opencv videocapture";
     }
 
-    currVideo = NUM_VIDEOS-1;
+    setCurrVideo(NUM_VIDEOS-1);
 
     timePast = 0;
     currFrame = 0;
@@ -148,7 +148,7 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
     schedGrooveChange=-1;
 
     currMeasure = 0;
-    repeatMode = this->REPEAT_MODE_GROOVE;
+    repeatMode = this->REPEAT_MODE_OFF;
 
     for (int i=0; i<NUM_VIDEOS; i++)
     {
@@ -184,11 +184,11 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
 
     for (int i=0; i<11; i++)
     {
-        if (i<8) this->timeStamps[1][i] = super_bad_01[i];
+        if (i<5) this->timeStamps[1][i] = coldsweat02[i];
         if (i<5) this->timeStamps[2][i] = coldsweat01[i];
-        if (i<5) this->timeStamps[3][i] = coldsweat02[i];
-        if (i<6) this->timeStamps[4][i] = doittodeath[i];
-        if (i<6) this->timeStamps[5][i] = funkydrummer[i];
+        if (i<8) this->timeStamps[3][i] = super_bad_01[i];
+        if (i<6) this->timeStamps[4][i] = funkydrummer[i];
+        if (i<6) this->timeStamps[5][i] = doittodeath[i];
         if (i<3) this->timeStamps[6][i] = giveitup01[i];
         if (i<9) this->timeStamps[7][i] = giveitup02[i];
         if (i<3) this->timeStamps[8][i] = i_dont_want_nobody01[i];
@@ -203,9 +203,6 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
         if (i<4) this->timeStamps[17][i] = sex_machine_01[i];
         if (i<11) this->timeStamps[19][i] = bootsy[i];
     }
-
-    JabahZ = 0;
-    JabahZInc = 1;
 
     videoPlaying = true;
 
@@ -229,15 +226,6 @@ VimusMachineLanternaMagica::~VimusMachineLanternaMagica()
  */
 void VimusMachineLanternaMagica::update()
 {
-    if (currVideo == 0)
-    {
-        if (JabahZ < 200)
-        {
-            JabahZ += JabahZInc;
-        }
-        return;
-    }
-
     this->audioCapture->grabSamples();
     try
     {
@@ -273,7 +261,7 @@ void VimusMachineLanternaMagica::update()
                 if (this->schedGrooveChange > -1)
                 {
                     this->audioSampler->stopSample(currVideo);
-                    this->currVideo=this->schedGrooveChange;
+                    this->setCurrVideo(this->schedGrooveChange);
                     this->schedGrooveChange = -1;
                     this->audioSampler->playSample(this->currVideo);
                 }
@@ -296,38 +284,75 @@ void VimusMachineLanternaMagica::update()
         if (video[currVideo].grab() && videoPlaying)
         {
             video[currVideo].retrieve(this->frame, 0);
+
+            //TODO: if same size of vide dont need to do this!
+//            resize(this->frame, this->frameDest, Size(VIDEO_WIDTH, VIDEO_HEIGHT),0,0, INTER_LINEAR);
+//            this->capturedFrame = (unsigned char *) this->frameDest.data;
+
             this->capturedFrame = (unsigned char *) this->frame.data;
 
-            for (int i=0; i<VIDEO_HEIGHT; i++)
+            switch (this->videoEffect)
             {
-                for (int j=0; j<VIDEO_WIDTH;j++)
-                {
-                    this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3]+this->audioCapture->getSample(i);//*255*10;
-                    this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+1]+this->audioCapture->getSample(i);//*255*10;
-                    this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+2]+this->audioCapture->getSample(i)*255*10;
-                }
+                case VIDEO_EFFECT_OFF:
+                    break;
+                case VIDEO_EFFECT_RED:
+                    for (int i=0; i<VIDEO_HEIGHT; i++)
+                    {
+                        for (int j=0; j<VIDEO_WIDTH;j++)
+                        {
+                            this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3]+this->audioCapture->getSample(i);
+                            this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+1]+this->audioCapture->getSample(i);
+                            this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+2]+this->audioCapture->getSample(i)*255*5;
+                        }
+                    }
+                    break;
+                case VIDEO_EFFECT_BLUE:
+                    for (int i=0; i<VIDEO_HEIGHT; i++)
+                    {
+                        for (int j=0; j<VIDEO_WIDTH;j++)
+                        {
+                            this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3]+this->audioCapture->getSample(i)*255*5;
+                            this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+1]+this->audioCapture->getSample(i);
+                            this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+2]+this->audioCapture->getSample(i);
+                        }
+                    }
+                    break;
+                case VIDEO_EFFECT_BRIGHTNESS:
+                    float vol;
+                    vol = this->audioCapture->getSoftAmp()*4;
+                    for (int i=0; i<VIDEO_HEIGHT; i++)
+                    {
+                        for (int j=0; j<VIDEO_WIDTH;j++)
+                        {
+                            this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3]*vol;
+                            this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+1]*vol;
+                            this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+2]*vol;
+                        }
+                    }
+                    this->audioSampler->setGain(currVideo, vol);
+                    break;
+                default:
+                    int zara;
+                    int antizara;
+                    for (int i=0; i<VIDEO_HEIGHT; i++)
+                    {
+                        zara = this->audioCapture->getSample(i)*VIDEO_WIDTH*0.25;
+                        antizara = VIDEO_WIDTH - 1 - zara;
+                        for (int j=0; j<antizara;j++)
+                        {
+                            this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j+zara)*3];
+                            this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j+zara)*3+1];
+                            this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j+zara)*3+2];
+                        }
+                        for (int j=antizara; j<VIDEO_WIDTH;j++)
+                        {
+                            this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j-antizara)*3];
+                            this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j-antizara)*3+1];
+                            this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j-antizara)*3+2];
+                        }
+                    }
+                    break;
             }
-
-
-//            int zara;
-//            int antizara;
-//            for (int i=0; i<VIDEO_HEIGHT; i++)
-//            {
-//                zara = this->audioCapture->getSample(i)*VIDEO_WIDTH;
-//                antizara = VIDEO_WIDTH - 1 - zara;
-//                for (int j=0; j<antizara;j++)
-//                {
-//                    this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j+zara)*3];
-//                    this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j+zara)*3+1];
-//                    this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+2];
-//                }
-//                for (int j=antizara; j<VIDEO_WIDTH;j++)
-//                {
-//                    this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j-antizara)*3];
-//                    this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j-antizara)*3+1];
-//                    this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+2];
-//                }
-//            }
         }
         else
         {
@@ -359,63 +384,54 @@ void VimusMachineLanternaMagica::draw()
 
     gluLookAt (0, 0, 10.0f, 0, 0, 10.0f - 5.0f, 0.0, 1.0, 0.0);
 
-	if (currVideo == 0)
-	{
-//    ostringstream * strStream = new ostringstream;
-//    strStream->clear();
-//    (*strStream) << "Samples = " << this->audioCapture->getSample(0);
-//    this->renderBitmapString(-1.12,0,1,GLUT_BITMAP_HELVETICA_10, strStream);
-	    glDisable(GL_BLEND);
+    glClearColor (0.0, 0.0, 0.0, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        glColor4f (JabahZ/200.0f, 0, 0, 1.0f);
-        renderStrokeFontString( -0.5,  0.5, JabahZ/25.0f-6.0f, GLUT_STROKE_ROMAN, "Jabah Pureza", 10.0);
-        renderStrokeFontString(    0,  0.3, JabahZ/25.0f-6.0f, GLUT_STROKE_ROMAN, "&", 10.0);
-        renderStrokeFontString( -0.8, -0.1, JabahZ/25.0f-6.0f, GLUT_STROKE_ROMAN, "The Travelling Lanternists", 10.0);
-        renderStrokeFontString( -0.2, -0.5, JabahZ/25.0f-6.0f, GLUT_STROKE_ROMAN, "presents...", 10.0);
-
-        glColor4f (1.0f, 1.0f, 1.0f, 1.0f);
-        glScalef (1.05f, 1.0f, 1.0f);
-
-        renderStrokeFontString( -0.5,  0.51, JabahZ/25.0f-6.0f+0.01, GLUT_STROKE_ROMAN, "Jabah Pureza", 20.0);
-        renderStrokeFontString(    0,  0.31, JabahZ/25.0f-6.0f+0.01, GLUT_STROKE_ROMAN, "&", 20.0);
-        renderStrokeFontString( -0.8, -0.11, JabahZ/25.0f-6.0f+0.01, GLUT_STROKE_ROMAN, "The Travelling Lanternists", 20.0);
-        renderStrokeFontString( -0.2, -0.51, JabahZ/25.0f-6.0f+0.01, GLUT_STROKE_ROMAN, "presents...", 20.0);
-
-	}
-	else
-	{
-	    glClearColor (0.0, 0.0, 0.0, 1.0);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	    glDisable(GL_BLEND);
-        glEnable(GL_TEXTURE_2D);
+    glDisable(GL_BLEND);
+    glEnable(GL_TEXTURE_2D);
 
 
-        //glColor4f (1.0f, 0.0f, 0.0f, 1.0f);
-        glColor4f (1.0f, 1.0f, 1.0f, 1.0f);
+    //glColor4f (1.0f, 0.0f, 0.0f, 1.0f);
+    glColor4f (1.0f, 1.0f, 1.0f, 1.0f);
 
-        glBindTexture(GL_TEXTURE_2D, texName);
+
+    glBindTexture(GL_TEXTURE_2D, texName);
+
+    if (this->videoEffect == VIDEO_EFFECT_OFF)
+    {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, VIDEO_WIDTH, VIDEO_HEIGHT, 0, GL_BGR,
-                                    GL_UNSIGNED_BYTE, this->distorcedFrame);
-    //    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, VIDEO_WIDTH, VIDEO_HEIGHT, 0, GL_BGR,
-    //                                GL_UNSIGNED_BYTE, this->capturedFrame);
+                                GL_UNSIGNED_BYTE, this->capturedFrame);
+    }
+    else
+    {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, VIDEO_WIDTH, VIDEO_HEIGHT, 0, GL_BGR,
+                                GL_UNSIGNED_BYTE, this->distorcedFrame);
+    }
 
-        glScalef(0.8,1,1);
+    glScalef(0.8,1,1);
 
-        glBegin(GL_QUADS);
-            glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, 1.0f, 0.0f);
-            glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, 1.0f, 0.0f);
-            glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,-1.0f, 0.0f);
-            glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,-1.0f, 0.0f);
-        glEnd();
+    glBegin(GL_QUADS);
+        glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, 1.0f, 0.0f);
+        glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, 1.0f, 0.0f);
+        glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,-1.0f, 0.0f);
+        glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,-1.0f, 0.0f);
+    glEnd();
 
-        glDisable(GL_TEXTURE_2D);
-        glEnable(GL_BLEND);
-
-	}
+    glDisable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
 
     glPopMatrix();
 
+//    ostringstream * strStream = new ostringstream;
+//    strStream->clear();
+//    (*strStream) << "getSample(0) = " << this->audioCapture->getSample(0);
+//    this->renderBitmapString(-1.12,0,1,GLUT_BITMAP_HELVETICA_10, strStream);
+//
+//    ostringstream * strStream2 = new ostringstream;
+//    strStream2->clear();
+//    (*strStream2) << "getSoftAmp() = " << this->audioCapture->getSoftAmp();
+//    this->renderBitmapString(-1.13,-0.04,1,GLUT_BITMAP_HELVETICA_10, strStream2);
+//
 //    glPushMatrix();
 //
 //    glBegin(GL_LINES);
@@ -426,11 +442,6 @@ void VimusMachineLanternaMagica::draw()
 //    glEnd();
 //
 //    glPopMatrix();
-
-//    ostringstream * strStream = new ostringstream;
-//    strStream->clear();
-//    (*strStream) << "Samples = " << this->audioCapture->getSample(0);
-//    this->renderBitmapString(-1.12,0,1,GLUT_BITMAP_HELVETICA_10, strStream);
 
 }
 
@@ -649,9 +660,9 @@ void VimusMachineLanternaMagica::prevTrack()
 {
     this->audioSampler->stopSample(currVideo);
     if (currVideo > 0)
-        currVideo--;
+        this->setCurrVideo(currVideo-1);
     else
-        currVideo = NUM_VIDEOS-1;
+        this->setCurrVideo(NUM_VIDEOS-1);
     this->playCurrVideo();
 }
 
@@ -659,11 +670,10 @@ void VimusMachineLanternaMagica::nextTrack()
 {
     this->audioSampler->stopSample(currVideo);
     if (currVideo < NUM_VIDEOS-1)
-        currVideo++;
+        this->setCurrVideo(currVideo+1);
     else
     {
-        currVideo = 0;
-        JabahZ = 0;
+        this->setCurrVideo(0);
     }
     this->playCurrVideo();
 }
@@ -677,4 +687,46 @@ void VimusMachineLanternaMagica::playCurrVideo()
     boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
     this->sampleStartTimeMSecs = 0;
     this->audioSampler->playSample(currVideo);
+}
+
+void VimusMachineLanternaMagica::setCurrVideo(int video)
+{
+    this->currVideo = video;
+    this->videoEffect = VIDEO_EFFECT_WAVE;
+    switch(this->currVideo)
+    {
+        case 0:
+            this->videoEffect = VIDEO_EFFECT_RED;
+            break;
+        case 1:
+            this->videoEffect = VIDEO_EFFECT_BLUE;
+            break;
+        case 2:
+            this->videoEffect = VIDEO_EFFECT_BRIGHTNESS;
+            break;
+        case 3:
+            this->videoEffect = VIDEO_EFFECT_BRIGHTNESS;
+            break;
+        case 4:
+            this->videoEffect = VIDEO_EFFECT_BRIGHTNESS;
+            break;
+        case 5:
+            break;
+        case 6:
+            break;
+        case 7:
+            break;
+        case 8:
+            break;
+        case 9:
+            break;
+        case 10:
+            break;
+        case 11:
+            break;
+        case 12:
+            break;
+        case 13:
+            break;
+    }
 }
