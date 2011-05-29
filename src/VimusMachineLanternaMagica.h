@@ -133,7 +133,8 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 		const static int VIDEO_EFFECT_YELLOW = 3;
 		const static int VIDEO_EFFECT_WAVE = 4;
 		const static int VIDEO_EFFECT_BRIGHTNESS = 5;
-		const static int VIDEO_EFFECT_THRESHOLD = 6;
+		const static int VIDEO_EFFECT_BRIGHTNESS_INV = 6;
+		const static int VIDEO_EFFECT_THRESHOLD = 7;
 
         GLuint texName;
 

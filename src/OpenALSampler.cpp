@@ -100,9 +100,9 @@ OpenALSampler::OpenALSampler()
 			this->displayOpenALError("alSourcei : ", error);
 	}
 
-	alSourcef(source[0],AL_GAIN,0.2f);
-	alSourcef(source[1],AL_GAIN,0.3f);
-	alSourcef(source[19],AL_GAIN,0.2f);
+//	alSourcef(source[0],AL_GAIN,0.2f);
+//	alSourcef(source[1],AL_GAIN,0.3f);
+//	alSourcef(source[19],AL_GAIN,0.2f);
 }
 
 OpenALSampler::~OpenALSampler()

@@ -286,10 +286,10 @@ void VimusMachineLanternaMagica::update()
             video[currVideo].retrieve(this->frame, 0);
 
             //TODO: if same size of vide dont need to do this!
-//            resize(this->frame, this->frameDest, Size(VIDEO_WIDTH, VIDEO_HEIGHT),0,0, INTER_LINEAR);
-//            this->capturedFrame = (unsigned char *) this->frameDest.data;
+            resize(this->frame, this->frameDest, Size(VIDEO_WIDTH, VIDEO_HEIGHT),0,0, INTER_LINEAR);
+            this->capturedFrame = (unsigned char *) this->frameDest.data;
 
-            this->capturedFrame = (unsigned char *) this->frame.data;
+//            this->capturedFrame = (unsigned char *) this->frame.data;
 
             switch (this->videoEffect)
             {
@@ -320,6 +320,7 @@ void VimusMachineLanternaMagica::update()
                 case VIDEO_EFFECT_BRIGHTNESS:
                     float vol;
                     vol = this->audioCapture->getSoftAmp()*4;
+                    if (vol > 1.0f) vol = 1.0f;
                     for (int i=0; i<VIDEO_HEIGHT; i++)
                     {
                         for (int j=0; j<VIDEO_WIDTH;j++)
@@ -330,6 +331,21 @@ void VimusMachineLanternaMagica::update()
                         }
                     }
                     this->audioSampler->setGain(currVideo, vol);
+                    break;
+                case VIDEO_EFFECT_BRIGHTNESS_INV:
+                    float vol2;
+                    vol2 = 1.0f - this->audioCapture->getSoftAmp()*4;
+                    if (vol2 < 0.0f) vol2 = 0.0f;
+                    for (int i=0; i<VIDEO_HEIGHT; i++)
+                    {
+                        for (int j=0; j<VIDEO_WIDTH;j++)
+                        {
+                            this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3]*vol2;
+                            this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+1]*vol2;
+                            this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+2]*vol2;
+                        }
+                    }
+                    this->audioSampler->setGain(currVideo, vol2);
                     break;
                 default:
                     int zara;
@@ -387,6 +403,8 @@ void VimusMachineLanternaMagica::draw()
     glClearColor (0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    glScalef(1,1.6,1); //TODO: INVERT SCREEN DISTORTION
+
     glDisable(GL_BLEND);
     glEnable(GL_TEXTURE_2D);
 
@@ -408,7 +426,9 @@ void VimusMachineLanternaMagica::draw()
                                 GL_UNSIGNED_BYTE, this->distorcedFrame);
     }
 
-    glScalef(0.8,1,1);
+    glPushMatrix();
+
+    glScalef(1,0.8,1); //TODO: INVERT VIDEO TO SQUARE DISTORTION
 
     glBegin(GL_QUADS);
         glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, 1.0f, 0.0f);
@@ -417,10 +437,10 @@ void VimusMachineLanternaMagica::draw()
         glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,-1.0f, 0.0f);
     glEnd();
 
+    glPopMatrix();
+
     glDisable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
-
-    glPopMatrix();
 
 //    ostringstream * strStream = new ostringstream;
 //    strStream->clear();
@@ -432,16 +452,159 @@ void VimusMachineLanternaMagica::draw()
 //    (*strStream2) << "getSoftAmp() = " << this->audioCapture->getSoftAmp();
 //    this->renderBitmapString(-1.13,-0.04,1,GLUT_BITMAP_HELVETICA_10, strStream2);
 //
-//    glPushMatrix();
-//
-//    glBegin(GL_LINES);
-//        for(int i = 0; i < OpenALCapture::BUFFER_SIZE-1; i++) {
-//            glVertex2f(- 1 + 4*i/(float)OpenALCapture::BUFFER_SIZE, this->audioCapture->getSample(i));
-//            glVertex2f(- 1 + 4*(i+1)/(float)OpenALCapture::BUFFER_SIZE, this->audioCapture->getSample(i+1));
+
+    if (this->videoEffect == VIDEO_EFFECT_BRIGHTNESS_INV)
+    {
+        glPushMatrix();
+
+        glColor4f(1.0f, 1.0f, 1.0f, this->audioCapture->getSample(0)*4);
+
+        float posX1 = 0;
+        float posX2 = 0;
+        float posY1 = 0;
+        float posY2 = 0;
+        float dist;
+        float distTemp = 0.0;
+        posX1 = - 1.0;
+        float sumX = 4/(float)(OpenALCapture::BUFFER_SIZE/2.0f);
+        posX2 = - 1.0 + sumX;
+
+        glLineWidth(2.0f);
+
+//        glBegin(GL_LINES);
+//            dist = 1.0;
+//            for(int i = 0; i < OpenALCapture::BUFFER_SIZE/2.0f - 1; i+=2)
+//            {
+//                posY1 = this->audioCapture->getSample(i);
+//                posY2 = this->audioCapture->getSample(i+2);
+//                glVertex3f(posX1, posY1, 0.0f);
+//                glVertex3f(posX2, posY2, 0.0f);
+//                distTemp = 0.0;
+//                for (int i=0; i<10; i++)
+//                {
+//                    distTemp += dist;
+//                    glVertex3f(posX1, posY1, distTemp);
+//                    glVertex3f(posX2, posY2, distTemp);
+//                    glVertex3f(posX1, posY1, -distTemp);
+//                    glVertex3f(posX2, posY2, -distTemp);
+//                }
+//                posX1 += sumX;
+//                posX2 += sumX;
+//            }
+//        glEnd();
+
+//        glBegin(GL_LINES);
+//            dist = 0.15;
+//            for(int i = 0; i < OpenALCapture::BUFFER_SIZE/2.0f - 1; i+=2)
+//            {
+//                posY1 = this->audioCapture->getSample(i);
+//                posY2 = this->audioCapture->getSample(i+2);
+//                glVertex2f(posX1, posY1);
+//                glVertex2f(posX2, posY2);
+//                distTemp = 0.0;
+//                for (int i=0; i<10; i++)
+//                {
+//                    distTemp += dist;
+//                    glVertex2f(posX1, posY1 + distTemp);
+//                    glVertex2f(posX2, posY2 + distTemp);
+//                    glVertex2f(posX1, posY1 -distTemp);
+//                    glVertex2f(posX2, posY2 -distTemp);
+//                }
+//                posX1 += sumX;
+//                posX2 += sumX;
+//            }
+//        glEnd();
+
+//        float radius = 2.0f;
+//        float tempRadius = 0.1f;
+//        float angle;
+//        for (int j = 0; j < 20; j++)
+//        {
+//            glBegin(GL_LINE_LOOP);
+//            for(int i = 0; i < OpenALCapture::BUFFER_SIZE/2.0f; i++)
+//            {
+//                tempRadius = this->audioCapture->getSample(i)*radius;
+//                angle = i*2*M_PI/(OpenALCapture::BUFFER_SIZE/2.0f);
+//                glVertex2f((sin(angle) * tempRadius), -(cos(angle) * tempRadius));
+//            }
+//            glEnd();
+//            radius += 0.1;
 //        }
-//    glEnd();
+
+//        float radius = 0.1f;
+//        float tempRadius = 0.1f;
+//        float angle;
+//        for (int j = 0; j < 20; j++)
+//        {
+//            glBegin(GL_LINE_LOOP);
+//            for(int i = 0; i < OpenALCapture::BUFFER_SIZE/2.0f; i++)
+//            {
+//                tempRadius = radius + this->audioCapture->getSample(i);
+//                angle = i*2*M_PI/(OpenALCapture::BUFFER_SIZE/2.0f);
+//                glVertex2f((sin(angle) * tempRadius), -(cos(angle) * tempRadius));
+//            }
+//            glEnd();
+//            radius += 0.1;
+//        }
+
+        //FLOR
+        float radius = 0.1f;
+        float tempRadius = 0.1f;
+        float angle;
+
+        dist = 1.0f;
+        float posZ = 0.0f;
+
+        glColor4f(1.0f, 1.0f, 1.0f, this->audioCapture->getSample(0));
+
+        glTranslatef(0.0f,0.0f,4.0f);
+        glRotatef(5, 1.0,1.0,1.0);
+
+        for (int j = 0; j < 2; j++)
+        {
+            glBegin(GL_LINE_LOOP);
+            for(int i = 0; i < OpenALCapture::BUFFER_SIZE/2.0f; i++)
+            {
+                tempRadius = radius + this->audioCapture->getSample(i);
+                angle = i*2*M_PI/(OpenALCapture::BUFFER_SIZE/2.0f);
+                glVertex3f(sin(angle)*tempRadius, -cos(angle)*tempRadius, posZ);
+                glVertex3f(sin(angle)*tempRadius, -cos(angle)*tempRadius, -posZ);
+            }
+            radius += 0.1;
+            posZ += dist;
+            glEnd();
+        }
+        glPopMatrix();
+
+//        float radius = 0.1f;
+//        float tempRadius = 0.1f;
+//        float angle;
 //
-//    glPopMatrix();
+//        glLineWidth(6.0f);
+//
+//        dist = 0.5f;
+//        float posZ = 0.0f;
+//
+//        glColor4f(1.0f, 1.0f, 1.0f, 0.6);//this->audioCapture->getSample(0)*4);
+//
+//        for (int j = 0; j < 20; j++)
+//        {
+//            glBegin(GL_LINE_LOOP);
+//            for(int i = 0; i < OpenALCapture::BUFFER_SIZE/2.0f; i++)
+//            {
+//                tempRadius = radius + this->audioCapture->getSample(i)*0.5;
+//                angle = i*2*M_PI/(OpenALCapture::BUFFER_SIZE/2.0f);
+//                glVertex3f(sin(angle)*tempRadius, -cos(angle)*tempRadius, posZ);
+//            }
+//            posZ += dist;
+//            glEnd();
+//        }
+
+
+
+        glPopMatrix();
+    }
+    glPopMatrix();
 
 }
 
@@ -692,20 +855,22 @@ void VimusMachineLanternaMagica::playCurrVideo()
 void VimusMachineLanternaMagica::setCurrVideo(int video)
 {
     this->currVideo = video;
-    this->videoEffect = VIDEO_EFFECT_WAVE;
+    //this->videoEffect = VIDEO_EFFECT_WAVE;
+    this->videoEffect = VIDEO_EFFECT_BRIGHTNESS_INV;
+    return;
     switch(this->currVideo)
     {
         case 0:
             this->videoEffect = VIDEO_EFFECT_RED;
             break;
         case 1:
-            this->videoEffect = VIDEO_EFFECT_BLUE;
+            this->videoEffect = VIDEO_EFFECT_RED;
             break;
         case 2:
-            this->videoEffect = VIDEO_EFFECT_BRIGHTNESS;
+            this->videoEffect = VIDEO_EFFECT_BLUE;
             break;
         case 3:
-            this->videoEffect = VIDEO_EFFECT_BRIGHTNESS;
+            this->videoEffect = VIDEO_EFFECT_WAVE;
             break;
         case 4:
             this->videoEffect = VIDEO_EFFECT_BRIGHTNESS;
