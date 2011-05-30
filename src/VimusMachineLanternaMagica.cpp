@@ -340,7 +340,10 @@ void VimusMachineLanternaMagica::update()
                 }
                 this->audioSampler->setGain(currVideo, vol2);
                 break;
-            default:
+            case VIDEO_EFFECT_CONTRAST:
+                this->changeContrast(0, 0.7-this->audioCapture->getSoftAmp()*0.7);
+                break;
+            case VIDEO_EFFECT_WAVE:
                 int zara;
                 int antizara;
                 for (int i=0; i<VIDEO_HEIGHT; i++)
@@ -480,10 +483,7 @@ void VimusMachineLanternaMagica::draw()
             glEnd();
             break;
 		case WAVE_DRAWER_LINES_3D:
-            if (this->videoEffect == VIDEO_EFFECT_BRIGHTNESS_INV)
-                glColor4f(1.0f, 1.0f, 1.0f, this->audioCapture->getSample(0)*4);
-            else
-                glColor4f(1.0f, 1.0f, 1.0f, 1 - this->audioCapture->getSample(0)*4);
+            glColor4f(1.0f, 1.0f, 1.0f, this->audioCapture->getSample(0)*4);
             glLineWidth(2.0f);
             glBegin(GL_LINES);
                 dist = 1.0;
@@ -897,8 +897,8 @@ void VimusMachineLanternaMagica::setCurrVideo(int video)
             this->waveDrawer = WAVE_DRAWER_OFF;
             break;
         case 5:
-            this->videoEffect = VIDEO_EFFECT_BRIGHTNESS_INV;
-            this->waveDrawer = WAVE_DRAWER_LINES;
+            this->videoEffect = VIDEO_EFFECT_CONTRAST;
+            this->waveDrawer = WAVE_DRAWER_OFF;
             break;
         case 6:
             this->videoEffect = VIDEO_EFFECT_BRIGHTNESS;
@@ -957,4 +957,31 @@ void VimusMachineLanternaMagica::setCurrVideo(int video)
             this->waveDrawer = WAVE_DRAWER_OFF;
             break;
     }
+}
+
+
+void VimusMachineLanternaMagica :: changeContrast (float bright, float contrast)
+{
+
+	for (int i= 0; i<VIDEO_WIDTH*VIDEO_HEIGHT*3; i++)
+	{
+		if (this->capturedFrame[i] + bright > 255)
+			this->distorcedFrame[i] = 255;
+		else
+			this->distorcedFrame[i] = this->capturedFrame[i] + bright;
+	}
+
+	for(int i=0;i<256;i++){
+	  if(i<(int)(128.0f+128.0f*tan(contrast))&&i>(int)(128.0f-128.0f*tan(contrast)))
+		contrasTransform[i]=(i-128)/tan(contrast)+128;
+	  else if(i>=(int)(128.0f+128.0f*tan(contrast)))
+		contrasTransform[i]=255;
+	  else
+		contrasTransform[i]=0;
+	}
+
+	for (int i= 0; i<VIDEO_WIDTH*VIDEO_HEIGHT*3; i++)
+	{
+		this->distorcedFrame[i] = contrasTransform[this->capturedFrame[i]];
+	}
 }

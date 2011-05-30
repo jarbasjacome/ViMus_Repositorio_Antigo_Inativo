@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Release" />
+	<File name="../../src/Configuration.h" open="1" top="0" tabpos="4">
+		<Cursor position="1542" topLine="54" />
+	</File>
+	<File name="../../src/Machine.h" open="0" top="0" tabpos="3">
+		<Cursor position="804" topLine="19" />
+	</File>
+	<File name="../../src/OpenALCapture.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="3251" topLine="0" />
+	</File>
+	<File name="../../src/OpenALCapture.h" open="0" top="0" tabpos="4">
+		<Cursor position="1347" topLine="47" />
+	</File>
+	<File name="../../src/OpenALSampler.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="3" topLine="172" />
+	</File>
+	<File name="../../src/OpenALSampler.h" open="0" top="0" tabpos="5">
+		<Cursor position="1288" topLine="40" />
+	</File>
+	<File name="../../src/VideoCaptureOpenCV.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="3801" topLine="135" />
+	</File>
+	<File name="../../src/VideoCaptureOpenCV.h" open="0" top="0" tabpos="8">
+		<Cursor position="2101" topLine="77" />
+	</File>
+	<File name="../../src/VimusGUICube.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="4874" topLine="192" />
+	</File>
+	<File name="../../src/VimusGUICube.h" open="0" top="0" tabpos="0">
+		<Cursor position="5131" topLine="211" />
+	</File>
+	<File name="../../src/VimusGUIEditor.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="11500" topLine="419" />
+	</File>
+	<File name="../../src/VimusGUIEditor.h" open="0" top="0" tabpos="2">
+		<Cursor position="4694" topLine="190" />
+	</File>
+	<File name="../../src/VimusGUIGLUT.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="6268" topLine="202" />
+	</File>
+	<File name="../../src/VimusGUIGLUT.h" open="0" top="0" tabpos="2">
+		<Cursor position="2442" topLine="86" />
+	</File>
+	<File name="../../src/VimusGUINormalObject.cpp" open="0" top="0" tabpos="5">
+		<Cursor position="3558" topLine="138" />
+	</File>
+	<File name="../../src/VimusGUIObject.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="6120" topLine="247" />
+	</File>
+	<File name="../../src/VimusGUIObject.h" open="0" top="0" tabpos="0">
+		<Cursor position="3482" topLine="128" />
+	</File>
+	<File name="../../src/VimusGUIObjects.h" open="0" top="0" tabpos="0">
+		<Cursor position="865" topLine="10" />
+	</File>
+	<File name="../../src/VimusGUIOpenGLObject.cpp" open="0" top="0" tabpos="6">
+		<Cursor position="2231" topLine="69" />
+	</File>
+	<File name="../../src/VimusGUIOpenGLObject.h" open="0" top="0" tabpos="0">
+		<Cursor position="1801" topLine="52" />
+	</File>
+	<File name="../../src/VimusGUIPin.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="26" topLine="0" />
+	</File>
+	<File name="../../src/VimusGUIPin.h" open="0" top="0" tabpos="0">
+		<Cursor position="709" topLine="0" />
+	</File>
+	<File name="../../src/VimusGUIVideoPreview.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="6433" topLine="241" />
+	</File>
+	<File name="../../src/VimusGUIVideoPreview.h" open="0" top="0" tabpos="0">
+		<Cursor position="2329" topLine="82" />
+	</File>
+	<File name="../../src/VimusMachine.cpp" open="0" top="0" tabpos="5">
+		<Cursor position="1099" topLine="37" />
+	</File>
+	<File name="../../src/VimusMachine.h" open="0" top="0" tabpos="0">
+		<Cursor position="1940" topLine="76" />
+	</File>
+	<File name="../../src/VimusMachineAbstractionObject.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="818" topLine="26" />
+	</File>
+	<File name="../../src/VimusMachineAbstractionObject.h" open="0" top="0" tabpos="0">
+		<Cursor position="1507" topLine="47" />
+	</File>
+	<File name="../../src/VimusMachineCVBlobDetection.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="11883" topLine="424" />
+	</File>
+	<File name="../../src/VimusMachineCVBlobDetection.h" open="0" top="0" tabpos="2">
+		<Cursor position="2989" topLine="101" />
+	</File>
+	<File name="../../src/VimusMachineCVThreshold.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="2917" topLine="90" />
+	</File>
+	<File name="../../src/VimusMachineCVThreshold.h" open="0" top="0" tabpos="4">
+		<Cursor position="2477" topLine="76" />
+	</File>
+	<File name="../../src/VimusMachineEditor.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="3901" topLine="125" />
+	</File>
+	<File name="../../src/VimusMachineEditor.h" open="0" top="0" tabpos="0">
+		<Cursor position="3368" topLine="130" />
+	</File>
+	<File name="../../src/VimusMachineLanternaMagica.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="19707" topLine="477" />
+	</File>
+	<File name="../../src/VimusMachineLanternaMagica.h" open="1" top="0" tabpos="2">
+		<Cursor position="3733" topLine="131" />
+	</File>
+	<File name="../../src/VimusMachineNormalObject.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="770" topLine="13" />
+	</File>
+	<File name="../../src/VimusMachineNormalObject.h" open="0" top="0" tabpos="0">
+		<Cursor position="1258" topLine="38" />
+	</File>
+	<File name="../../src/VimusMachineObject.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="764" topLine="13" />
+	</File>
+	<File name="../../src/VimusMachineObject.h" open="0" top="0" tabpos="0">
+		<Cursor position="795" topLine="13" />
+	</File>
+	<File name="../../src/VimusMachineObjects.h" open="0" top="0" tabpos="0">
+		<Cursor position="1125" topLine="14" />
+	</File>
+	<File name="../../src/VimusMachineOpenGLObject.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="1032" topLine="20" />
+	</File>
+	<File name="../../src/VimusMachineOpenGLObject.h" open="0" top="0" tabpos="0">
+		<Cursor position="2473" topLine="72" />
+	</File>
+	<File name="../../src/VimusMachinePin.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="761" topLine="13" />
+	</File>
+	<File name="../../src/VimusMachinePin.h" open="0" top="0" tabpos="0">
+		<Cursor position="810" topLine="18" />
+	</File>
+	<File name="../../src/VimusMachinePinControl.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="768" topLine="13" />
+	</File>
+	<File name="../../src/VimusMachinePinControl.h" open="0" top="0" tabpos="0">
+		<Cursor position="709" topLine="0" />
+	</File>
+	<File name="../../src/VimusMachinePinVideo.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="766" topLine="12" />
+	</File>
+	<File name="../../src/VimusMachinePinVideo.h" open="0" top="0" tabpos="0">
+		<Cursor position="709" topLine="0" />
+	</File>
+	<File name="../../src/VimusMachinePixelAdd.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="518" topLine="13" />
+	</File>
+	<File name="../../src/VimusMachinePixelAdd.h" open="0" top="0" tabpos="0">
+		<Cursor position="709" topLine="22" />
+	</File>
+	<File name="../../src/VimusMachineVideoCapture.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="1432" topLine="28" />
+	</File>
+	<File name="../../src/VimusMachineVideoCapture.h" open="0" top="0" tabpos="0">
+		<Cursor position="992" topLine="19" />
+	</File>
+	<File name="../../src/VimusMachineVideoPreview.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="749" topLine="113" />
+	</File>
+	<File name="../../src/VimusMachineVideoPreview.h" open="0" top="0" tabpos="0">
+		<Cursor position="911" topLine="18" />
+	</File>
+	<File name="../../src/VimusMachineVitalino.cpp" open="0" top="0" tabpos="6">
+		<Cursor position="13173" topLine="450" />
+	</File>
+	<File name="../../src/VimusMachineVitalino.h" open="0" top="0" tabpos="3">
+		<Cursor position="2701" topLine="82" />
+	</File>
+	<File name="../../src/VimusMain.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="1060" topLine="27" />
+	</File>
+</CodeBlocks_layout_file>

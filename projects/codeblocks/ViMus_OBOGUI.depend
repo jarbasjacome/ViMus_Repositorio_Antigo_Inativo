@@ -3087,7 +3087,7 @@
 
 1263954937 /usr/include/opencv/highgui.hpp
 
-1306716211 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.h
+1306763700 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.h
 	"VimusMachineOpenGLObject.h"
 	"cv.h"
 	"highgui.h"
@@ -3098,7 +3098,7 @@
 	<iostream>
 	<math.h>
 
-1306721357 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.cpp
+1306725039 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.cpp
 	"VimusMachineLanternaMagica.h"
 
 1306636433 /dados/ViMus/ViMus_OBOGUI/src/OpenALSampler.h

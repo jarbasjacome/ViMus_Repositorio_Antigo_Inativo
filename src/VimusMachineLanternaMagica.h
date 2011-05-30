@@ -130,7 +130,7 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 		const static int VIDEO_EFFECT_OFF = 0;
 		const static int VIDEO_EFFECT_RED = 1;
 		const static int VIDEO_EFFECT_BLUE = 2;
-		const static int VIDEO_EFFECT_YELLOW = 3;
+		const static int VIDEO_EFFECT_CONTRAST = 3;
 		const static int VIDEO_EFFECT_WAVE = 4;
 		const static int VIDEO_EFFECT_BRIGHTNESS = 5;
 		const static int VIDEO_EFFECT_BRIGHTNESS_INV = 6;
@@ -178,9 +178,13 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 
         OpenALCapture* audioCapture;
 
+		unsigned char contrasTransform [256];
+
         void playCurrVideo();
         void nextTrack();
         void prevTrack();
+
+        void changeContrast (float bright, float contrast);
 
         void setCurrVideo(int video);
 
