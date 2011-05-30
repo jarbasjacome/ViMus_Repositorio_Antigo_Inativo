@@ -136,6 +136,15 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 		const static int VIDEO_EFFECT_BRIGHTNESS_INV = 6;
 		const static int VIDEO_EFFECT_THRESHOLD = 7;
 
+		int waveDrawer;
+		const static int WAVE_DRAWER_OFF = 0;
+		const static int WAVE_DRAWER_LINES = 1;
+		const static int WAVE_DRAWER_LINES_3D = 2;
+		const static int WAVE_DRAWER_CIRCLES = 3;
+		const static int WAVE_DRAWER_CIRCLES_3D = 4;
+		const static int WAVE_DRAWER_CIRCLES_FLOWER = 5;
+		const static int WAVE_DRAWER_CIRCLES_FLOWER_3D = 6;
+
         GLuint texName;
 
         float camZ;
@@ -196,7 +205,6 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
                 float z,
                 void *font,
                 std::ostringstream * strStream);
-
 
 };
 

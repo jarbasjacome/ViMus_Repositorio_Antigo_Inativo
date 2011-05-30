@@ -145,11 +145,11 @@ void VideoCaptureOpenCV::init()
         }
     }
 
-    boost::thread grabT(VideoCaptureOpenCV::grabThreadFuncStatic);
-    vidCapOpenCvPtr->grabThread = &grabT;
-
-    vidCapOpenCvPtr->elapsedTime = 0;
-    boost::xtime_get(&(vidCapOpenCvPtr->lastTimeSys), boost::TIME_UTC);
+//    boost::thread grabT(VideoCaptureOpenCV::grabThreadFuncStatic);
+//    vidCapOpenCvPtr->grabThread = &grabT;
+//
+//    vidCapOpenCvPtr->elapsedTime = 0;
+//    boost::xtime_get(&(vidCapOpenCvPtr->lastTimeSys), boost::TIME_UTC);
 
     vidCapOpenCvPtr->flagGrabing = false;
     vidCapOpenCvPtr->swapBufferOn = false;
