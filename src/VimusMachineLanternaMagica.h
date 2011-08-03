@@ -112,7 +112,7 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 
 		unsigned char** ppNullFrame;
 
-        const static int NUM_VIDEOS = 20;
+        const static int NUM_VIDEOS = 14;
 
         cv::VideoCapture video[NUM_VIDEOS];
 
@@ -129,12 +129,27 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 		int videoEffect;
 		const static int VIDEO_EFFECT_OFF = 0;
 		const static int VIDEO_EFFECT_RED = 1;
-		const static int VIDEO_EFFECT_BLUE = 2;
-		const static int VIDEO_EFFECT_CONTRAST = 3;
+		const static int VIDEO_EFFECT_CONTRAST_GAIN= 2;
+		const static int VIDEO_EFFECT_CONTRAST_GAIN_INV = 3;
 		const static int VIDEO_EFFECT_WAVE = 4;
-		const static int VIDEO_EFFECT_BRIGHTNESS = 5;
-		const static int VIDEO_EFFECT_BRIGHTNESS_INV = 6;
-		const static int VIDEO_EFFECT_THRESHOLD = 7;
+//		const static int VIDEO_EFFECT_BRIGHTNESS = 5;
+//		const static int VIDEO_EFFECT_BRIGHTNESS_INV = 6;
+
+//555555555
+//
+//jaj
+//55
+//
+//
+//
+//555
+
+		int lastVideoEffect;
+		int currContrastEffect;
+		const static int CONTRAST_EFFECT_OFF = 0;
+		const static int CONTRAST_EFFECT_GAIN = 1;
+		const static int CONTRAST_EFFECT_GAIN_INV = 2;
+		const static int NUM_CONTRAST_EFFECTS = 3;
 
 		int waveDrawer;
 		const static int WAVE_DRAWER_OFF = 0;
@@ -144,6 +159,7 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 		const static int WAVE_DRAWER_CIRCLES_3D = 4;
 		const static int WAVE_DRAWER_CIRCLES_FLOWER = 5;
 		const static int WAVE_DRAWER_CIRCLES_FLOWER_3D = 6;
+		const static int NUM_OF_DRAWER_EFFECTS = 7;
 
         GLuint texName;
 

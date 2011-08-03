@@ -96,41 +96,34 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, VIDEO_WIDTH, VIDEO_HEIGHT, 0, GL_BGR,
                                 GL_UNSIGNED_BYTE, this->distorcedFrame);
-
     try
     {
-        video[0] = VideoCapture("/dados/jabahpureza/video_samples/soul_of_the_funky_drummers_raw_i420_noaudio.avi");
-        video[1] = VideoCapture("/dados/jabahpureza/video_samples/cold_sweat_02_raw_i420_noaudio.avi");
-        video[2] = VideoCapture("/dados/jabahpureza/video_samples/cold_sweat_01_raw_i420_noaudio.avi");
-        video[3] = VideoCapture("/dados/jabahpureza/video_samples/super_bad_01_raw_i420_noaudio.avi");
+        video[0] = VideoCapture("/dados/jabahpureza/video_samples/dear_friends_raw_i420_noaudio.avi");
+        video[1] = VideoCapture("/dados/jabahpureza/video_samples/soul_of_the_funky_drummers_raw_i420_noaudio.avi");
+        video[2] = VideoCapture("/dados/jabahpureza/video_samples/cold_sweat_02_raw_i420_noaudio.avi");
+        video[3] = VideoCapture("/dados/jabahpureza/video_samples/cold_sweat_01_raw_i420_noaudio.avi");
         video[4] = VideoCapture("/dados/jabahpureza/video_samples/funky_drummer_01_raw_i420_noaudio.avi");
         video[5] = VideoCapture("/dados/jabahpureza/video_samples/do_it_to_death_01_raw_i420_noaudio.avi");
         video[6] = VideoCapture("/dados/jabahpureza/video_samples/give_it_up_or_turnit_a_loose_01_raw_i420_noaudio.avi");
-        video[7] = VideoCapture("/dados/jabahpureza/video_samples/give_it_up_or_turnit_a_loose_02_raw_i420_noaudio.avi");
-        video[8] = VideoCapture("/dados/jabahpureza/video_samples/i_dont_want_nobody_to_give_me_nothing_01_raw_i420_noaudio.avi");
-        video[9] = VideoCapture("/dados/jabahpureza/video_samples/i_dont_want_nobody_to_give_me_nothing_02_raw_i420_noaudio.avi");
-        video[10] = VideoCapture("/dados/jabahpureza/video_samples/i_dont_want_nobody_to_give_me_nothing_03_raw_i420_noaudio.avi");
-        video[11] = VideoCapture("/dados/jabahpureza/video_samples/i_got_a_feeling_01_raw_i420_noaudio.avi");
-        video[12] = VideoCapture("/dados/jabahpureza/video_samples/licking_stick_01_raw_i420_noaudio.avi");
-        video[13] = VideoCapture("/dados/jabahpureza/video_samples/licking_stick_02_raw_i420_noaudio.avi");
-        video[14] = VideoCapture("/dados/jabahpureza/video_samples/make_it_funky_01_raw_i420_noaudio.avi");
-        video[15] = VideoCapture("/dados/jabahpureza/video_samples/mother_popcorn_01_raw_i420_noaudio.avi");
-        video[16] = VideoCapture("/dados/jabahpureza/video_samples/papa_dont_take_no_mess_01_raw_i420_noaudio.avi");
-        video[17] = VideoCapture("/dados/jabahpureza/video_samples/sex_machine_01_raw_i420_noaudio.avi");
-        video[18] = VideoCapture("/dados/jabahpureza/video_samples/thank_you_raw_i420_noaudio.avi");
-        video[19] = VideoCapture("/dados/jabahpureza/video_samples/bootsy_01_raw_i420_noaudio.avi");
+        video[7] = VideoCapture("/dados/jabahpureza/video_samples/i_dont_want_nobody_to_give_me_nothing_01_raw_i420_noaudio.avi");
+        video[8] = VideoCapture("/dados/jabahpureza/video_samples/i_dont_want_nobody_to_give_me_nothing_03_raw_i420_noaudio.avi");
+        video[9] = VideoCapture("/dados/jabahpureza/video_samples/super_bad_01_raw_i420_noaudio.avi");
+        video[10] = VideoCapture("/dados/jabahpureza/video_samples/i_got_a_feeling_01_raw_i420_noaudio.avi");
+        video[11] = VideoCapture("/dados/jabahpureza/video_samples/make_it_funky_01_raw_i420_noaudio.avi");
+        video[12] = VideoCapture("/dados/jabahpureza/video_samples/papa_dont_take_no_mess_01_raw_i420_noaudio.avi");
+        video[13] = VideoCapture("/dados/jabahpureza/video_samples/bootsy_01_raw_i420_noaudio.avi");
     }
     catch ( ... )
     {
         cout << "erro opencv videocapture";
     }
 
-    setCurrVideo(1);
-
     timePast = 0;
     currFrame = 0;
 
     this->audioSampler = new OpenALSampler();
+
+    setCurrVideo(0);
 
     pastTimeMSecs = 0;
     sampleStartTimeMSecs = 0;
@@ -139,7 +132,7 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
     schedGrooveChange=-1;
 
     currMeasure = 0;
-    repeatMode = this->REPEAT_MODE_GROOVE;
+    repeatMode = this->REPEAT_MODE_OFF;
 
     for (int i=0; i<NUM_VIDEOS; i++)
     {
@@ -162,42 +155,33 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
     int i_dont_want_nobody02[] = {	0,      8443,	16809,	25226};
     int i_dont_want_nobody03[] = {  0,      16802,	33639};
     int i_got_a_feeling_01[]	= { 0,	7613,	15227,	22862};
-    int licking_stick_01[] = {2335,	12836,	22264,	31712,	41202};//{ 12767,	22264,	31684,	41216};
-    int licking_stick_02[] = { 0,	10668,	20146};
     int make_it_funky_01[] = {3834,	13344,	25723,	35200};
     int mother_popcorn_01[] = { 51,	8465,	16777,	25095};
-    int papa_dont_take_no_mess[]	= {15,	4678,	9569,	13907,	18500};//{ 0,	4662,	9549,	13907,	18494};
-    int sex_machine_01[] = {2671,	4749,	13364,	22095};//{ 2654,	4752,	13364,	22065 };
+    int papa_dont_take_no_mess[]	= {15,	4678,	9291,	13900, 16170};//, 18500};//{ 0,	4662,	9549,	13907,	18494};
     int super_bad_01[] = {69,	7179,	14129,	21228,	28362,	31927,	39083,	46176};//{ 69,	7179,	14129,	21228,	28362,	31889,	39083,	46176};
 
     for (int i=0; i<11; i++)
     {
-        if (i<5) this->timeStamps[1][i] = coldsweat02[i];
-        if (i<5) this->timeStamps[2][i] = coldsweat01[i];
-        if (i<8) this->timeStamps[3][i] = super_bad_01[i];
+        if (i<5) this->timeStamps[2][i] = coldsweat02[i];
+        if (i<5) this->timeStamps[3][i] = coldsweat01[i];
         if (i<6) this->timeStamps[4][i] = funkydrummer[i];
         if (i<6) this->timeStamps[5][i] = doittodeath[i];
         if (i<3) this->timeStamps[6][i] = giveitup01[i];
-        if (i<9) this->timeStamps[7][i] = giveitup02[i];
-        if (i<3) this->timeStamps[8][i] = i_dont_want_nobody01[i];
-        if (i<4) this->timeStamps[9][i] = i_dont_want_nobody02[i];
-        if (i<3) this->timeStamps[10][i] = i_dont_want_nobody03[i];
-        if (i<4) this->timeStamps[11][i] = i_got_a_feeling_01[i];
-        if (i<5) this->timeStamps[12][i] = licking_stick_01[i];
-        if (i<3) this->timeStamps[13][i] = licking_stick_02[i];
-        if (i<4) this->timeStamps[14][i] = make_it_funky_01[i];
-        if (i<4) this->timeStamps[15][i] = mother_popcorn_01[i];
-        if (i<5) this->timeStamps[16][i] = papa_dont_take_no_mess[i];
-        if (i<4) this->timeStamps[17][i] = sex_machine_01[i];
-        if (i<11) this->timeStamps[19][i] = bootsy[i];
+        if (i<3) this->timeStamps[7][i] = i_dont_want_nobody01[i];
+        if (i<3) this->timeStamps[8][i] = i_dont_want_nobody03[i];
+        if (i<8) this->timeStamps[9][i] = super_bad_01[i];
+        if (i<4) this->timeStamps[10][i] = i_got_a_feeling_01[i];
+        if (i<4) this->timeStamps[11][i] = make_it_funky_01[i];
+        if (i<5) this->timeStamps[12][i] = papa_dont_take_no_mess[i];
+        if (i<11) this->timeStamps[13][i] = bootsy[i];
     }
 
-    videoPlaying = true;
+    videoPlaying = false;
 
     this->audioCapture = new OpenALCapture();
 
-    this->audioSampler->playSample(currVideo);
-    boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
+//    this->audioSampler->playSample(currVideo);
+//    boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
 
 }
 
@@ -299,49 +283,49 @@ void VimusMachineLanternaMagica::update()
                     }
                 }
                 break;
-            case VIDEO_EFFECT_BLUE:
-                for (int i=0; i<VIDEO_HEIGHT; i++)
-                {
-                    for (int j=0; j<VIDEO_WIDTH;j++)
-                    {
-                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3]+this->audioCapture->getSample(i)*255;
-                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+1]+this->audioCapture->getSample(i);
-                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+2]+this->audioCapture->getSample(i);
-                    }
-                }
-                break;
-            case VIDEO_EFFECT_BRIGHTNESS:
+//            case VIDEO_EFFECT_BRIGHTNESS:
+//                float vol;
+//                vol = this->audioCapture->getSoftAmp()*8;
+//                if (vol > 1.0f) vol = 1.0f;
+//                for (int i=0; i<VIDEO_HEIGHT; i++)
+//                {
+//                    for (int j=0; j<VIDEO_WIDTH;j++)
+//                    {
+//                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3]*vol;
+//                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+1]*vol;
+//                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+2]*vol;
+//                    }
+//                }
+//                this->audioSampler->setGain(currVideo, vol);
+//                break;
+//            case VIDEO_EFFECT_BRIGHTNESS_INV:
+//                float vol2;
+//                vol2 = 1.0f - this->audioCapture->getSoftAmp()*4;
+//                if (vol2 < 0.0f) vol2 = 0.0f;
+//                for (int i=0; i<VIDEO_HEIGHT; i++)
+//                {
+//                    for (int j=0; j<VIDEO_WIDTH;j++)
+//                    {
+//                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3]*vol2;
+//                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+1]*vol2;
+//                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+2]*vol2;
+//                    }
+//                }
+//                this->audioSampler->setGain(currVideo, vol2);
+//                break;
+            case VIDEO_EFFECT_CONTRAST_GAIN:
                 float vol;
-                vol = this->audioCapture->getSoftAmp()*8;
-                if (vol > 1.0f) vol = 1.0f;
-                for (int i=0; i<VIDEO_HEIGHT; i++)
-                {
-                    for (int j=0; j<VIDEO_WIDTH;j++)
-                    {
-                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3]*vol;
-                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+1]*vol;
-                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+2]*vol;
-                    }
-                }
+                vol = this->audioCapture->getSoftAmp();
+                this->changeContrast(0, 0.7-vol*0.7);
+                vol = 1.0 - vol*8;
+                if (vol < 0) vol = 0;
                 this->audioSampler->setGain(currVideo, vol);
                 break;
-            case VIDEO_EFFECT_BRIGHTNESS_INV:
+            case VIDEO_EFFECT_CONTRAST_GAIN_INV:
                 float vol2;
-                vol2 = 1.0f - this->audioCapture->getSoftAmp()*4;
-                if (vol2 < 0.0f) vol2 = 0.0f;
-                for (int i=0; i<VIDEO_HEIGHT; i++)
-                {
-                    for (int j=0; j<VIDEO_WIDTH;j++)
-                    {
-                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3]*vol2;
-                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+1]*vol2;
-                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+2]*vol2;
-                    }
-                }
-                this->audioSampler->setGain(currVideo, vol2);
-                break;
-            case VIDEO_EFFECT_CONTRAST:
-                this->changeContrast(0, 0.7-this->audioCapture->getSoftAmp()*0.7);
+                vol2 = this->audioCapture->getSoftAmp();
+                this->changeContrast(0, 0.7-vol2*0.7);
+                this->audioSampler->setGain(currVideo, vol2*8);
                 break;
             case VIDEO_EFFECT_WAVE:
                 int zara;
@@ -391,39 +375,40 @@ void VimusMachineLanternaMagica::draw()
 
     glScalef(1,1.333f,1); //TODO: INVERT SCREEN DISTORTION
 
-    glDisable(GL_BLEND);
-    glEnable(GL_TEXTURE_2D);
-
-    glColor4f (1.0f, 1.0f, 1.0f, 1.0f);
-
-    glBindTexture(GL_TEXTURE_2D, texName);
-
-    if (this->videoEffect == VIDEO_EFFECT_OFF)
+    if (this->videoPlaying)
     {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, VIDEO_WIDTH, VIDEO_HEIGHT, 0, GL_BGR,
-                                GL_UNSIGNED_BYTE, this->capturedFrame);
+        glDisable(GL_BLEND);
+        glEnable(GL_TEXTURE_2D);
+
+        glColor4f (1.0f, 1.0f, 1.0f, 1.0f);
+
+        glBindTexture(GL_TEXTURE_2D, texName);
+
+        if (this->videoEffect == VIDEO_EFFECT_OFF)
+        {
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, VIDEO_WIDTH, VIDEO_HEIGHT, 0, GL_BGR,
+                                    GL_UNSIGNED_BYTE, this->capturedFrame);
+        }
+        else
+        {
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, VIDEO_WIDTH, VIDEO_HEIGHT, 0, GL_BGR,
+                                    GL_UNSIGNED_BYTE, this->distorcedFrame);
+        }
+
+        glPushMatrix();
+
+        glScalef(1,0.8,1); //TODO: INVERT VIDEO TO SQUARE DISTORTION
+
+        glBegin(GL_QUADS);
+            glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, 1.0f, 0.0f);
+            glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, 1.0f, 0.0f);
+            glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,-1.0f, 0.0f);
+            glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,-1.0f, 0.0f);
+        glEnd();
+
+        glPopMatrix();
+
     }
-    else
-    {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, VIDEO_WIDTH, VIDEO_HEIGHT, 0, GL_BGR,
-                                GL_UNSIGNED_BYTE, this->distorcedFrame);
-    }
-
-    glPushMatrix();
-
-    glScalef(1,0.8,1); //TODO: INVERT VIDEO TO SQUARE DISTORTION
-
-    glBegin(GL_QUADS);
-        glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, 1.0f, 0.0f);
-        glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, 1.0f, 0.0f);
-        glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,-1.0f, 0.0f);
-        glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,-1.0f, 0.0f);
-    glEnd();
-
-    glPopMatrix();
-
-    glDisable(GL_TEXTURE_2D);
-    glEnable(GL_BLEND);
 
 //    ostringstream * strStream = new ostringstream;
 //    strStream->clear();
@@ -434,6 +419,9 @@ void VimusMachineLanternaMagica::draw()
 //    strStream2->clear();
 //    (*strStream2) << "getSoftAmp() = " << this->audioCapture->getSoftAmp();
 //    this->renderBitmapString(-1.13,-0.04,1,GLUT_BITMAP_HELVETICA_10, strStream2);
+
+    glDisable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
 
     float posX1 = 0;
     float posX2 = 0;
@@ -600,7 +588,6 @@ void VimusMachineLanternaMagica::draw()
             break;
     }
     glPopMatrix();
-
 }
 
 
@@ -715,7 +702,37 @@ void VimusMachineLanternaMagica::keyBoardFunc(unsigned char key, int x, int y)
 	switch (key)
 	{
         case 'a':
+            if (this->currContrastEffect < NUM_CONTRAST_EFFECTS-1)
+            {
+                if (this->currContrastEffect == CONTRAST_EFFECT_OFF)
+                {
+                    this->lastVideoEffect = this->videoEffect;
+                }
+                this->currContrastEffect++;
+            }
+            else
+            {
+                this->currContrastEffect = 0;
+            }
+            if (this->currContrastEffect == CONTRAST_EFFECT_GAIN)
+                this->videoEffect = VIDEO_EFFECT_CONTRAST_GAIN;
+            else if (this->currContrastEffect == CONTRAST_EFFECT_GAIN_INV)
+                this->videoEffect = VIDEO_EFFECT_CONTRAST_GAIN_INV;
+            else if (this->currContrastEffect == CONTRAST_EFFECT_OFF)
+            {
+                this->videoEffect = this->lastVideoEffect;
+                this->audioSampler->setGain(currVideo, 1.0);
+            }
             break;
+        case 'w':
+            if (this->waveDrawer < NUM_OF_DRAWER_EFFECTS-1)
+            {
+                this->waveDrawer++;
+            }
+            else
+            {
+                this->waveDrawer = 0;
+            }
         case 'j':
             if (this->repeatMode < this->NUM_OF_REPEAT_MODES-1)
             {
@@ -765,37 +782,46 @@ void VimusMachineLanternaMagica::keyBoardFunc(unsigned char key, int x, int y)
             }
             break;
         case '5':
-            if (this->repeatMode == this->REPEAT_MODE_OFF)
-                this->nextTrack();
-            else if (this->repeatMode == this->REPEAT_MODE_GROOVE)
+            if (videoPlaying == false && this->currVideo == 0)
             {
-                if (this->schedGrooveChange == -1)
-                {
-                    this->schedGrooveChange = this->currVideo;
-                }
-                if (this->schedGrooveChange < this->NUM_VIDEOS-1)
-                {
-                    this->schedGrooveChange++;
-                }
-                else
-                {
-                    this->schedGrooveChange = 0;
-                }
+                this->videoPlaying = true;
+                this->audioSampler->playSample(currVideo);
+                boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
             }
-            else if (this->repeatMode == this->REPEAT_MODE_MEASURE)
+            else
             {
-                if (this->schedMeasureChange == -1)
+                if (this->repeatMode == this->REPEAT_MODE_OFF)
+                    this->nextTrack();
+                else if (this->repeatMode == this->REPEAT_MODE_GROOVE)
                 {
-                    if (this->timeStamps[currVideo][currMeasure+2] > -1)
+                    if (this->schedGrooveChange == -1)
                     {
-                        this->schedMeasureChange = this->currMeasure + 1;
+                        this->schedGrooveChange = this->currVideo;
+                    }
+                    if (this->schedGrooveChange < this->NUM_VIDEOS-1)
+                    {
+                        this->schedGrooveChange++;
+                    }
+                    else
+                    {
+                        this->schedGrooveChange = 0;
                     }
                 }
-                else
+                else if (this->repeatMode == this->REPEAT_MODE_MEASURE)
                 {
-                    if (this->timeStamps[currVideo][schedMeasureChange+2] > -1 )
+                    if (this->schedMeasureChange == -1)
                     {
-                        this->schedMeasureChange++;
+                        if (this->timeStamps[currVideo][currMeasure+2] > -1)
+                        {
+                            this->schedMeasureChange = this->currMeasure + 1;
+                        }
+                    }
+                    else
+                    {
+                        if (this->timeStamps[currVideo][schedMeasureChange+2] > -1 )
+                        {
+                            this->schedMeasureChange++;
+                        }
                     }
                 }
             }
@@ -851,110 +877,81 @@ void VimusMachineLanternaMagica::setCurrVideo(int video)
 {
     this->currVideo = video;
     this->videoEffect = VIDEO_EFFECT_WAVE;
+    this->lastVideoEffect = VIDEO_EFFECT_OFF;
+
+    this->audioSampler->setGain(currVideo, 1.0);
+
     switch(this->currVideo)
     {
-
-//        video[0] = VideoCapture("/dados/jabahpureza/video_samples/soul_of_the_funky_drummers_raw_i420_noaudio.avi");
-//        video[1] = VideoCapture("/dados/jabahpureza/video_samples/cold_sweat_02_raw_i420_noaudio.avi");
-//        video[2] = VideoCapture("/dados/jabahpureza/video_samples/cold_sweat_01_raw_i420_noaudio.avi");
-//        video[3] = VideoCapture("/dados/jabahpureza/video_samples/super_bad_01_raw_i420_noaudio.avi");
-//        video[4] = VideoCapture("/dados/jabahpureza/video_samples/funky_drummer_01_raw_i420_noaudio.avi");
-//        video[5] = VideoCapture("/dados/jabahpureza/video_samples/do_it_to_death_01_raw_i420_noaudio.avi");
-//        video[6] = VideoCapture("/dados/jabahpureza/video_samples/give_it_up_or_turnit_a_loose_01_raw_i420_noaudio.avi");
-//        video[7] = VideoCapture("/dados/jabahpureza/video_samples/give_it_up_or_turnit_a_loose_02_raw_i420_noaudio.avi");
-//        video[8] = VideoCapture("/dados/jabahpureza/video_samples/i_dont_want_nobody_to_give_me_nothing_01_raw_i420_noaudio.avi");
-//        video[9] = VideoCapture("/dados/jabahpureza/video_samples/i_dont_want_nobody_to_give_me_nothing_02_raw_i420_noaudio.avi");
-//        video[10] = VideoCapture("/dados/jabahpureza/video_samples/i_dont_want_nobody_to_give_me_nothing_03_raw_i420_noaudio.avi");
-//        video[11] = VideoCapture("/dados/jabahpureza/video_samples/i_got_a_feeling_01_raw_i420_noaudio.avi");
-//        video[12] = VideoCapture("/dados/jabahpureza/video_samples/licking_stick_01_raw_i420_noaudio.avi");
-//        video[13] = VideoCapture("/dados/jabahpureza/video_samples/licking_stick_02_raw_i420_noaudio.avi");
-//        video[14] = VideoCapture("/dados/jabahpureza/video_samples/make_it_funky_01_raw_i420_noaudio.avi");
-//        video[15] = VideoCapture("/dados/jabahpureza/video_samples/mother_popcorn_01_raw_i420_noaudio.avi");
-//        video[16] = VideoCapture("/dados/jabahpureza/video_samples/papa_dont_take_no_mess_01_raw_i420_noaudio.avi");
-//        video[17] = VideoCapture("/dados/jabahpureza/video_samples/sex_machine_01_raw_i420_noaudio.avi");
-//        video[18] = VideoCapture("/dados/jabahpureza/video_samples/thank_you_raw_i420_noaudio.avi");
-//        video[19] = VideoCapture("/dados/jabahpureza/video_samples/bootsy_01_raw_i420_noaudio.avi");
-
-
-        case 0:
-            this->videoEffect = VIDEO_EFFECT_RED;
-            this->waveDrawer = WAVE_DRAWER_CIRCLES_FLOWER_3D;
-            break;
-        case 1:
-            this->videoEffect = VIDEO_EFFECT_RED;
-            this->waveDrawer = WAVE_DRAWER_OFF;
-            break;
-        case 2:
-            this->videoEffect = VIDEO_EFFECT_RED;
-            this->waveDrawer = WAVE_DRAWER_OFF;
-            break;
-        case 3:
+        case 0: //dear_friends.avi");
             this->videoEffect = VIDEO_EFFECT_WAVE;
             this->waveDrawer = WAVE_DRAWER_OFF;
+            this->currContrastEffect = CONTRAST_EFFECT_OFF;
             break;
-        case 4:
-            this->videoEffect = VIDEO_EFFECT_BRIGHTNESS;
-            this->waveDrawer = WAVE_DRAWER_OFF;
-            break;
-        case 5:
-            this->videoEffect = VIDEO_EFFECT_CONTRAST;
-            this->waveDrawer = WAVE_DRAWER_OFF;
-            break;
-        case 6:
-            this->videoEffect = VIDEO_EFFECT_BRIGHTNESS;
-            this->waveDrawer = WAVE_DRAWER_LINES_3D;
-            break;
-        case 7:
-            this->videoEffect = VIDEO_EFFECT_BRIGHTNESS_INV;
-            this->waveDrawer = WAVE_DRAWER_CIRCLES;
-            break;
-        case 8:
-            this->videoEffect = VIDEO_EFFECT_BRIGHTNESS;
-            this->waveDrawer = WAVE_DRAWER_CIRCLES_3D;
-            break;
-        case 9:
-            this->videoEffect = VIDEO_EFFECT_BRIGHTNESS_INV;
-            this->waveDrawer = WAVE_DRAWER_CIRCLES_FLOWER;
-            break;
-        case 10:
-            this->videoEffect = VIDEO_EFFECT_BRIGHTNESS;
-            this->waveDrawer = WAVE_DRAWER_LINES;
-            break;
-        case 11:
-            this->videoEffect = VIDEO_EFFECT_BRIGHTNESS_INV;
-            this->waveDrawer = WAVE_DRAWER_LINES_3D;
-            break;
-        case 12:
-            this->videoEffect = VIDEO_EFFECT_BRIGHTNESS;
-            this->waveDrawer = WAVE_DRAWER_CIRCLES;
-            break;
-        case 13:
-            this->videoEffect = VIDEO_EFFECT_BRIGHTNESS_INV;
-            this->waveDrawer = WAVE_DRAWER_CIRCLES_3D;
-            break;
-        case 14:
-            this->videoEffect = VIDEO_EFFECT_BRIGHTNESS;
-            this->waveDrawer = WAVE_DRAWER_CIRCLES_FLOWER;
-            break;
-        case 15:
-            this->videoEffect = VIDEO_EFFECT_BRIGHTNESS_INV;
+        case 1: //soul_of_the_funky_drummers_raw_i420_noaudio.avi");
+            this->videoEffect = VIDEO_EFFECT_RED;
             this->waveDrawer = WAVE_DRAWER_CIRCLES_FLOWER_3D;
+            this->currContrastEffect = CONTRAST_EFFECT_OFF;
             break;
-        case 16:
-            this->videoEffect = VIDEO_EFFECT_BRIGHTNESS;
-            this->waveDrawer = WAVE_DRAWER_LINES;
-            break;
-        case 17:
-            this->videoEffect = VIDEO_EFFECT_BRIGHTNESS_INV;
-            this->waveDrawer = WAVE_DRAWER_LINES_3D;
-            break;
-        case 18:
+        case 2: //cold_sweat_02_raw_i420_noaudio.avi
             this->videoEffect = VIDEO_EFFECT_OFF;
             this->waveDrawer = WAVE_DRAWER_OFF;
+            this->currContrastEffect = CONTRAST_EFFECT_OFF;
             break;
-        case 19:
+        case 3: //cold_sweat_01_raw_i420_noaudio.avi
             this->videoEffect = VIDEO_EFFECT_OFF;
             this->waveDrawer = WAVE_DRAWER_OFF;
+            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            break;
+        case 4: //funky_drummer_01_raw_i420_noaudio.avi
+            this->videoEffect = VIDEO_EFFECT_OFF;
+            this->waveDrawer = WAVE_DRAWER_OFF;
+            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            break;
+        case 5: //do_it_to_death_01_raw_i420_noaudio.avi
+            this->videoEffect = VIDEO_EFFECT_WAVE;
+            this->waveDrawer = WAVE_DRAWER_OFF;
+            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            break;
+        case 6: //give_it_up_or_turnit_a_loose_01_raw_i420_noaudio.avi
+            this->videoEffect = VIDEO_EFFECT_WAVE;
+            this->waveDrawer = WAVE_DRAWER_OFF;
+            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            break;
+        case 7: // i_dont_want_nobody_to_give_me_nothing_01_raw_i420_noaudio
+            this->videoEffect = VIDEO_EFFECT_RED;
+            this->waveDrawer = WAVE_DRAWER_OFF;
+            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            break;
+        case 8: // i_dont_want_nobody_to_give_me_nothing_03_raw_i420_noaudio
+            this->videoEffect = VIDEO_EFFECT_RED;
+            this->waveDrawer = WAVE_DRAWER_OFF;
+            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            break;
+        case 9: //super_bad_01_raw_i420_noaudio.avi
+            this->videoEffect = VIDEO_EFFECT_RED;
+            this->waveDrawer = WAVE_DRAWER_OFF;
+            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            break;
+        case 10: // i_got_a_feeling_01_raw_i420_noaudio
+            this->videoEffect = VIDEO_EFFECT_RED;
+            this->waveDrawer = WAVE_DRAWER_OFF;
+            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            break;
+        case 11: // make_it_funky_01_raw_i420_noaudio
+            this->videoEffect = VIDEO_EFFECT_RED;
+            this->waveDrawer = WAVE_DRAWER_OFF;
+            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            break;
+        case 12: // papa_dont_take_no_mess_01_raw_i420_noaudio
+            this->videoEffect = VIDEO_EFFECT_RED;
+            this->waveDrawer = WAVE_DRAWER_OFF;
+            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            break;
+        case 13: // bootsy_01_raw_i420_noaudio
+            this->videoEffect = VIDEO_EFFECT_OFF;
+            this->waveDrawer = WAVE_DRAWER_OFF;
+            this->currContrastEffect = CONTRAST_EFFECT_GAIN_INV;
             break;
     }
 }

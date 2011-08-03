@@ -67,7 +67,7 @@ class OpenALCapture
 
         ALint numAvailSamples;
 
-        static const int SOFT_AMP_BUFFER_SIZE = 5;
+        static const int SOFT_AMP_BUFFER_SIZE = 3;
         float softAmp;
         float softAmpArray[SOFT_AMP_BUFFER_SIZE];
         float soma;
