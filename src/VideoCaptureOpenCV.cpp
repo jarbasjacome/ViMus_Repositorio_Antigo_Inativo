@@ -146,13 +146,16 @@ void VideoCaptureOpenCV::init()
         }
     }
 
+/*
 //    LANTERNA MAGICA nao precisa de captura
 //    TODO: apenas ligar essas threads quando estiver ocorrendo captura.
-//    boost::thread grabT(VideoCaptureOpenCV::grabThreadFuncStatic);
-//    vidCapOpenCvPtr->grabThread = &grabT;
-//
-//    vidCapOpenCvPtr->elapsedTime = 0;
-//    boost::xtime_get(&(vidCapOpenCvPtr->lastTimeSys), boost::TIME_UTC);
+
+    boost::thread grabT(VideoCaptureOpenCV::grabThreadFuncStatic);
+    vidCapOpenCvPtr->grabThread = &grabT;
+
+    vidCapOpenCvPtr->elapsedTime = 0;
+    boost::xtime_get(&(vidCapOpenCvPtr->lastTimeSys), boost::TIME_UTC);
+//*/
 
     vidCapOpenCvPtr->flagGrabing = false;
     vidCapOpenCvPtr->swapBufferOn = false;

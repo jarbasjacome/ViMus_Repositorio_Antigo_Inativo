@@ -426,8 +426,8 @@ void VimusGUIEditor::drawEditor()
 
 void VimusGUIEditor::drawOutput()
 {
-    glClearColor (0.0, 0.0, 0.0, 1.0);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//    glClearColor (0.0, 0.0, 0.0, 1.0);
+//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     this->machine->drawOpenGLObjects();
 }
@@ -439,9 +439,12 @@ void VimusGUIEditor::draw()
     this->screen0w = this->screen1w = glutGet(GLUT_WINDOW_WIDTH)/2;
     this->screen0h = this->screen1h = glutGet(GLUT_WINDOW_HEIGHT);
 
+//*
+//  TODO: Make possible to change this is real-time.
     this->screen0w = 1280;
     this->screen1w = 1024;
     this->screen0h = this->screen1h = 800;
+//*/
 
     switch (this->viewPortMode)
     {

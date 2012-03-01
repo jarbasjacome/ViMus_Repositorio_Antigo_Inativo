@@ -10,7 +10,7 @@
 	"VimusGUINormalObject.h"
 	<iostream>
 
-1306717459 /dados/ViMus/ViMus_OBOGUI/src/Configuration.h
+1312662470 /dados/ViMus/ViMus_OBOGUI/src/Configuration.h
 	<windows.h>
 
 1295648355 /usr/include/stdio.h
@@ -371,7 +371,7 @@
 	<stdlib.h>
 	<GL/glut.h>
 
-1312382756 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.cpp
+1319422962 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.cpp
 	"VimusGUIEditor.h"
 
 1306182826 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.h
@@ -568,7 +568,7 @@
 1295648363 /usr/include/bits/local_lim.h
 	<linux/limits.h>
 
-1310093616 /usr/include/linux/limits.h
+1318355049 /usr/include/linux/limits.h
 
 1295648363 /usr/include/bits/posix2_lim.h
 
@@ -2515,16 +2515,16 @@
 1295648352 /usr/include/bits/errno.h
 	<linux/errno.h>
 
-1310093615 /usr/include/linux/errno.h
+1318355049 /usr/include/linux/errno.h
 	<asm/errno.h>
 
-1310093618 /usr/include/asm/errno.h
+1318355050 /usr/include/asm/errno.h
 	<asm-generic/errno.h>
 
-1310093612 /usr/include/asm-generic/errno.h
+1318355049 /usr/include/asm-generic/errno.h
 	<asm-generic/errno-base.h>
 
-1310093612 /usr/include/asm-generic/errno-base.h
+1318355049 /usr/include/asm-generic/errno-base.h
 
 1270180998 /usr/include/boost/thread/pthread/timespec.hpp
 	<boost/thread/thread_time.hpp>
@@ -2972,7 +2972,7 @@
 	"VimusGUIGLUT.h"
 	"VimusMachine.h"
 
-1312385180 source:/dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.cpp
+1328294630 source:/dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.cpp
 	"VideoCaptureOpenCV.h"
 
 1306157295 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVBlobDetection.h
@@ -3098,7 +3098,7 @@
 	<iostream>
 	<math.h>
 
-1307439978 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.cpp
+1328380968 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.cpp
 	"VimusMachineLanternaMagica.h"
 
 1307055859 /dados/ViMus/ViMus_OBOGUI/src/OpenALSampler.h
@@ -3123,10 +3123,10 @@
 1307177385 source:/dados/ViMus/ViMus_OBOGUI/src/OpenALSampler.cpp
 	"OpenALSampler.h"
 
-1307439936 source:/dados/ViMus/ViMus_OBOGUI/src/OpenALCapture.cpp
+1312667022 source:/dados/ViMus/ViMus_OBOGUI/src/OpenALCapture.cpp
 	"OpenALCapture.h"
 
-1307035782 /dados/ViMus/ViMus_OBOGUI/src/OpenALCapture.h
+1312666819 /dados/ViMus/ViMus_OBOGUI/src/OpenALCapture.h
 	<stdlib.h>
 	<al.h>
 	<alc.h>

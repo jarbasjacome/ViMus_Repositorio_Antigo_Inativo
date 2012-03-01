@@ -75,22 +75,23 @@ OpenALCapture::~OpenALCapture()
 void OpenALCapture::startCapture ()
 {
     alcCaptureStart(this->capDevice);
-    //this->error(alcGetError(this->capDevice));
+//    this->error(alcGetError(this->capDevice));
 }
 
 void OpenALCapture::stopCapture ()
 {
     alcCaptureStop(this->capDevice);
-    //this->error(alcGetError(this->capDevice));
+//    this->error(alcGetError(this->capDevice));
 }
 
 void OpenALCapture::grabSamples()
 {
     alcGetIntegerv(this->capDevice, ALC_CAPTURE_SAMPLES, (ALCsizei)sizeof(ALint), &numAvailSamples);
+//    this->error(alcGetError(this->capDevice));
     if (numAvailSamples >= this->BUFFER_SIZE)
     {
         alcCaptureSamples(this->capDevice, &(this->tempBuffer), numAvailSamples);
-        //this->error(alcGetError(this->capDevice));
+//        this->error(alcGetError(this->capDevice));
         this->softWave();
     }
 }
@@ -141,25 +142,25 @@ void OpenALCapture::error(ALCenum error)
     switch (error)
     {
         case ALC_NO_ERROR:
-            std::cout << "\n\n\n\n\n\n\n\n\nALC_NO_ERROR";
+            std::cout << "\n\n\n\n\n\n\n\n\nALC_NO_ERROR\n";
             break;
         case ALC_INVALID_DEVICE:
-            std::cout << "\n\n\n\n\n\n\n\n\nALC_INVALID_DEVICE";
+            std::cout << "\n\n\n\n\n\n\n\n\nALC_INVALID_DEVICE\n";
             break;
         case ALC_INVALID_CONTEXT:
-            std::cout << "\n\n\n\n\n\n\n\n\nALC_INVALID_CONTEXT";
+            std::cout << "\n\n\n\n\n\n\n\n\nALC_INVALID_CONTEXT\n";
             break;
         case ALC_INVALID_ENUM:
-            std::cout << "\n\n\n\n\n\n\n\n\nALC_INVALID_ENUM";
+            std::cout << "\n\n\n\n\n\n\n\n\nALC_INVALID_ENUM\n";
             break;
         case ALC_INVALID_VALUE:
-            std::cout << "\n\n\n\n\n\n\n\n\nALC_INVALID_VALUE";
+            std::cout << "\n\n\n\n\n\n\n\n\nALC_INVALID_VALUE\n";
             break;
         case ALC_OUT_OF_MEMORY:
-            std::cout << "\n\n\n\n\n\n\n\n\nALC_OUT_OF_MEMORY";
+            std::cout << "\n\n\n\n\n\n\n\n\nALC_OUT_OF_MEMORY\n";
             break;
         default:
-            std::cout << "\n\n\n\n\n\n\n\n\nCODIGO DE ERRO INVALIDO!";
+            std::cout << "\n\n\n\n\n\n\n\n\nCODIGO DE ERRO INVALIDO!\n";
             break;
     }
 }
