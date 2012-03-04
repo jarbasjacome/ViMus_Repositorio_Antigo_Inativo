@@ -53,8 +53,8 @@ class OpenALSampler
 
 	private:
 
-		static const int NUM_BUFFERS = 17;
-		static const int NUM_SOURCES = 17;
+		static const int NUM_BUFFERS = 14;
+		static const int NUM_SOURCES = 14;
 
 		ALuint buffers[NUM_BUFFERS];
 		ALuint source[NUM_SOURCES];

@@ -100,18 +100,18 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
     {
         video[0] = VideoCapture("/dados/jabahpureza/video_samples/dear_friends_raw_i420_noaudio.avi");
         video[1] = VideoCapture("/dados/jabahpureza/video_samples/soul_of_the_funky_drummers_raw_i420_noaudio.avi");
-        video[2] = VideoCapture("/dados/jabahpureza/video_samples/cold_sweat_02_raw_i420_noaudio.avi");
-        video[3] = VideoCapture("/dados/jabahpureza/video_samples/cold_sweat_01_raw_i420_noaudio.avi");
-        video[4] = VideoCapture("/dados/jabahpureza/video_samples/funky_drummer_01_raw_i420_noaudio.avi");
-        video[5] = VideoCapture("/dados/jabahpureza/video_samples/do_it_to_death_01_raw_i420_noaudio.avi");
-        video[6] = VideoCapture("/dados/jabahpureza/video_samples/give_it_up_or_turnit_a_loose_01_raw_i420_noaudio.avi");
-        video[7] = VideoCapture("/dados/jabahpureza/video_samples/i_dont_want_nobody_to_give_me_nothing_01_raw_i420_noaudio.avi");
-        video[8] = VideoCapture("/dados/jabahpureza/video_samples/i_dont_want_nobody_to_give_me_nothing_03_raw_i420_noaudio.avi");
-        video[9] = VideoCapture("/dados/jabahpureza/video_samples/super_bad_01_raw_i420_noaudio.avi");
-        video[10] = VideoCapture("/dados/jabahpureza/video_samples/i_got_a_feeling_01_raw_i420_noaudio.avi");
-        video[11] = VideoCapture("/dados/jabahpureza/video_samples/make_it_funky_01_raw_i420_noaudio.avi");
-        video[12] = VideoCapture("/dados/jabahpureza/video_samples/papa_dont_take_no_mess_01_raw_i420_noaudio.avi");
-        video[13] = VideoCapture("/dados/jabahpureza/video_samples/bootsy_01_raw_i420_noaudio.avi");
+        video[2] = VideoCapture("/dados/jabahpureza/video_samples/cold_sweat_01_raw_i420_noaudio.avi");
+        video[3] = VideoCapture("/dados/jabahpureza/video_samples/funky_drummer_01_raw_i420_noaudio.avi");
+        video[4] = VideoCapture("/dados/jabahpureza/video_samples/do_it_to_death_01_raw_i420_noaudio.avi");
+        video[5] = VideoCapture("/dados/jabahpureza/video_samples/make_it_funky_01_raw_i420_noaudio.avi");
+        video[6] = VideoCapture("/dados/jabahpureza/video_samples/tony_1.avi");
+        video[7] = VideoCapture("/dados/jabahpureza/video_samples/tony_2.avi");
+        video[8] = VideoCapture("/dados/jabahpureza/video_samples/tony_3.avi");
+        video[9] = VideoCapture("/dados/jabahpureza/video_samples/tony_4.avi");
+        video[10] = VideoCapture("/dados/jabahpureza/video_samples/tony_5.avi");
+        video[11] = VideoCapture("/dados/jabahpureza/video_samples/tony_6.avi");
+        video[12] = VideoCapture("/dados/jabahpureza/video_samples/tony_7.avi");
+        video[13] = VideoCapture("/dados/jabahpureza/video_samples/tony_8.avi");
     }
     catch ( ... )
     {
@@ -142,38 +142,34 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
         }
     }
 
-    int bootsy[] =    { 2980,    7806,	12621,	17471,
-                        22298,	27064,	31963,  36777,
-                        41664,	46478,	51328};
-    int coldsweat01[] = {50, 3902,   7771,   11605,  15400};//15423};
-    int coldsweat02[] = {6,	3976,	7907,	11822,  15690};
+    int tony_1[] = { 2566,   12472,  22284,  32151,  42071};
+    int tony_2[] = {13192,   23529,  33733,  43846,  53871};
+    int tony_3[] = { 9796,   19899,  29971,  40054,  50311,  57911};
+    int tony_4[] = { 4712,   14708,  24635,  34656,  44661,  54630};
+    int tony_5[] = { 2566,   12472,  22284,  32151,  42071};
+    int tony_6[] = { 7636,   18455,  28995,  39490,  49958};
+    int tony_7[] = { 3557,   14512,  25289};
+    int tony_8[] = { 5281,   15262,  25317,  35393,  45468,  55581,  65757};
+
+    int coldsweat01[] = {50, 3902,   7771,   11605,  15400};
     int doittodeath[] = {1118,	5395,	9671,	14022,	18323,	22723};//,	27123};
     int funkydrummer[]= {43,	4515,	8967,	13440,	17893,	22314};//{0,	4482,	8941,	13424,	17858,	22292};//	26726};
-    int giveitup01[]=   {3215,	11355,	19555};
-    int giveitup02[]=   {8427 ,	16528,	24687,	32873,	41035,	49082,	57073,  65071,  73001};
-    int i_dont_want_nobody01[] = {  2748,	11183,	19637};
-    int i_dont_want_nobody02[] = {	0,      8443,	16809,	25226};
-    int i_dont_want_nobody03[] = {  0,      16802,	33639};
-    int i_got_a_feeling_01[]	= { 0,	7613,	15227,	22862};
     int make_it_funky_01[] = {3834,	13344,	25723,	35200};
-    int mother_popcorn_01[] = { 51,	8465,	16777,	25095};
-    int papa_dont_take_no_mess[]	= {15,	4678,	9291,	13900, 16170};//, 18500};//{ 0,	4662,	9549,	13907,	18494};
-    int super_bad_01[] = {69,	7179,	14129,	21228,	28362,	31927,	39083,	46176};//{ 69,	7179,	14129,	21228,	28362,	31889,	39083,	46176};
 
     for (int i=0; i<11; i++)
     {
-        if (i<5) this->timeStamps[2][i] = coldsweat02[i];
-        if (i<5) this->timeStamps[3][i] = coldsweat01[i];
-        if (i<6) this->timeStamps[4][i] = funkydrummer[i];
-        if (i<6) this->timeStamps[5][i] = doittodeath[i];
-        if (i<3) this->timeStamps[6][i] = giveitup01[i];
-        if (i<3) this->timeStamps[7][i] = i_dont_want_nobody01[i];
-        if (i<3) this->timeStamps[8][i] = i_dont_want_nobody03[i];
-        if (i<8) this->timeStamps[9][i] = super_bad_01[i];
-        if (i<4) this->timeStamps[10][i] = i_got_a_feeling_01[i];
-        if (i<4) this->timeStamps[11][i] = make_it_funky_01[i];
-        if (i<5) this->timeStamps[12][i] = papa_dont_take_no_mess[i];
-        if (i<11) this->timeStamps[13][i] = bootsy[i];
+        if (i<5) this->timeStamps[2][i] = coldsweat01[i];
+        if (i<6) this->timeStamps[3][i] = funkydrummer[i];
+        if (i<6) this->timeStamps[4][i] = doittodeath[i];
+        if (i<4) this->timeStamps[5][i] = make_it_funky_01[i];
+        if (i<5) this->timeStamps[6][i] = tony_1[i];
+        if (i<5) this->timeStamps[7][i] = tony_2[i];
+        if (i<6) this->timeStamps[8][i] = tony_3[i];
+        if (i<6) this->timeStamps[9][i] = tony_4[i];
+        if (i<5) this->timeStamps[10][i] = tony_5[i];
+        if (i<5) this->timeStamps[11][i] = tony_6[i];
+        if (i<3) this->timeStamps[12][i] = tony_7[i];
+        if (i<7) this->timeStamps[13][i] = tony_8[i];
     }
 
     videoPlaying = false;
