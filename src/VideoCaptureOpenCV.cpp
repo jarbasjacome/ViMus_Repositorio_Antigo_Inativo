@@ -146,7 +146,7 @@ void VideoCaptureOpenCV::init()
         }
     }
 
-/*
+//*
 //    LANTERNA MAGICA nao precisa de captura
 //    TODO: apenas ligar essas threads quando estiver ocorrendo captura.
 

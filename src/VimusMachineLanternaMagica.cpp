@@ -67,11 +67,11 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
     if (DEBUG_MODE)
         cout << "\nVimusMachineLanternaMagica constructed.";
 
-    this->capturedFrame = new unsigned char[VIDEO_WIDTH*VIDEO_HEIGHT*3];
+    this->capturedFrame = new unsigned char[VIDEO_SAMPLE_WIDTH*VIDEO_SAMPLE_HEIGHT*3];
 
-    this->distorcedFrame = new unsigned char[VIDEO_WIDTH*VIDEO_HEIGHT*3];
+    this->distorcedFrame = new unsigned char[VIDEO_SAMPLE_WIDTH*VIDEO_SAMPLE_HEIGHT*3];
 
-	for (int i=0; i<VIDEO_WIDTH*VIDEO_HEIGHT; i++)
+	for (int i=0; i<VIDEO_SAMPLE_WIDTH*VIDEO_SAMPLE_HEIGHT; i++)
 	{
         this->capturedFrame[i*3+0] = 255;
         this->capturedFrame[i*3+1] = 0;
@@ -82,7 +82,7 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
         this->distorcedFrame[i*3+2] = 255;  //R
 	}
 
-	Mat red(VIDEO_WIDTH, VIDEO_HEIGHT, CV_8UC3, capturedFrame,0);
+	Mat red(VIDEO_SAMPLE_WIDTH, VIDEO_SAMPLE_HEIGHT, CV_8UC3, capturedFrame,0);
 
 	this->frame = red.clone();
 	this->frameDest = red.clone();
@@ -94,7 +94,7 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, VIDEO_WIDTH, VIDEO_HEIGHT, 0, GL_BGR,
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, VIDEO_SAMPLE_WIDTH, VIDEO_SAMPLE_HEIGHT, 0, GL_BGR,
                                 GL_UNSIGNED_BYTE, this->distorcedFrame);
     try
     {
@@ -254,7 +254,7 @@ void VimusMachineLanternaMagica::update()
             video[currVideo].retrieve(this->frame, 0);
 
             //TODO: if same size of vide dont need to do this!
-//            resize(this->frame, this->frameDest, Size(VIDEO_WIDTH, VIDEO_HEIGHT),0,0, INTER_LINEAR);
+//            resize(this->frame, this->frameDest, Size(VIDEO_SAMPLE_WIDTH, VIDEO_SAMPLE_HEIGHT),0,0, INTER_LINEAR);
 //            this->capturedFrame = (unsigned char *) this->frameDest.data;
 
             this->capturedFrame = (unsigned char *) this->frame.data;
@@ -269,13 +269,13 @@ void VimusMachineLanternaMagica::update()
             case VIDEO_EFFECT_OFF:
                 break;
             case VIDEO_EFFECT_RED:
-                for (int i=0; i<VIDEO_HEIGHT; i++)
+                for (int i=0; i<VIDEO_SAMPLE_HEIGHT; i++)
                 {
-                    for (int j=0; j<VIDEO_WIDTH;j++)
+                    for (int j=0; j<VIDEO_SAMPLE_WIDTH;j++)
                     {
-                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3]+this->audioCapture->getSample(i);
-                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+1]+this->audioCapture->getSample(i);
-                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+2]+this->audioCapture->getSample(i)*255;
+                        this->distorcedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3]+this->audioCapture->getSample(i);
+                        this->distorcedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3+1]+this->audioCapture->getSample(i);
+                        this->distorcedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3+2]+this->audioCapture->getSample(i)*255;
                     }
                 }
                 break;
@@ -283,13 +283,13 @@ void VimusMachineLanternaMagica::update()
 //                float vol;
 //                vol = this->audioCapture->getSoftAmp()*8;
 //                if (vol > 1.0f) vol = 1.0f;
-//                for (int i=0; i<VIDEO_HEIGHT; i++)
+//                for (int i=0; i<VIDEO_SAMPLE_HEIGHT; i++)
 //                {
-//                    for (int j=0; j<VIDEO_WIDTH;j++)
+//                    for (int j=0; j<VIDEO_SAMPLE_WIDTH;j++)
 //                    {
-//                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3]*vol;
-//                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+1]*vol;
-//                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+2]*vol;
+//                        this->distorcedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3]*vol;
+//                        this->distorcedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3+1]*vol;
+//                        this->distorcedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3+2]*vol;
 //                    }
 //                }
 //                this->audioSampler->setGain(currVideo, vol);
@@ -298,13 +298,13 @@ void VimusMachineLanternaMagica::update()
 //                float vol2;
 //                vol2 = 1.0f - this->audioCapture->getSoftAmp()*4;
 //                if (vol2 < 0.0f) vol2 = 0.0f;
-//                for (int i=0; i<VIDEO_HEIGHT; i++)
+//                for (int i=0; i<VIDEO_SAMPLE_HEIGHT; i++)
 //                {
-//                    for (int j=0; j<VIDEO_WIDTH;j++)
+//                    for (int j=0; j<VIDEO_SAMPLE_WIDTH;j++)
 //                    {
-//                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3]*vol2;
-//                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+1]*vol2;
-//                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j)*3+2]*vol2;
+//                        this->distorcedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3]*vol2;
+//                        this->distorcedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3+1]*vol2;
+//                        this->distorcedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3+2]*vol2;
 //                    }
 //                }
 //                this->audioSampler->setGain(currVideo, vol2);
@@ -326,21 +326,21 @@ void VimusMachineLanternaMagica::update()
             case VIDEO_EFFECT_WAVE:
                 int zara;
                 int antizara;
-                for (int i=0; i<VIDEO_HEIGHT; i++)
+                for (int i=0; i<VIDEO_SAMPLE_HEIGHT; i++)
                 {
-                    zara = this->audioCapture->getSample(i)*VIDEO_WIDTH*0.1;
-                    antizara = VIDEO_WIDTH - 1 - zara;
+                    zara = this->audioCapture->getSample(i)*VIDEO_SAMPLE_WIDTH*0.1;
+                    antizara = VIDEO_SAMPLE_WIDTH - 1 - zara;
                     for (int j=0; j<antizara;j++)
                     {
-                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j+zara)*3];
-                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j+zara)*3+1];
-                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j+zara)*3+2];
+                        this->distorcedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_SAMPLE_WIDTH+j+zara)*3];
+                        this->distorcedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_SAMPLE_WIDTH+j+zara)*3+1];
+                        this->distorcedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_SAMPLE_WIDTH+j+zara)*3+2];
                     }
-                    for (int j=antizara; j<VIDEO_WIDTH;j++)
+                    for (int j=antizara; j<VIDEO_SAMPLE_WIDTH;j++)
                     {
-                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_WIDTH+j-antizara)*3];
-                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_WIDTH+j-antizara)*3+1];
-                        this->distorcedFrame[(i*VIDEO_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_WIDTH+j-antizara)*3+2];
+                        this->distorcedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3] = this->capturedFrame[(i*VIDEO_SAMPLE_WIDTH+j-antizara)*3];
+                        this->distorcedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3+1] = this->capturedFrame[(i*VIDEO_SAMPLE_WIDTH+j-antizara)*3+1];
+                        this->distorcedFrame[(i*VIDEO_SAMPLE_WIDTH+j)*3+2] = this->capturedFrame[(i*VIDEO_SAMPLE_WIDTH+j-antizara)*3+2];
                     }
                 }
                 break;
@@ -382,12 +382,12 @@ void VimusMachineLanternaMagica::draw()
 
         if (this->videoEffect == VIDEO_EFFECT_OFF)
         {
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, VIDEO_WIDTH, VIDEO_HEIGHT, 0, GL_BGR,
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, VIDEO_SAMPLE_WIDTH, VIDEO_SAMPLE_HEIGHT, 0, GL_BGR,
                                     GL_UNSIGNED_BYTE, this->capturedFrame);
         }
         else
         {
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, VIDEO_WIDTH, VIDEO_HEIGHT, 0, GL_BGR,
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, VIDEO_SAMPLE_WIDTH, VIDEO_SAMPLE_HEIGHT, 0, GL_BGR,
                                     GL_UNSIGNED_BYTE, this->distorcedFrame);
         }
 
@@ -956,7 +956,7 @@ void VimusMachineLanternaMagica::setCurrVideo(int video)
 void VimusMachineLanternaMagica :: changeContrast (float bright, float contrast)
 {
 
-	for (int i= 0; i<VIDEO_WIDTH*VIDEO_HEIGHT*3; i++)
+	for (int i= 0; i<VIDEO_SAMPLE_WIDTH*VIDEO_SAMPLE_HEIGHT*3; i++)
 	{
 		if (this->capturedFrame[i] + bright > 255)
 			this->distorcedFrame[i] = 255;
@@ -973,7 +973,7 @@ void VimusMachineLanternaMagica :: changeContrast (float bright, float contrast)
 		contrasTransform[i]=0;
 	}
 
-	for (int i= 0; i<VIDEO_WIDTH*VIDEO_HEIGHT*3; i++)
+	for (int i= 0; i<VIDEO_SAMPLE_WIDTH*VIDEO_SAMPLE_HEIGHT*3; i++)
 	{
 		this->distorcedFrame[i] = contrasTransform[this->capturedFrame[i]];
 	}
