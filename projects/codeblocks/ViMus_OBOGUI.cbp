@@ -86,6 +86,8 @@
 		<Unit filename="../../src/VimusMachineEditor.h" />
 		<Unit filename="../../src/VimusMachineLanternaMagica.cpp" />
 		<Unit filename="../../src/VimusMachineLanternaMagica.h" />
+		<Unit filename="../../src/VimusMachineMangue.cpp" />
+		<Unit filename="../../src/VimusMachineMangue.h" />
 		<Unit filename="../../src/VimusMachineNormalObject.cpp" />
 		<Unit filename="../../src/VimusMachineNormalObject.h" />
 		<Unit filename="../../src/VimusMachineObject.cpp" />

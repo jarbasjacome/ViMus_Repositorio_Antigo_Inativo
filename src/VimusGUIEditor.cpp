@@ -213,6 +213,9 @@ void VimusGUIEditor::keyBoardFunc(unsigned char key, int x, int y)
 		case 'b':
 			this->createObject("pixelCVBlob", 0.0, -0.6, 0.0);
 			break;
+		case 's':
+			this->createObject("mangue", 0.0, -0.6, 0.0);
+			break;
         case 'm':
             this->createObject("vitalino", 0.0, -0.6, 0.0);
             break;

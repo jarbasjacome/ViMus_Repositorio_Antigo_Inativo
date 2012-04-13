@@ -29,5 +29,6 @@
 #include "VimusMachineVitalino.h"
 #include "VimusMachineCVBlobDetection.h"
 #include "VimusMachineLanternaMagica.h"
+#include "VimusMachineMangue.h"
 
 #endif //_VIMUSMACHINEOBJECTS_H_

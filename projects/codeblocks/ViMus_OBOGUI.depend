@@ -371,7 +371,7 @@
 	<stdlib.h>
 	<GL/glut.h>
 
-1332372215 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.cpp
+1332454897 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.cpp
 	"VimusGUIEditor.h"
 
 1306182826 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.h
@@ -446,7 +446,7 @@
 	<sstream>
 	<vector>
 
-1306108193 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineObjects.h
+1332453048 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineObjects.h
 	"VimusMachineNormalObject.h"
 	"VimusMachineAbstractionObject.h"
 	"VimusMachineVideoPreview.h"
@@ -456,6 +456,7 @@
 	"VimusMachineVitalino.h"
 	"VimusMachineCVBlobDetection.h"
 	"VimusMachineLanternaMagica.h"
+	"VimusMachineMangue.h"
 
 1294795662 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineNormalObject.h
 	"VimusMachineObject.h"
@@ -2935,7 +2936,7 @@
 1294795859 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVThreshold.cpp
 	"VimusMachineCVThreshold.h"
 
-1306108586 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineEditor.cpp
+1332454901 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineEditor.cpp
 	"VimusMachineEditor.h"
 
 1294795870 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineNormalObject.cpp
@@ -2972,10 +2973,10 @@
 	"VimusGUIGLUT.h"
 	"VimusMachine.h"
 
-1332368977 source:/dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.cpp
+1333209715 source:/dados/ViMus/ViMus_OBOGUI/src/VideoCaptureOpenCV.cpp
 	"VideoCaptureOpenCV.h"
 
-1306157295 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVBlobDetection.h
+1332450506 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVBlobDetection.h
 	"VimusMachineOpenGLObject.h"
 	"cv.h"
 	"highgui.h"
@@ -3087,7 +3088,7 @@
 
 1263954937 /usr/include/opencv/highgui.hpp
 
-1310270978 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.h
+1334271438 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.h
 	"VimusMachineOpenGLObject.h"
 	"cv.h"
 	"highgui.h"
@@ -3098,10 +3099,10 @@
 	<iostream>
 	<math.h>
 
-1332370759 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.cpp
+1334268903 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.cpp
 	"VimusMachineLanternaMagica.h"
 
-1330718530 /dados/ViMus/ViMus_OBOGUI/src/OpenALSampler.h
+1334194356 /dados/ViMus/ViMus_OBOGUI/src/OpenALSampler.h
 	<stdlib.h>
 	<stdio.h>
 	<al.h>
@@ -3120,7 +3121,7 @@
 	<AL/al.h>
 	<AL/alc.h>
 
-1330718135 source:/dados/ViMus/ViMus_OBOGUI/src/OpenALSampler.cpp
+1334194353 source:/dados/ViMus/ViMus_OBOGUI/src/OpenALSampler.cpp
 	"OpenALSampler.h"
 
 1312667022 source:/dados/ViMus/ViMus_OBOGUI/src/OpenALCapture.cpp
@@ -3134,4 +3135,14 @@
 	<iostream>
 	<stdio.h>
 	<string.h>
+
+1332452331 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineMangue.h
+	"VimusMachineOpenGLObject.h"
+	"cv.h"
+	"highgui.h"
+	"GL/glut.h"
+	<iostream>
+
+1332454642 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineMangue.cpp
+	"VimusMachineMangue.h"
 

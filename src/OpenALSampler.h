@@ -51,6 +51,8 @@ class OpenALSampler
 
 		void setGain(int sNumber, float gain);
 
+		ALfloat getSecondOffset(int sNumber);
+
 	private:
 
 		static const int NUM_BUFFERS = 14;

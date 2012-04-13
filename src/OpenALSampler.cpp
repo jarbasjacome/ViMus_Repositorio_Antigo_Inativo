@@ -187,3 +187,10 @@ void OpenALSampler::setGain(int sNumber, float gain)
 {
     alSourcef(source[sNumber],AL_GAIN,gain);
 }
+ALfloat OpenALSampler::getSecondOffset(int sNumber)
+{
+    ALfloat pos = 0;
+    alGetSourcef(source[sNumber],AL_SEC_OFFSET,&pos);
+    return pos;
+}
+

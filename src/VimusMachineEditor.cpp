@@ -130,6 +130,14 @@ VimusGUIObject * VimusMachineEditor :: createObject(const string& label, float p
 
             this->addOpenGLObject(blob);
 		}
+		else if (!this->msgTokens[0].compare("mangue"))
+		{
+		    VimusMachineMangue * mangue = new VimusMachineMangue();
+			macObj = mangue;
+			guiObj = new VimusGUIOpenGLObject(label, posX, posY, posZ, 2, 1, mangue);
+
+            this->addOpenGLObject(mangue);
+		}
 		else if (!this->msgTokens[0].compare("vitalino"))
 		{
 		    VimusMachineVitalino * vitalino = new VimusMachineVitalino();

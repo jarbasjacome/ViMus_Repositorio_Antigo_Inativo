@@ -174,6 +174,8 @@ VimusMachineLanternaMagica::VimusMachineLanternaMagica()
 
     videoPlaying = false;
 
+    currPitch = 1.0;
+
     this->audioCapture = new OpenALCapture();
 
 //    this->audioSampler->playSample(currVideo);
@@ -197,56 +199,69 @@ void VimusMachineLanternaMagica::update()
     this->audioCapture->grabSamples();
     try
     {
-        boost::xtime_get(&(this->currSysTime2), boost::TIME_UTC);
-        this->pastTimeMSecs = (this->currSysTime2.nsec - this->startSysTime2.nsec) / 1000000.0f;
-        this->pastTimeMSecs += (this->currSysTime2.sec - this->startSysTime2.sec)*1000;
+//        boost::xtime_get(&(this->currSysTime2), boost::TIME_UTC);
+//        this->pastTimeMSecs = (this->currSysTime2.nsec - this->startSysTime2.nsec) / 1000000.0f;
+//        this->pastTimeMSecs += (this->currSysTime2.sec - this->startSysTime2.sec)*1000;
 
-        this->pastTimeMSecs += this->sampleStartTimeMSecs;
+//        this->pastTimeMSecs += this->sampleStartTimeMSecs;
 
-        if (this->pastTimeMSecs > this->timeStamps[currVideo][currMeasure+1] &&
-            this->timeStamps[currVideo][currMeasure+1] > -1)
-        {
-            currMeasure++;
-            if (this->repeatMode == this->REPEAT_MODE_MEASURE)
+        //se sampler de audio ainda está tocando
+        //fazer atualizações no vídeo de acordo com o tempo do áudio
+        //o tempo do audio controla o video, por isso a mudança de pitch
+        //altera o tempo do vídeo para manter a sincronia.
+        if (this->audioSampler->getSecondOffset(currVideo) > 0) {
+
+            this->pastTimeMSecs = this->audioSampler->getSecondOffset(currVideo)*1000;
+
+            if (this->pastTimeMSecs > this->timeStamps[currVideo][currMeasure+1] &&
+                this->timeStamps[currVideo][currMeasure+1] > -1)
             {
-                if (this->schedMeasureChange > -1)
+                currMeasure++;
+                if (this->repeatMode == this->REPEAT_MODE_MEASURE)
                 {
-                    currMeasure = schedMeasureChange;
-                    schedMeasureChange = -1;
+                    if (this->schedMeasureChange > -1)
+                    {
+                        currMeasure = schedMeasureChange;
+                        schedMeasureChange = -1;
+                    }
+                    else
+                    {
+                        currMeasure--;
+                    }
+                    this->sampleStartTimeMSecs = this->timeStamps[currVideo][currMeasure];
+                    this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, this->sampleStartTimeMSecs);
+                    boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
+                    this->audioSampler->setPlaybackPos(currVideo, this->sampleStartTimeMSecs/1000.0f);
+                }
+                // verifica se está no repeat_mode_groove e se o compasso atual é o último
+                else if (this->repeatMode == this->REPEAT_MODE_GROOVE && this->timeStamps[currVideo][currMeasure+1] == -1)
+                {
+                    if (this->schedGrooveChange > -1)
+                    {
+                        this->audioSampler->stopSample(currVideo);
+                        this->setCurrVideo(this->schedGrooveChange);
+                        this->schedGrooveChange = -1;
+                        this->audioSampler->playSample(this->currVideo);
+                        currPitch = 1.0;
+                        this->audioSampler->setSamplePitch(currVideo, currPitch);
+                    }
+                    currMeasure = 0;
+                    this->sampleStartTimeMSecs = this->timeStamps[currVideo][currMeasure];
+                    this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, this->sampleStartTimeMSecs);
+                    boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
+                    this->audioSampler->setPlaybackPos(currVideo, this->sampleStartTimeMSecs/1000.0f);
                 }
                 else
                 {
-                    currMeasure--;
+                    //this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, this->pastTimeMSecs);
+                    this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, this->audioSampler->getSecondOffset(currVideo)*1000);
                 }
-                this->sampleStartTimeMSecs = this->timeStamps[currVideo][currMeasure];
-                this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, this->sampleStartTimeMSecs);
-                boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
-                this->audioSampler->setPlaybackPos(currVideo, this->sampleStartTimeMSecs/1000.0f);
-            }
-            // verifica se está no repeat_mode_groove e se o compasso atual é o último
-            else if (this->repeatMode == this->REPEAT_MODE_GROOVE && this->timeStamps[currVideo][currMeasure+1] == -1)
-            {
-                if (this->schedGrooveChange > -1)
-                {
-                    this->audioSampler->stopSample(currVideo);
-                    this->setCurrVideo(this->schedGrooveChange);
-                    this->schedGrooveChange = -1;
-                    this->audioSampler->playSample(this->currVideo);
-                }
-                currMeasure = 0;
-                this->sampleStartTimeMSecs = this->timeStamps[currVideo][currMeasure];
-                this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, this->sampleStartTimeMSecs);
-                boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
-                this->audioSampler->setPlaybackPos(currVideo, this->sampleStartTimeMSecs/1000.0f);
             }
             else
             {
-                this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, this->pastTimeMSecs);
+                //this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, this->pastTimeMSecs);
+                this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, this->audioSampler->getSecondOffset(currVideo)*1000);
             }
-        }
-        else
-        {
-            this->video[currVideo].set(CV_CAP_PROP_POS_MSEC, this->pastTimeMSecs);
         }
 
         if (video[currVideo].grab() && videoPlaying)
@@ -322,6 +337,20 @@ void VimusMachineLanternaMagica::update()
                 vol2 = this->audioCapture->getSoftAmp();
                 this->changeContrast(0, 0.7-vol2*0.7);
                 this->audioSampler->setGain(currVideo, vol2*8);
+                break;
+            case VIDEO_EFFECT_CONTRAST_TEMPO:
+                float vol3;
+                vol3 = this->audioCapture->getSoftAmp();
+                this->changeContrast(0, 0.7-vol3*0.7);
+                vol3 = 1.0 - vol3*8;
+                if (vol3 < 0) vol3 = 0;
+                this->audioSampler->setSamplePitch(currVideo, vol3);
+                break;
+            case VIDEO_EFFECT_CONTRAST_TEMPO_INV:
+                float vol4;
+                vol4 = this->audioCapture->getSoftAmp();
+                this->changeContrast(0, 0.7-vol4*0.7);
+                this->audioSampler->setSamplePitch(currVideo, vol4*8);
                 break;
             case VIDEO_EFFECT_WAVE:
                 int zara;
@@ -698,26 +727,31 @@ void VimusMachineLanternaMagica::keyBoardFunc(unsigned char key, int x, int y)
 	switch (key)
 	{
         case 'a':
-            if (this->currContrastEffect < NUM_CONTRAST_EFFECTS-1)
+            this->audioSampler->setGain(currVideo, 1.0);
+            this->audioSampler->setSamplePitch(currVideo, currPitch);
+            if (this->currEffect < NUM_EFFECTS-1)
             {
-                if (this->currContrastEffect == CONTRAST_EFFECT_OFF)
+                if (this->currEffect == EFFECT_OFF)
                 {
                     this->lastVideoEffect = this->videoEffect;
                 }
-                this->currContrastEffect++;
+                this->currEffect++;
             }
             else
             {
-                this->currContrastEffect = 0;
+                this->currEffect = 0;
             }
-            if (this->currContrastEffect == CONTRAST_EFFECT_GAIN)
+            if (this->currEffect == EFFECT_GAIN)
                 this->videoEffect = VIDEO_EFFECT_CONTRAST_GAIN;
-            else if (this->currContrastEffect == CONTRAST_EFFECT_GAIN_INV)
+            else if (this->currEffect == EFFECT_GAIN_INV)
                 this->videoEffect = VIDEO_EFFECT_CONTRAST_GAIN_INV;
-            else if (this->currContrastEffect == CONTRAST_EFFECT_OFF)
+            else if (this->currEffect == EFFECT_TEMPO)
+                this->videoEffect = VIDEO_EFFECT_CONTRAST_TEMPO;
+            else if (this->currEffect == EFFECT_TEMPO_INV)
+                this->videoEffect = VIDEO_EFFECT_CONTRAST_TEMPO_INV;
+            else if (this->currEffect == EFFECT_OFF)
             {
                 this->videoEffect = this->lastVideoEffect;
-                this->audioSampler->setGain(currVideo, 1.0);
             }
             break;
         case 'w':
@@ -746,18 +780,20 @@ void VimusMachineLanternaMagica::keyBoardFunc(unsigned char key, int x, int y)
                 this->prevTrack();
             else if (this->repeatMode == this->REPEAT_MODE_GROOVE)
             {
-                if (this->schedGrooveChange == -1)
-                {
-                    this->schedGrooveChange = this->currVideo;
-                }
-                if (this->schedGrooveChange > 0)
-                {
-                    this->schedGrooveChange--;
-                }
-                else
-                {
-                    this->schedGrooveChange = this->NUM_VIDEOS-1;
-                }
+//                if (this->schedGrooveChange == -1)
+//                {
+//                    this->schedGrooveChange = this->currVideo;
+//                }
+//                if (this->schedGrooveChange > 0)
+//                {
+//                    this->schedGrooveChange--;
+//                }
+//                else
+//                {
+//                    this->schedGrooveChange = this->NUM_VIDEOS-1;
+//                }
+                currPitch = currPitch - 0.01;
+                this->audioSampler->setSamplePitch(currVideo, currPitch);
             }
             else if (this->repeatMode == this->REPEAT_MODE_MEASURE)
             {
@@ -782,6 +818,8 @@ void VimusMachineLanternaMagica::keyBoardFunc(unsigned char key, int x, int y)
             {
                 this->videoPlaying = true;
                 this->audioSampler->playSample(currVideo);
+                currPitch = 1.0;
+                this->audioSampler->setSamplePitch(currVideo, currPitch);
                 boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
             }
             else
@@ -790,18 +828,20 @@ void VimusMachineLanternaMagica::keyBoardFunc(unsigned char key, int x, int y)
                     this->nextTrack();
                 else if (this->repeatMode == this->REPEAT_MODE_GROOVE)
                 {
-                    if (this->schedGrooveChange == -1)
-                    {
-                        this->schedGrooveChange = this->currVideo;
-                    }
-                    if (this->schedGrooveChange < this->NUM_VIDEOS-1)
-                    {
-                        this->schedGrooveChange++;
-                    }
-                    else
-                    {
-                        this->schedGrooveChange = 0;
-                    }
+//                    if (this->schedGrooveChange == -1)
+//                    {
+//                        this->schedGrooveChange = this->currVideo;
+//                    }
+//                    if (this->schedGrooveChange < this->NUM_VIDEOS-1)
+//                    {
+//                        this->schedGrooveChange++;
+//                    }
+//                    else
+//                    {
+//                        this->schedGrooveChange = 0;
+//                    }
+                    currPitch = currPitch + 0.01;
+                    this->audioSampler->setSamplePitch(currVideo, currPitch);
                 }
                 else if (this->repeatMode == this->REPEAT_MODE_MEASURE)
                 {
@@ -867,6 +907,8 @@ void VimusMachineLanternaMagica::playCurrVideo()
     boost::xtime_get(&(this->startSysTime2), boost::TIME_UTC);
     this->sampleStartTimeMSecs = 0;
     this->audioSampler->playSample(currVideo);
+    currPitch = 1.0;
+    this->audioSampler->setSamplePitch(currVideo, currPitch);
 }
 
 void VimusMachineLanternaMagica::setCurrVideo(int video)
@@ -882,72 +924,72 @@ void VimusMachineLanternaMagica::setCurrVideo(int video)
         case 0: //dear_friends.avi");
             this->videoEffect = VIDEO_EFFECT_WAVE;
             this->waveDrawer = WAVE_DRAWER_OFF;
-            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            this->currEffect = EFFECT_OFF;
             break;
         case 1: //soul_of_the_funky_drummers_raw_i420_noaudio.avi");
             this->videoEffect = VIDEO_EFFECT_RED;
             this->waveDrawer = WAVE_DRAWER_CIRCLES_FLOWER_3D;
-            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            this->currEffect = EFFECT_OFF;
             break;
         case 2: //cold_sweat_02_raw_i420_noaudio.avi
             this->videoEffect = VIDEO_EFFECT_OFF;
             this->waveDrawer = WAVE_DRAWER_OFF;
-            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            this->currEffect = EFFECT_OFF;
             break;
         case 3: //cold_sweat_01_raw_i420_noaudio.avi
             this->videoEffect = VIDEO_EFFECT_OFF;
             this->waveDrawer = WAVE_DRAWER_OFF;
-            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            this->currEffect = EFFECT_OFF;
             break;
         case 4: //funky_drummer_01_raw_i420_noaudio.avi
             this->videoEffect = VIDEO_EFFECT_OFF;
             this->waveDrawer = WAVE_DRAWER_OFF;
-            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            this->currEffect = EFFECT_OFF;
             break;
         case 5: //do_it_to_death_01_raw_i420_noaudio.avi
             this->videoEffect = VIDEO_EFFECT_WAVE;
             this->waveDrawer = WAVE_DRAWER_OFF;
-            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            this->currEffect = EFFECT_OFF;
             break;
         case 6: //give_it_up_or_turnit_a_loose_01_raw_i420_noaudio.avi
             this->videoEffect = VIDEO_EFFECT_WAVE;
             this->waveDrawer = WAVE_DRAWER_OFF;
-            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            this->currEffect = EFFECT_OFF;
             break;
         case 7: // i_dont_want_nobody_to_give_me_nothing_01_raw_i420_noaudio
             this->videoEffect = VIDEO_EFFECT_RED;
             this->waveDrawer = WAVE_DRAWER_OFF;
-            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            this->currEffect = EFFECT_OFF;
             break;
         case 8: // i_dont_want_nobody_to_give_me_nothing_03_raw_i420_noaudio
             this->videoEffect = VIDEO_EFFECT_RED;
             this->waveDrawer = WAVE_DRAWER_OFF;
-            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            this->currEffect = EFFECT_OFF;
             break;
         case 9: //super_bad_01_raw_i420_noaudio.avi
             this->videoEffect = VIDEO_EFFECT_RED;
             this->waveDrawer = WAVE_DRAWER_OFF;
-            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            this->currEffect = EFFECT_OFF;
             break;
         case 10: // i_got_a_feeling_01_raw_i420_noaudio
             this->videoEffect = VIDEO_EFFECT_RED;
             this->waveDrawer = WAVE_DRAWER_OFF;
-            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            this->currEffect = EFFECT_OFF;
             break;
         case 11: // make_it_funky_01_raw_i420_noaudio
             this->videoEffect = VIDEO_EFFECT_RED;
             this->waveDrawer = WAVE_DRAWER_OFF;
-            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            this->currEffect = EFFECT_OFF;
             break;
         case 12: // papa_dont_take_no_mess_01_raw_i420_noaudio
             this->videoEffect = VIDEO_EFFECT_RED;
             this->waveDrawer = WAVE_DRAWER_OFF;
-            this->currContrastEffect = CONTRAST_EFFECT_OFF;
+            this->currEffect = EFFECT_OFF;
             break;
         case 13: // bootsy_01_raw_i420_noaudio
             this->videoEffect = VIDEO_EFFECT_OFF;
             this->waveDrawer = WAVE_DRAWER_OFF;
-            this->currContrastEffect = CONTRAST_EFFECT_GAIN_INV;
+            this->currEffect = EFFECT_GAIN_INV;
             break;
     }
 }

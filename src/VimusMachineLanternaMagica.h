@@ -129,9 +129,12 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 		int videoEffect;
 		const static int VIDEO_EFFECT_OFF = 0;
 		const static int VIDEO_EFFECT_RED = 1;
-		const static int VIDEO_EFFECT_CONTRAST_GAIN= 2;
+		const static int VIDEO_EFFECT_CONTRAST_GAIN = 2;
 		const static int VIDEO_EFFECT_CONTRAST_GAIN_INV = 3;
-		const static int VIDEO_EFFECT_WAVE = 4;
+		const static int VIDEO_EFFECT_CONTRAST_TEMPO = 4;
+		const static int VIDEO_EFFECT_CONTRAST_TEMPO_INV = 5;
+		const static int VIDEO_EFFECT_WAVE = 6;
+
 //		const static int VIDEO_EFFECT_BRIGHTNESS = 5;
 //		const static int VIDEO_EFFECT_BRIGHTNESS_INV = 6;
 
@@ -145,11 +148,15 @@ class VimusMachineLanternaMagica : public VimusMachineOpenGLObject
 //555
 
 		int lastVideoEffect;
-		int currContrastEffect;
-		const static int CONTRAST_EFFECT_OFF = 0;
-		const static int CONTRAST_EFFECT_GAIN = 1;
-		const static int CONTRAST_EFFECT_GAIN_INV = 2;
-		const static int NUM_CONTRAST_EFFECTS = 3;
+		int currEffect;
+		const static int EFFECT_OFF = 0;
+		const static int EFFECT_GAIN = 1;
+		const static int EFFECT_GAIN_INV = 2;
+		const static int EFFECT_TEMPO = 3;
+		const static int EFFECT_TEMPO_INV = 4;
+		const static int NUM_EFFECTS = 5;
+
+		ALfloat currPitch;
 
 		int waveDrawer;
 		const static int WAVE_DRAWER_OFF = 0;
