@@ -19,6 +19,8 @@
 
 #include "VimusMachine.h"
 
+Freenect::Freenect freenect;
+
 using namespace std;
 
 /**
@@ -35,6 +37,7 @@ VimusMachine :: VimusMachine ()
  */
 VimusMachine :: ~VimusMachine()
 {
+    delete(kinect);
 }
 
 /**
@@ -43,14 +46,22 @@ VimusMachine :: ~VimusMachine()
 void VimusMachine :: start ()
 {
     VideoCaptureOpenCV vidCap;
-
     vidCap.init();
-
     this->videoCap = &vidCap;
 
-	this->editor = new VimusMachineEditor(this->videoCap);
+    this->kinect = &freenect.createDevice<MyFreenectDevice>(0);
+    this->kinect->startVideo();
+	this->kinect->startDepth();
+
+	this->editor = new VimusMachineEditor(this->videoCap, this->kinect);
 
 	this->rootAbsObj = this->editor->getRootAbsObj();
+
+}
+
+void VimusMachine::stop(){
+   	kinect->stopVideo();
+	kinect->stopDepth();
 
 }
 

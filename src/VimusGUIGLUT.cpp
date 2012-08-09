@@ -224,11 +224,10 @@ void VimusGUIGLUT :: start()
  */
 void VimusGUIGLUT :: finish()
 {
+    vimusUIPtr->machine->stop();
 	if (glutGetWindow()) {
 		glutDestroyWindow(glutGetWindow());
 	}
-
-	exit(0);
 }
 
 /**

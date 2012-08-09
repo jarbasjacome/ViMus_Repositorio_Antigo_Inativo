@@ -221,6 +221,8 @@ void VimusGUIEditor::keyBoardFunc(unsigned char key, int x, int y)
             break;
         case 'l':
             this->createObject("lanterna", 0.2, -0.5, 0.0);
+        case 'o':
+            this->createObject("oriente", -0.2, -0.5, 0.0);
         case 127:
 		case 8:
             removeSelected();
@@ -1282,10 +1284,6 @@ void VimusGUIEditor :: createTestPatch()
     this->createObject("outlet",  0.5, -0.8, 0.0);
 
     this->setCurrentCubeToParent();
-
-
-
-/*
 
     VimusGUIObject * objArrayVJapp[VimusGUICube::MAX_OBJ];
 

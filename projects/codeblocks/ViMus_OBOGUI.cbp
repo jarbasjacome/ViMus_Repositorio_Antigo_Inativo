@@ -38,6 +38,7 @@
 			<Add directory="/usr/include" />
 			<Add directory="/usr/include/opencv" />
 			<Add directory="/usr/include/AL" />
+			<Add directory="/usr/local/include/libfreenect" />
 		</Compiler>
 		<Linker>
 			<Add library="glut" />
@@ -47,9 +48,12 @@
 			<Add library="highgui" />
 			<Add library="boost_thread-mt" />
 			<Add library="libalut.a" />
+			<Add library="freenect" />
 			<Add directory="/usr/lib" />
 		</Linker>
 		<Unit filename="../../src/Configuration.h" />
+		<Unit filename="../../src/Freenect.cpp" />
+		<Unit filename="../../src/Freenect.h" />
 		<Unit filename="../../src/Machine.h" />
 		<Unit filename="../../src/OpenALCapture.cpp" />
 		<Unit filename="../../src/OpenALCapture.h" />
@@ -95,6 +99,8 @@
 		<Unit filename="../../src/VimusMachineObjects.h" />
 		<Unit filename="../../src/VimusMachineOpenGLObject.cpp" />
 		<Unit filename="../../src/VimusMachineOpenGLObject.h" />
+		<Unit filename="../../src/VimusMachineOriente.cpp" />
+		<Unit filename="../../src/VimusMachineOriente.h" />
 		<Unit filename="../../src/VimusMachinePin.cpp" />
 		<Unit filename="../../src/VimusMachinePin.h" />
 		<Unit filename="../../src/VimusMachinePinControl.cpp" />
@@ -110,6 +116,7 @@
 		<Unit filename="../../src/VimusMachineVitalino.cpp" />
 		<Unit filename="../../src/VimusMachineVitalino.h" />
 		<Unit filename="../../src/VimusMain.cpp" />
+		<Unit filename="../../src/libfreenect.hpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

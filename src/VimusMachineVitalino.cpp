@@ -242,6 +242,10 @@ void VimusMachineVitalino::draw()
     glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_LIGHTING);
 
+    glClearColor (0.0, 0.0, 0.0, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
     float adjustPos = -0.66f;
 
     int corSensivel = 0;

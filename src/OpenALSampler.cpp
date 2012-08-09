@@ -37,33 +37,33 @@ OpenALSampler::OpenALSampler()
 		printf("\nalGenBuffers : %d", error);
 
 	// Carregar arquivos e armazená-los nos buffers
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/sample_papa_fala.wav", buffers[0]))
+	if (!this->loadWaveBuffer("/dados/data/jabahpureza/audio_samples/sample_papa_fala.wav", buffers[0]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/sample_papa_brass02.wav", buffers[1]))
+	if (!this->loadWaveBuffer("/dados/data/jabahpureza/audio_samples/sample_papa_brass02.wav", buffers[1]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/cold_sweat_01.wav", buffers[2]))
+	if (!this->loadWaveBuffer("/dados/data/jabahpureza/audio_samples/cold_sweat_01.wav", buffers[2]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/funky_drummer_01.wav", buffers[3]))
+	if (!this->loadWaveBuffer("/dados/data/jabahpureza/audio_samples/funky_drummer_01.wav", buffers[3]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/do_it_to_death_01.wav", buffers[4]))
+	if (!this->loadWaveBuffer("/dados/data/jabahpureza/audio_samples/do_it_to_death_01.wav", buffers[4]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/make_it_funky_01.wav", buffers[5]))
+	if (!this->loadWaveBuffer("/dados/data/jabahpureza/audio_samples/make_it_funky_01.wav", buffers[5]))
         alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/tony_1.wav", buffers[6]))
+	if (!this->loadWaveBuffer("/dados/data/jabahpureza/audio_samples/tony_1.wav", buffers[6]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/tony_2.wav", buffers[7]))
+	if (!this->loadWaveBuffer("/dados/data/jabahpureza/audio_samples/tony_2.wav", buffers[7]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/tony_3.wav", buffers[8]))
+	if (!this->loadWaveBuffer("/dados/data/jabahpureza/audio_samples/tony_3.wav", buffers[8]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/tony_4.wav", buffers[9]))
+	if (!this->loadWaveBuffer("/dados/data/jabahpureza/audio_samples/tony_4.wav", buffers[9]))
         alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/tony_5.wav", buffers[10]))
+	if (!this->loadWaveBuffer("/dados/data/jabahpureza/audio_samples/tony_5.wav", buffers[10]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/tony_6.wav", buffers[11]))
+	if (!this->loadWaveBuffer("/dados/data/jabahpureza/audio_samples/tony_6.wav", buffers[11]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/tony_7.wav", buffers[12]))
+	if (!this->loadWaveBuffer("/dados/data/jabahpureza/audio_samples/tony_7.wav", buffers[12]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
-	if (!this->loadWaveBuffer("/dados/jabahpureza/audio_samples/tony_8.wav", buffers[13]))
+	if (!this->loadWaveBuffer("/dados/data/jabahpureza/audio_samples/tony_8.wav", buffers[13]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
 
 	// Generate the sources

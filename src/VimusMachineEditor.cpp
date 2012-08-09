@@ -24,9 +24,10 @@ using namespace std;
 /**
  * VimusMachineEditor default constructor.
  */
-VimusMachineEditor :: VimusMachineEditor (VideoCaptureOpenCV* vidCap)
+VimusMachineEditor :: VimusMachineEditor (VideoCaptureOpenCV* vidCap, MyFreenectDevice* kin)
 {
     this->videoCap = vidCap;
+    this->kinect = kin;
 
 	this->rootAbsObj = new VimusMachineAbstractionObject ("root");
 
@@ -153,6 +154,14 @@ VimusGUIObject * VimusMachineEditor :: createObject(const string& label, float p
 			guiObj = new VimusGUIOpenGLObject(label, posX, posY, posZ, 2, 1, lanterna);
 
 			this->addOpenGLObject(lanterna);
+		}
+		else if (!this->msgTokens[0].compare("oriente"))
+		{
+		    VimusMachineOriente * oriente = new VimusMachineOriente(this->kinect);
+			macObj = oriente;
+			guiObj = new VimusGUIOpenGLObject(label, posX, posY, posZ, 1, 1, oriente);
+
+			this->addOpenGLObject(oriente);
 		}
         if (macObj)
 			this->currentAbsObj->addObject(macObj);
