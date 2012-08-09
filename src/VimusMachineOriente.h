@@ -237,6 +237,16 @@ class VimusMachineOriente : public VimusMachineOpenGLObject
 
         void constroiEspiral();
 
+        int div(float dividendo, float divisor);
+
+        void desenhaTeia();
+
+        void atualizaPontos();
+
+        void line(float x1, float y1, float x2, float y2);
+
+        float r();
+
 };
 
 #endif //_VIMUSMACHINEORIENTE_H_

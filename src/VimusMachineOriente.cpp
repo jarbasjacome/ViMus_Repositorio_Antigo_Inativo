@@ -3,8 +3,7 @@
  *
  * This file is part of ViMus.
  *
- * ViMus is free software: you can re
-ribute it and/or modify
+ * ViMus is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -98,6 +97,17 @@ VimusMachineOriente::~VimusMachineOriente()
  */
 void VimusMachineOriente::update()
 {
+    constroiEspiral();
+//
+//  int atual = millis();
+//  if (atual - ultimaConstrucao > random(INTERVALO_CONSTRUCAO*0.8, INTERVALO_CONSTRUCAO*1.2)) {
+//    ultimaConstrucao = atual;
+//    constroiEspiralRandom();
+//  }
+//
+  atualizaPontos();
+
+
 }
 
 /**
@@ -175,6 +185,8 @@ void VimusMachineOriente::draw()
 
     glDisable(GL_TEXTURE_2D);
 
+    glPushMatrix();
+
     glTranslatef(2*kinectX/640.0f - 1, 2*kinectY/480.0f - 1, 0.1f);
 
     glBegin(GL_LINES);
@@ -183,6 +195,15 @@ void VimusMachineOriente::draw()
         glVertex3f(-0.1f, 0.0f, 0.0f);
         glVertex3f( 0.1f, 0.0f, 0.0f);
     glEnd();
+
+    glPopMatrix();
+
+
+    glPushMatrix();
+    glScalef(0.005, 0.005, 1);
+    desenhaTeia();
+    glPopMatrix();
+
 
 	glPopMatrix();
 
@@ -254,66 +275,65 @@ void VimusMachineOriente::specialKeyBoardFunc(int key, int x, int y)
 
 //loop principal
 //a função draw() é chamada várias vezes por segundo
-void draw () {
+void VimusMachineOriente::desenhaTeia() {
 
-  constroiEspiral();
-//
-//  int atual = millis();
-//  if (atual - ultimaConstrucao > random(INTERVALO_CONSTRUCAO*0.8, INTERVALO_CONSTRUCAO*1.2)) {
-//    ultimaConstrucao = atual;
-//    constroiEspiralRandom();
-//  }
-//
-//  atualizaPontos();
-//
-//  background (0); //pinta a tela inteira com a cor preta
-//
-//  //desenha base do centro da teia
-//  stroke(150);
-//  for (int i = 0; i<NUM_PONTOS_BASE_CENTRO-1; i++) {
-//    line( pontosBaseCentro[i]->x+r(), pontosBaseCentro[i]->y+r(),
-//    pontosBaseCentro[i+1]->x+r(), pontosBaseCentro[i+1]->y+r());
-//  }
-//  line( pontosBaseCentro[NUM_PONTOS_BASE_CENTRO-1]->x+r(),
-//  pontosBaseCentro[NUM_PONTOS_BASE_CENTRO-1]->y+r(),
-//  pontosBaseCentro[0]->x+r(),
-//  pontosBaseCentro[0]->y+r()); //liga último ao primeiro
-//
-//  //desenha raios
-//  stroke(150);
-//  float p1x, p1y, p2x, p2y;
-//  for (int i=0; i<NUM_RAIOS; i++) {
-//    p1x = raios[i][0]->x + r();
-//    p1y = raios[i][0]->y + r();
-//    for (int j=1; j<NUM_PONTOS_RAIO; j++) {
-//      if (raios[i][j]->x>-1) {
-//        line (p1x, p1y,
-//        raios[i][j]->x+r(), raios[i][j]->y+r());
-//        p1x = raios[i][j]->x+r();
-//        p1y = raios[i][j]->y+r();
-//      }
-//    }
-//  }
-//
-//  //desenha espiral
-//  stroke(150);
-//  for (int i=0; i<tamEspiral-1; i++) {
-//    if (desenhandoEspiral[i+1] >= 1) {
-//      bool cima=false;
-//      if((int)espiral[i+1]->x+1>NUM_RAIOS/2){
-//        cima = true;
-//      }
-//      float abaula = 1.5*abs(cos(TWO_PI*(espiral[i+1]->x/(float)NUM_RAIOS)))+1.5;
-//      desenhaArco (raios[(int)espiral[i]->x][(int)espiral[i]->y]->x+r(),
-//      raios[(int)espiral[i]->x][(int)espiral[i]->y]->y+r(),
-//      raios[(int)espiral[i+1]->x][(int)espiral[i+1]->y]->x+r(),
-//      raios[(int)espiral[i+1]->x][(int)espiral[i+1]->y]->y+r(), abaula, cima);
-//    }
-//  }
-//}
+  //desenha base do centro da teia
+  glColor4f(0.7, 0.7, 0.7, 1.0);
+
+  line(-1, -1, 1, 1);
+
+
+  for (int i = 0; i<NUM_PONTOS_BASE_CENTRO-1; i++) {
+    line( pontosBaseCentro[i]->x+r(), pontosBaseCentro[i]->y+r(),
+    pontosBaseCentro[i+1]->x+r(), pontosBaseCentro[i+1]->y+r());
+  }
+  line( pontosBaseCentro[NUM_PONTOS_BASE_CENTRO-1]->x+r(),
+  pontosBaseCentro[NUM_PONTOS_BASE_CENTRO-1]->y+r(),
+  pontosBaseCentro[0]->x+r(),
+  pontosBaseCentro[0]->y+r()); //liga último ao primeiro
+
+  //desenha raios
+  glColor4f(0.7, 0.7, 0.7, 1.0);
+  float p1x, p1y, p2x, p2y;
+  for (int i=0; i<NUM_RAIOS; i++) {
+    p1x = raios[i][0]->x + r();
+    p1y = raios[i][0]->y + r();
+    for (int j=1; j<NUM_PONTOS_RAIO; j++) {
+      if (raios[i][j]->x>-1) {
+        line (p1x, p1y,
+        raios[i][j]->x+r(), raios[i][j]->y+r());
+        p1x = raios[i][j]->x+r();
+        p1y = raios[i][j]->y+r();
+      }
+    }
+  }
+
+  //desenha espiral
+  glColor4f(0.7, 0.7, 0.7, 1.0);
+  for (int i=0; i<tamEspiral-1; i++) {
+    if (desenhandoEspiral[i+1] >= 1) {
+      bool cima=false;
+      if((int)espiral[i+1]->x+1>NUM_RAIOS/2){
+        cima = true;
+      }
+      float abaula = 1.5*abs(cos(TWO_PI*(espiral[i+1]->x/(float)NUM_RAIOS)))+1.5;
+      line (raios[(int)espiral[i]->x][(int)espiral[i]->y]->x+r(),
+      raios[(int)espiral[i]->x][(int)espiral[i]->y]->y+r(),
+      raios[(int)espiral[i+1]->x][(int)espiral[i+1]->y]->x+r(),
+      raios[(int)espiral[i+1]->x][(int)espiral[i+1]->y]->y+r());//, abaula, cima);
+    }
+  }
+}
+
+void VimusMachineOriente::line(float x1, float y1, float x2, float y2){
+    glBegin(GL_LINES);
+        glVertex3f(x1, y1, 0);
+        glVertex3f(x2, y2, 0);
+    glEnd();
+}
 //
 //void desenhaArco(float p1x, float p1y, float p2x, float p2y, float abaula, bool cima){
-//  float teta = TWO_PI-angulo (p2x,p2y,p1x,p1y);
+//  float teta = Two_PI-angulo (p2x,p2y,p1x,p1y);
 //  if(cima){
 //    teta+=PI;
 //  }
@@ -326,7 +346,7 @@ void draw () {
 //  float arco = 2*asin(dist/tamElipse);
 //  noFill();
 //  arc (cx, cy, tamElipse, tamElipse, teta+HALF_PI-arco/2, teta+HALF_PI+arco/2);
-}
+//}
 
 
 float VimusMachineOriente::random(float menor, float maior){
@@ -347,7 +367,7 @@ void VimusMachineOriente::iniciaTeia() {
   pontosBase[3] = new PVector(width, height);
 
   for(int i=0; i<NUM_PONTOS_BASE_CENTRO; i++){
-    float teta = -TWO_PI*i/NUM_PONTOS_BASE_CENTRO;
+    float teta = -2*3.1415926535897932384/NUM_PONTOS_BASE_CENTRO;
     pontosBaseCentro[i] = new PVector(centro->x+TAM_BASE_CENTRO*cos(teta)*random(0.90,1),
                                       centro->y+TAM_BASE_CENTRO*sin(teta)*random(1,1.1));
   }
@@ -460,7 +480,7 @@ void VimusMachineOriente::constroiEspiral() {
     if (escolhido<1) {
       escolhido=1;
     }
-    if (espiral[escolhido]!=null && espiral[escolhido-1]!=null && desenhandoEspiral[escolhido] == 0) {
+    if (espiral[escolhido]!=NULL && espiral[escolhido-1]!=NULL && desenhandoEspiral[escolhido] == 0) {
       desenhandoEspiral[escolhido] = 1;
       int raioP1, pontoRaioP1, raioP2, pontoRaioP2;
       raioP1 = (int)espiral[escolhido]->x;
@@ -474,13 +494,13 @@ void VimusMachineOriente::constroiEspiral() {
     }
   }
 }
-//
-//float r() {
-//  //return random (-2,2);
-//  return random(-0.4, 0.4);
-//  //  return 0;
-//}
-//
+
+float VimusMachineOriente::r() {
+  //return random (-2,2);
+  return random(-0.4, 0.4);
+  //  return 0;
+}
+
 //calcula o angulo em relação ao eixo X formado pela reta
 //que contém os dois pontos passados como parâmetros (x,y) e (xC, yC).
 float VimusMachineOriente::angulo(float x, float y, float xC, float yC) {
@@ -581,38 +601,38 @@ bool VimusMachineOriente::dentroBase(float x, float y) {
   }
   return ret;
 }
-//
-//void atualizaPontos() {
-//  int raioP1, pontoRaioP1, raioP2, pontoRaioP2;
-//  float fator1, fator2;
-//  for (int i=1; i<tamEspiral; i++) {
-//    if (desenhandoEspiral[i]>0 && desenhandoEspiral[i]<100) {
-//      desenhandoEspiral[i]+=10;
-//      if (desenhandoEspiral[i]>100) {
-//        desenhandoEspiral[i]=100;
-//      }
-//      raioP1 = (int)espiral[i]->x;
-//      pontoRaioP1 = (int)espiral[i]->y;
-//      raioP2 = (int)espiral[i-1]->x;
-//      pontoRaioP2 = (int)espiral[i-1]->y;
-//      fator1 = 1+float(desenhandoEspiral[i])/100;
-//      fator2 = 1-float(desenhandoEspiral[i])/100;
-//      raios[raioP1][pontoRaioP1]->x = (fator1*raiosIdeal[raioP1][pontoRaioP1]->x + fator2*raiosIdeal[raioP2][pontoRaioP2]->x)/2;
-//      raios[raioP1][pontoRaioP1]->y = (fator1*raiosIdeal[raioP1][pontoRaioP1]->y + fator2*raiosIdeal[raioP2][pontoRaioP2]->y)/2;
-//      raios[raioP2][pontoRaioP2]->x = (fator2*raiosIdeal[raioP1][pontoRaioP1]->x + fator1*raiosIdeal[raioP2][pontoRaioP2]->x)/2;
-//      raios[raioP2][pontoRaioP2]->y = (fator2*raiosIdeal[raioP1][pontoRaioP1]->y + fator1*raiosIdeal[raioP2][pontoRaioP2]->y)/2;
-//    }
-//  }
-//}
-//
-//int div(float dividendo, float divisor) {
-//  int c=0;
-//  while (dividendo>divisor) {
-//    dividendo-=divisor;
-//    c++;
-//  }
-//  return c;
-//}
+
+void VimusMachineOriente::atualizaPontos() {
+  int raioP1, pontoRaioP1, raioP2, pontoRaioP2;
+  float fator1, fator2;
+  for (int i=1; i<tamEspiral; i++) {
+    if (desenhandoEspiral[i]>0 && desenhandoEspiral[i]<100) {
+      desenhandoEspiral[i]+=10;
+      if (desenhandoEspiral[i]>100) {
+        desenhandoEspiral[i]=100;
+      }
+      raioP1 = (int)espiral[i]->x;
+      pontoRaioP1 = (int)espiral[i]->y;
+      raioP2 = (int)espiral[i-1]->x;
+      pontoRaioP2 = (int)espiral[i-1]->y;
+      fator1 = 1+float(desenhandoEspiral[i])/100;
+      fator2 = 1-float(desenhandoEspiral[i])/100;
+      raios[raioP1][pontoRaioP1]->x = (fator1*raiosIdeal[raioP1][pontoRaioP1]->x + fator2*raiosIdeal[raioP2][pontoRaioP2]->x)/2;
+      raios[raioP1][pontoRaioP1]->y = (fator1*raiosIdeal[raioP1][pontoRaioP1]->y + fator2*raiosIdeal[raioP2][pontoRaioP2]->y)/2;
+      raios[raioP2][pontoRaioP2]->x = (fator2*raiosIdeal[raioP1][pontoRaioP1]->x + fator1*raiosIdeal[raioP2][pontoRaioP2]->x)/2;
+      raios[raioP2][pontoRaioP2]->y = (fator2*raiosIdeal[raioP1][pontoRaioP1]->y + fator1*raiosIdeal[raioP2][pontoRaioP2]->y)/2;
+    }
+  }
+}
+
+int VimusMachineOriente::div(float dividendo, float divisor) {
+  int c=0;
+  while (dividendo>divisor) {
+    dividendo-=divisor;
+    c++;
+  }
+  return c;
+}
 //
 //void mousePressed() {
 //  background(0);

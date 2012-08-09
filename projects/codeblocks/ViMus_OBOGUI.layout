@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Release" />
+	<ActiveTarget name="Debug" />
 	<File name="../../src/Configuration.h" open="0" top="0" tabpos="4">
 		<Cursor position="1955" topLine="55" />
 	</File>
@@ -32,7 +32,7 @@
 		<Cursor position="2101" topLine="0" />
 	</File>
 	<File name="../../src/VimusGUICube.cpp" open="1" top="0" tabpos="5">
-		<Cursor position="1098" topLine="24" />
+		<Cursor position="18275" topLine="642" />
 	</File>
 	<File name="../../src/VimusGUICube.h" open="1" top="0" tabpos="6">
 		<Cursor position="1654" topLine="48" />
@@ -143,10 +143,10 @@
 		<Cursor position="2473" topLine="72" />
 	</File>
 	<File name="../../src/VimusMachineOriente.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="6935" topLine="251" />
+		<Cursor position="5420" topLine="194" />
 	</File>
 	<File name="../../src/VimusMachineOriente.h" open="1" top="0" tabpos="2">
-		<Cursor position="3438" topLine="227" />
+		<Cursor position="7185" topLine="144" />
 	</File>
 	<File name="../../src/VimusMachinePin.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="761" topLine="13" />
