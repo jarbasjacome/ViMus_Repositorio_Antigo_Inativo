@@ -131,11 +131,13 @@ class VimusMachineOriente : public VimusMachineOpenGLObject
         float kinectX;
         float kinectY;
 
+        bool preview;
+
         //define número de linhas diagonais da teia
         //linhas diagonais são as que vão de lado ao outro da base
         static const int NUM_RAIOS = 30;
         //define número de pontos de conexão em cada raio
-        static const int NUM_PONTOS_RAIO = 40;
+        static const int NUM_PONTOS_RAIO = 50;
         static const int ESPACAMENTO_ESPIRAL = 15;
         static const float CURVA_ESPIRAL = 0.03;
         //define o número máximo de pontos da espiral principal
@@ -162,7 +164,7 @@ class VimusMachineOriente : public VimusMachineOpenGLObject
         //sempre corretamente "colados" nos raios.
         PVector* espiral[MAX_NUM_PONTOS_ESPIRAL];
 
-        //armazena o estado do desenho do espiral para cada ponto em relação ao próximo
+        //armazena o estado do desenho do espiral para cada ponto em relaçãconstroiEspiralRandom ()o ao próximo
         //-1 significa que não deve conectar
         //0 significa que ainda não conectou
         //1 a 100 significa que já conectou, uma linha da teia deve ser desenhada, o valor
@@ -206,9 +208,9 @@ class VimusMachineOriente : public VimusMachineOpenGLObject
         //centro da teia
         PVector* centro;
 
-        static const int width = 800;
+        static const int width = 1280;
 
-        static const int height = 600;
+        static const int height = 800;
 
         int ultimaConstrucao;
 
@@ -237,6 +239,8 @@ class VimusMachineOriente : public VimusMachineOpenGLObject
 
         void constroiEspiral();
 
+        void constroiEspiralRandom();
+
         int div(float dividendo, float divisor);
 
         void desenhaTeia();
@@ -246,6 +250,10 @@ class VimusMachineOriente : public VimusMachineOpenGLObject
         void line(float x1, float y1, float x2, float y2);
 
         float r();
+
+        void desenhaArco(float p1x, float p1y, float p2x, float p2y, float abaula, bool cima);
+
+        float arc (float x, float y, float raio, float inicio, float fim);
 
 };
 
