@@ -134,6 +134,9 @@ class VimusMachineOriente : public VimusMachineOpenGLObject
         boost::xtime inicioToque;
         double tempoPassadoMSegs;
 
+        static const int NUM_NOTAS = 21;
+        float notas[NUM_NOTAS];
+
 		MyFreenectDevice* kinect;
 
 		GLuint gl_depth_tex;

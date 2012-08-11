@@ -80,6 +80,15 @@ VimusMachineOriente::VimusMachineOriente(MyFreenectDevice* kin)
 
     audioSampler = new OpenALSamplerOriente();
 
+    float seq[] = { 0, 0.233, 0.428, 0.611, 0.657, 0.946,
+                    1.092, 1.331, 2.069, 2.212, 2.430, 2.872,
+                    3.168, 3.334, 3.539, 3.795, 3.923, 4.234,
+                    4.484, 4.652, 4.901 };
+
+    for (int i=0; i<NUM_NOTAS; i++) {
+        notas[i] = seq[i];
+    }
+
 //    kinectAngulo=-30;
 //    kinect->setTiltDegrees(kinectAngulo);
 
@@ -115,11 +124,13 @@ void VimusMachineOriente::update()
   this->tempoPassadoMSegs = (this->tempoAtual.nsec - this->inicioToque.nsec) / 1000000.0f;
   this->tempoPassadoMSegs += (this->tempoAtual.sec - this->inicioToque.sec)*1000;
 
-  if(tempoPassadoMSegs>incAudio*1000){
+//  if(tempoPassadoMSegs>incAudio*1000){
+//    audioSampler->stopSample(0);
+//  }
+
+  if(tempoPassadoMSegs>1000*(notas[(posAudio+1)%NUM_NOTAS] - notas[(posAudio)%NUM_NOTAS])){
     audioSampler->stopSample(0);
   }
-
-
 }
 
 /**
@@ -524,8 +535,7 @@ void VimusMachineOriente::constroiEspiralRandom() {
       raios[raioP2][pontoRaioP2]->y = (raiosIdeal[raioP1][pontoRaioP1]->y + raiosIdeal[raioP2][pontoRaioP2]->y)/2;
 
       if(audioSampler->getSecondOffset(0)==0){
-          audioSampler->stopSample(0);
-          audioSampler->setPlaybackPos(0, posAudio*incAudio);
+          audioSampler->setPlaybackPos(0, this->notas[posAudio%NUM_NOTAS]);
           audioSampler->playSample(0);
           boost::xtime_get(&(this->inicioToque), boost::TIME_UTC);
           posAudio++;
@@ -533,7 +543,7 @@ void VimusMachineOriente::constroiEspiralRandom() {
   }
   else{
     if(audioSampler->getSecondOffset(0) != 0) {
-        audioSampler->stopSample(0);
+        //audioSampler->stopSample(0);
     }
     if(audioSampler->getSecondOffset(1) == 0) {
         audioSampler->playSample(1);
