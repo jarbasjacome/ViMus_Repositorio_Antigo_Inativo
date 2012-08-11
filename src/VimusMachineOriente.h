@@ -126,12 +126,15 @@ class VimusMachineOriente : public VimusMachineOpenGLObject
 		MyFreenectDevice* kinect;
 
 		GLuint gl_depth_tex;
-        GLuint gl_rgb_tex;
 
         float kinectX;
         float kinectY;
 
         bool preview;
+
+        unsigned char frameAnterior[640*480];
+
+        double kinectAngulo;
 
         //define número de linhas diagonais da teia
         //linhas diagonais são as que vão de lado ao outro da base
@@ -213,6 +216,8 @@ class VimusMachineOriente : public VimusMachineOpenGLObject
         static const int height = 800;
 
         int ultimaConstrucao;
+
+
 
         void iniciaTeia();
 

@@ -72,15 +72,14 @@ VimusMachineOriente::VimusMachineOriente(MyFreenectDevice* kin)
 	glBindTexture(GL_TEXTURE_2D, gl_depth_tex);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
- 	glGenTextures(1, &gl_rgb_tex);
-	glBindTexture(GL_TEXTURE_2D, gl_rgb_tex);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
     //aloca os arrays na memória RAM
     for (int i=0;i<MAX_NUM_PONTOS_ESPIRAL;i++) {
         desenhandoEspiral[i] = -1;
     }
+
+    kinectAngulo=-30;
+    kinect->setTiltDegrees(kinectAngulo);
 
     iniciaTeia();
 
@@ -101,7 +100,7 @@ VimusMachineOriente::~VimusMachineOriente()
  */
 void VimusMachineOriente::update()
 {
-    constroiEspiral();
+    //constroiEspiral();
 //
 //  int atual = millis();
 //  if (atual - ultimaConstrucao > random(INTERVALO_CONSTRUCAO*0.8, INTERVALO_CONSTRUCAO*1.2)) {
@@ -126,32 +125,27 @@ void VimusMachineOriente::draw(int rendermode)
  */
 void VimusMachineOriente::draw()
 {
-	static vector<uint8_t> depth(640*480);
-	static vector<uint8_t> rgb(640*480*4);
+    static vector<uint8_t> depth(640*480);
 
 	// using getTiltDegs() in a closed loop is unstable
 	/*if(kinect->getState().m_code == TILT_STATUS_STOPPED){
 		freenect_angle = kinect->getState().getTiltDegs();
 	}*/
+	//TODO: colocar em threads do boost
 	kinect->updateState();
-//	printf("\r demanded tilt angle: %+4.2f kinect tilt angle: %+4.2f", freenect_angle, kinect->getState().getTiltDegs());
-//	fflush(stdout);
 
 	kinect->getDepth(depth);
-	kinect->getRGB(rgb);
-
-	//depth[30]=50;
-
-    //cout << " depthMono= " << (int)depthMono[240*640+320];
-//
-//	cout << " depth0= " << (int)depth[3*(240*640+320)];
-//	cout << " depth1= " << (int)depth[3*(240*640+321)];
-//	cout << " depth2= " << (int)depth[3*(240*640+322)];
 
 
+    int numPixelsDif=0;
 	int perto = 2048;
 	for(int i=0; i<480; i++){
         for(int j=0; j<640; j++){
+            if (depth[i*640+j] < frameAnterior[i*640+j]-10 ||
+                depth[i*640+j] > frameAnterior[i*640+j]+10) {
+                    numPixelsDif++;
+            }
+            frameAnterior[i*640+j]=depth[i*640+j];
             if(perto>depth[i*640+j]){
                 perto=depth[i*640+j];
                 kinectX=j/640.0f;
@@ -159,6 +153,19 @@ void VimusMachineOriente::draw()
             }
         }
 	}
+
+	if(numPixelsDif>1600) {
+	    kinect->setLed(LED_RED);
+        constroiEspiralRandom();
+        kinectAngulo++;
+        if(kinectAngulo>30){
+            kinectAngulo=30;
+        }
+	} else{
+        kinect->setLed(LED_OFF);
+	}
+
+    kinect->setTiltDegrees(kinectAngulo);
 
     kinect->got_frames = 0;
 
