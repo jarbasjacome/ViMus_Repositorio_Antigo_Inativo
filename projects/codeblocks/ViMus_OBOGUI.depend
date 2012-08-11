@@ -3102,7 +3102,7 @@
 	<iostream>
 	<math.h>
 
-1342140688 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.cpp
+1344699779 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineLanternaMagica.cpp
 	"VimusMachineLanternaMagica.h"
 
 1334194356 /dados/ViMus/ViMus_OBOGUI/src/OpenALSampler.h
@@ -3181,15 +3181,16 @@
 	<map>
 	<pthread.h>
 
-1344653236 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineOriente.h
+1344702977 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineOriente.h
 	"VimusMachineOpenGLObject.h"
 	"Freenect.h"
+	"OpenALSamplerOriente.h"
 	"GL/glut.h"
 	<boost/thread.hpp>
 	<boost/thread/xtime.hpp>
 	<boost/math/constants/constants.hpp>
 
-1344653236 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineOriente.cpp
+1344701430 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineOriente.cpp
 	"VimusMachineOriente.h"
 
 1270181017 /usr/include/boost/math/constants/constants.hpp
@@ -3348,4 +3349,14 @@
 	<boost/limits.hpp>
 	<limits.h>
 	<wchar.h>
+
+1344698029 source:/dados/ViMus/ViMus_OBOGUI/src/OpenALSamplerOriente.cpp
+	"OpenALSamplerOriente.h"
+
+1344695668 /dados/ViMus/ViMus_OBOGUI/src/OpenALSamplerOriente.h
+	<stdlib.h>
+	<stdio.h>
+	<al.h>
+	<alc.h>
+	<alut.h>
 

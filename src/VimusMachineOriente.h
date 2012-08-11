@@ -22,6 +22,7 @@
 
 #include "VimusMachineOpenGLObject.h"
 #include "Freenect.h"
+#include "OpenALSamplerOriente.h"
 
 #include "GL/glut.h"
 #include <boost/thread.hpp>
@@ -115,6 +116,7 @@ class VimusMachineOriente : public VimusMachineOpenGLObject
 
 		void specialKeyBoardFunc(int key, int x, int y);
 
+
     private:
 
 		unsigned char** ppInputData;
@@ -122,6 +124,15 @@ class VimusMachineOriente : public VimusMachineOpenGLObject
 		unsigned char** ppOutputData;
 
 		unsigned char** ppNullFrame;
+
+        OpenALSamplerOriente* audioSampler;
+
+        int posAudio;
+        float incAudio;
+
+        boost::xtime tempoAtual;
+        boost::xtime inicioToque;
+        double tempoPassadoMSegs;
 
 		MyFreenectDevice* kinect;
 

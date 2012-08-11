@@ -78,11 +78,12 @@ VimusMachineOriente::VimusMachineOriente(MyFreenectDevice* kin)
         desenhandoEspiral[i] = -1;
     }
 
-    kinectAngulo=-30;
-    kinect->setTiltDegrees(kinectAngulo);
+    audioSampler = new OpenALSamplerOriente();
+
+//    kinectAngulo=-30;
+//    kinect->setTiltDegrees(kinectAngulo);
 
     iniciaTeia();
-
 
     if (DEBUG_MODE)
         cout << "\nVimusMachineOriente constructed.";
@@ -109,6 +110,14 @@ void VimusMachineOriente::update()
 //  }
 //
   atualizaPontos();
+
+  boost::xtime_get(&(this->tempoAtual), boost::TIME_UTC);
+  this->tempoPassadoMSegs = (this->tempoAtual.nsec - this->inicioToque.nsec) / 1000000.0f;
+  this->tempoPassadoMSegs += (this->tempoAtual.sec - this->inicioToque.sec)*1000;
+
+  if(tempoPassadoMSegs>incAudio*1000){
+    audioSampler->stopSample(0);
+  }
 
 
 }
@@ -157,15 +166,15 @@ void VimusMachineOriente::draw()
 	if(numPixelsDif>1600) {
 	    kinect->setLed(LED_RED);
         constroiEspiralRandom();
-        kinectAngulo++;
-        if(kinectAngulo>30){
-            kinectAngulo=30;
-        }
+        //kinectAngulo++;
+        //if(kinectAngulo>30){
+        //    kinectAngulo=30;
+        //}
 	} else{
         kinect->setLed(LED_OFF);
 	}
 
-    kinect->setTiltDegrees(kinectAngulo);
+    //kinect->setTiltDegrees(kinectAngulo);
 
     kinect->got_frames = 0;
 
@@ -445,6 +454,11 @@ void VimusMachineOriente::iniciaTeia() {
   tamEspiral=0;
 
   definePontosEspiral();
+
+  posAudio = 0;
+
+  incAudio = 305.0f/(float)tamEspiral;
+
 }
 
 float VimusMachineOriente::dist(PVector* p1, PVector* p2){
@@ -496,17 +510,35 @@ void VimusMachineOriente::constroiEspiralRandom() {
       c++;
     }
   }
-  int escolhido = naoLigados[int(random(0, c-1))];
-  desenhandoEspiral[escolhido] = 1;
-  int raioP1, pontoRaioP1, raioP2, pontoRaioP2;
-  raioP1 = (int)espiral[escolhido]->x;
-  pontoRaioP1 = (int)espiral[escolhido]->y;
-  raioP2 = (int)espiral[escolhido-1]->x;
-  pontoRaioP2 = (int)espiral[escolhido-1]->y;
-  raios[raioP1][pontoRaioP1]->x = (raiosIdeal[raioP1][pontoRaioP1]->x + raiosIdeal[raioP2][pontoRaioP2]->x)/2;
-  raios[raioP1][pontoRaioP1]->y = (raiosIdeal[raioP1][pontoRaioP1]->y + raiosIdeal[raioP2][pontoRaioP2]->y)/2;
-  raios[raioP2][pontoRaioP2]->x = (raiosIdeal[raioP1][pontoRaioP1]->x + raiosIdeal[raioP2][pontoRaioP2]->x)/2;
-  raios[raioP2][pontoRaioP2]->y = (raiosIdeal[raioP1][pontoRaioP1]->y + raiosIdeal[raioP2][pontoRaioP2]->y)/2;
+  if(c>0){
+      int escolhido = naoLigados[int(random(0, c-1))];
+      desenhandoEspiral[escolhido] = 1;
+      int raioP1, pontoRaioP1, raioP2, pontoRaioP2;
+      raioP1 = (int)espiral[escolhido]->x;
+      pontoRaioP1 = (int)espiral[escolhido]->y;
+      raioP2 = (int)espiral[escolhido-1]->x;
+      pontoRaioP2 = (int)espiral[escolhido-1]->y;
+      raios[raioP1][pontoRaioP1]->x = (raiosIdeal[raioP1][pontoRaioP1]->x + raiosIdeal[raioP2][pontoRaioP2]->x)/2;
+      raios[raioP1][pontoRaioP1]->y = (raiosIdeal[raioP1][pontoRaioP1]->y + raiosIdeal[raioP2][pontoRaioP2]->y)/2;
+      raios[raioP2][pontoRaioP2]->x = (raiosIdeal[raioP1][pontoRaioP1]->x + raiosIdeal[raioP2][pontoRaioP2]->x)/2;
+      raios[raioP2][pontoRaioP2]->y = (raiosIdeal[raioP1][pontoRaioP1]->y + raiosIdeal[raioP2][pontoRaioP2]->y)/2;
+
+      if(audioSampler->getSecondOffset(0)==0){
+          audioSampler->stopSample(0);
+          audioSampler->setPlaybackPos(0, posAudio*incAudio);
+          audioSampler->playSample(0);
+          boost::xtime_get(&(this->inicioToque), boost::TIME_UTC);
+          posAudio++;
+      }
+  }
+  else{
+    if(audioSampler->getSecondOffset(0) != 0) {
+        audioSampler->stopSample(0);
+    }
+    if(audioSampler->getSecondOffset(1) == 0) {
+        audioSampler->playSample(1);
+    }
+  }
 }
 
 void VimusMachineOriente::constroiEspiral() {
