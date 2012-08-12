@@ -127,15 +127,11 @@ class VimusMachineOriente : public VimusMachineOpenGLObject
 
         OpenALSamplerOriente* audioSampler;
 
-        int posAudio;
-        float incAudio;
+        float volume;
 
         boost::xtime tempoAtual;
         boost::xtime inicioToque;
         double tempoPassadoMSegs;
-
-        static const int NUM_NOTAS = 21;
-        float notas[NUM_NOTAS];
 
 		MyFreenectDevice* kinect;
 
