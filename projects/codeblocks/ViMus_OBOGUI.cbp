@@ -59,6 +59,8 @@
 		<Unit filename="../../src/OpenALCapture.h" />
 		<Unit filename="../../src/OpenALSampler.cpp" />
 		<Unit filename="../../src/OpenALSampler.h" />
+		<Unit filename="../../src/OpenALSamplerOriente.cpp" />
+		<Unit filename="../../src/OpenALSamplerOriente.h" />
 		<Unit filename="../../src/VideoCaptureOpenCV.cpp" />
 		<Unit filename="../../src/VideoCaptureOpenCV.h" />
 		<Unit filename="../../src/VimusGUICube.cpp" />

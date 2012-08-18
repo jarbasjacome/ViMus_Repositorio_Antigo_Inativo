@@ -20,10 +20,13 @@
 		<Cursor position="1516" topLine="51" />
 	</File>
 	<File name="../../src/OpenALSampler.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="0" topLine="12" />
+		<Cursor position="0" topLine="141" />
 	</File>
 	<File name="../../src/OpenALSampler.h" open="0" top="0" tabpos="2">
 		<Cursor position="1435" topLine="42" />
+	</File>
+	<File name="../../src/OpenALSamplerOriente.cpp" open="1" top="1" tabpos="5">
+		<Cursor position="1538" topLine="70" />
 	</File>
 	<File name="../../src/VideoCaptureOpenCV.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="0" topLine="0" />
@@ -31,10 +34,10 @@
 	<File name="../../src/VideoCaptureOpenCV.h" open="0" top="0" tabpos="10">
 		<Cursor position="2101" topLine="0" />
 	</File>
-	<File name="../../src/VimusGUICube.cpp" open="1" top="0" tabpos="5">
+	<File name="../../src/VimusGUICube.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="18275" topLine="642" />
 	</File>
-	<File name="../../src/VimusGUICube.h" open="1" top="0" tabpos="6">
+	<File name="../../src/VimusGUICube.h" open="0" top="0" tabpos="6">
 		<Cursor position="1654" topLine="48" />
 	</File>
 	<File name="../../src/VimusGUIEditor.cpp" open="0" top="0" tabpos="4">
@@ -142,8 +145,8 @@
 	<File name="../../src/VimusMachineOpenGLObject.h" open="0" top="0" tabpos="0">
 		<Cursor position="2473" topLine="72" />
 	</File>
-	<File name="../../src/VimusMachineOriente.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="5420" topLine="194" />
+	<File name="../../src/VimusMachineOriente.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="2631" topLine="82" />
 	</File>
 	<File name="../../src/VimusMachineOriente.h" open="1" top="0" tabpos="2">
 		<Cursor position="7185" topLine="144" />
