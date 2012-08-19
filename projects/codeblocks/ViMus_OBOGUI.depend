@@ -3181,7 +3181,7 @@
 	<map>
 	<pthread.h>
 
-1345335786 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineOriente.h
+1345399916 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineOriente.h
 	"VimusMachineOpenGLObject.h"
 	"Freenect.h"
 	"OpenALSamplerOriente.h"
@@ -3190,7 +3190,7 @@
 	<boost/thread/xtime.hpp>
 	<boost/math/constants/constants.hpp>
 
-1345333031 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineOriente.cpp
+1345401025 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineOriente.cpp
 	"VimusMachineOriente.h"
 
 1270181017 /usr/include/boost/math/constants/constants.hpp

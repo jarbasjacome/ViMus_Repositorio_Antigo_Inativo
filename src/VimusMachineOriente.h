@@ -132,8 +132,10 @@ class VimusMachineOriente : public VimusMachineOpenGLObject
         boost::xtime tempoAtual;
         boost::xtime tempoAnteriorAudio;
         boost::xtime tempoAnteriorGiro;
+        boost::xtime tempoAnteriorOpacidade;
         boost::xtime tempoTeiaCompleta;
         boost::xtime tempoTeiaInicio;
+        boost::xtime tempoCabecaBaixa;
         double tempoPassadoMSegs;
 
 		MyFreenectDevice* kinect;
@@ -149,11 +151,11 @@ class VimusMachineOriente : public VimusMachineOpenGLObject
 
         double kinectAngulo;
 
-        static const int NUM_ESTADOS=3;
-
-        static const int ESTADO_CONSTRUINDO=0;
-        static const int ESTADO_COMPLETA=1;
-        static const int ESTADO_DESAPARECENDO=2;
+        static const int NUM_ESTADOS=4;
+        static const int ESTADO_CABECA_BAIXA=0;
+        static const int ESTADO_APARECENDO=1;
+        static const int ESTADO_CONSTRUINDO=2;
+        static const int ESTADO_COMPLETA=3;
 
         int estado;
 

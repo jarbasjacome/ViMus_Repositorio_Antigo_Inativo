@@ -80,10 +80,11 @@ VimusMachineOriente::VimusMachineOriente(MyFreenectDevice* kin)
 
     audioSampler = new OpenALSamplerOriente();
 
-//    kinectAngulo=-30;
-//    kinect->setTiltDegrees(kinectAngulo);
-
-    iniciaTeia();
+    estado=ESTADO_CABECA_BAIXA;
+    boost::xtime_get(&(this->tempoCabecaBaixa), boost::TIME_UTC);
+    kinectAngulo=0;
+    kinect->setTiltDegrees(kinectAngulo);
+    zoom=10.0f;
 
     if (DEBUG_MODE)
         cout << "\nVimusMachineOriente constructed.";
@@ -101,9 +102,24 @@ VimusMachineOriente::~VimusMachineOriente()
  */
 void VimusMachineOriente::update()
 {
-    atualizaPontos();
+    if(estado!=ESTADO_CABECA_BAIXA){
+        atualizaPontos();
+    }
 
-    if(estado==ESTADO_CONSTRUINDO){
+    if(estado==ESTADO_APARECENDO){
+        boost::xtime_get(&(this->tempoAtual), boost::TIME_UTC);
+        this->tempoPassadoMSegs = (this->tempoAtual.nsec - this->tempoAnteriorOpacidade.nsec) / 1000000.0f;
+        this->tempoPassadoMSegs += (this->tempoAtual.sec - this->tempoAnteriorOpacidade.sec)*1000;
+
+        if(tempoPassadoMSegs>50) {
+            boost::xtime_get(&(this->tempoAnteriorOpacidade), boost::TIME_UTC);
+            opacidade+=0.05;
+            if(opacidade>1){
+                opacidade=1;
+                estado=ESTADO_CONSTRUINDO;
+            }
+        }
+    } else if(estado==ESTADO_CONSTRUINDO){
         boost::xtime_get(&(this->tempoAtual), boost::TIME_UTC);
         this->tempoPassadoMSegs = (this->tempoAtual.nsec - this->tempoAnteriorAudio.nsec) / 1000000.0f;
         this->tempoPassadoMSegs += (this->tempoAtual.sec - this->tempoAnteriorAudio.sec)*1000;
@@ -142,6 +158,23 @@ void VimusMachineOriente::update()
             if(anguloGiro<-360){
                 anguloGiro+=360;
             }
+            audioSampler->setSamplePitch(1, anguloGiroInc*2);
+
+            this->tempoPassadoMSegs = (this->tempoAtual.nsec - this->tempoTeiaCompleta.nsec) / 1000000.0f;
+            this->tempoPassadoMSegs += (this->tempoAtual.sec - this->tempoTeiaCompleta.sec)*1000;
+
+            if(tempoPassadoMSegs>28000){
+                opacidade=1-(tempoPassadoMSegs-28000)/5000;
+                audioSampler->setGain(1, opacidade);
+                if(tempoPassadoMSegs>33000){
+                    audioSampler->setGain(1, 0);
+                    estado=ESTADO_CABECA_BAIXA;
+                    boost::xtime_get(&(this->tempoCabecaBaixa), boost::TIME_UTC);
+                    kinectAngulo=0;
+                    kinect->setTiltDegrees(kinectAngulo);
+                    zoom=10.0f;
+                }
+            }
         }
 
         if(audioSampler->getSecondOffset(0) != 0) {
@@ -149,19 +182,6 @@ void VimusMachineOriente::update()
         }
         if(audioSampler->getSecondOffset(1) == 0) {
             audioSampler->playSample(1);
-        }
-        audioSampler->setSamplePitch(1, anguloGiroInc*2);
-
-        this->tempoPassadoMSegs = (this->tempoAtual.nsec - this->tempoTeiaCompleta.nsec) / 1000000.0f;
-        this->tempoPassadoMSegs += (this->tempoAtual.sec - this->tempoTeiaCompleta.sec)*1000;
-
-        if(tempoPassadoMSegs>28000){
-            opacidade=1-(tempoPassadoMSegs-28000)/5000;
-            audioSampler->setGain(1, opacidade);
-            if(tempoPassadoMSegs>33000){
-                boost::xtime_get(&(this->tempoTeiaInicio), boost::TIME_UTC);
-                iniciaTeia();
-            }
         }
     }
 
@@ -181,47 +201,65 @@ void VimusMachineOriente::draw()
 {
     static vector<uint8_t> depth(640*480);
 
-	// using getTiltDegs() in a closed loop is unstable
-	/*if(kinect->getState().m_code == TILT_STATUS_STOPPED){
-		freenect_angle = kinect->getState().getTiltDegs();
-	}*/
 	//TODO: colocar em threads do boost
 	kinect->updateState();
 
 	kinect->getDepth(depth);
 
-
     int numPixelsDif=0;
-	int perto = 2048;
-	for(int i=0; i<480; i++){
-        for(int j=0; j<640; j++){
-            if (depth[i*640+j] < frameAnterior[i*640+j]-10 ||
-                depth[i*640+j] > frameAnterior[i*640+j]+10) {
-                    numPixelsDif++;
-            }
-            frameAnterior[i*640+j]=depth[i*640+j];
-            if(perto>depth[i*640+j]){
-                perto=depth[i*640+j];
-                kinectX=j/640.0f;
-                kinectY=(480-i)/480.0f;
-            }
-        }
-	}
 
-	if(numPixelsDif>3000 && estado==ESTADO_CONSTRUINDO) {
-	    kinect->setLed(LED_RED);
-        constroiEspiralRandom();
-        volume+=0.1*numPixelsDif/3000;
-        if(volume>0.8){
-            volume=0.8;
+    if(estado==ESTADO_CABECA_BAIXA){
+        boost::xtime_get(&(this->tempoAtual), boost::TIME_UTC);
+        this->tempoPassadoMSegs = (this->tempoAtual.nsec - this->tempoCabecaBaixa.nsec) / 1000000.0f;
+        this->tempoPassadoMSegs += (this->tempoAtual.sec - this->tempoCabecaBaixa.sec)*1000;
+
+        for(int i=0; i<200; i++){
+            for(int j=0; j<640; j++){
+                if (depth[i*640+j] < frameAnterior[i*640+j]-10 ||
+                    depth[i*640+j] > frameAnterior[i*640+j]+10) {
+                        numPixelsDif++;
+                }
+                frameAnterior[i*640+j]=depth[i*640+j];
+            }
         }
-        //kinectAngulo++;
-        //if(kinectAngulo>30){
-        //    kinectAngulo=30;
-        //}
-	} else{
-        kinect->setLed(LED_OFF);
-	}
+        if(tempoPassadoMSegs>5000) {
+
+            if(numPixelsDif>3000) {
+                kinect->setLed(LED_RED);
+                kinectAngulo=30;
+                kinect->setTiltDegrees(kinectAngulo);
+                iniciaTeia();
+            } else{
+                kinect->setLed(LED_OFF);
+            }
+        }
+
+    } else{
+        for(int i=0; i<480; i++){
+            for(int j=0; j<640; j++){
+                if (depth[i*640+j] < frameAnterior[i*640+j]-10 ||
+                    depth[i*640+j] > frameAnterior[i*640+j]+10) {
+                        numPixelsDif++;
+                }
+                frameAnterior[i*640+j]=depth[i*640+j];
+            }
+        }
+
+        if(numPixelsDif>3000 && estado==ESTADO_CONSTRUINDO) {
+            kinect->setLed(LED_RED);
+            constroiEspiralRandom();
+            volume+=0.1*numPixelsDif/3000;
+            if(volume>0.8){
+                volume=0.8;
+            }
+            //kinectAngulo++;
+            //if(kinectAngulo>30){
+            //    kinectAngulo=30;
+            //}
+        } else{
+            kinect->setLed(LED_OFF);
+        }
+    }
 
     //kinect->setTiltDegrees(kinectAngulo);
 
@@ -255,33 +293,20 @@ void VimusMachineOriente::draw()
             glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,-1.0f, 0.0f);
         glEnd();
 
-        glDisable(GL_TEXTURE_2D);
-
-        glPushMatrix();
-
-        glTranslatef(2*kinectX - 1, 2*kinectY - 1, 0.1f);
-
-        glBegin(GL_LINES);
-            glVertex3f( 0.0f, 0.1f, 0.0f);
-            glVertex3f( 0.0f,-0.1f, 0.0f);
-            glVertex3f(-0.1f, 0.0f, 0.0f);
-            glVertex3f( 0.1f, 0.0f, 0.0f);
-        glEnd();
-
-        glPopMatrix();
     }
 
-    glPushMatrix();
-//    glTranslatef(-1, 1.2, 0);
-//    glScalef(2.0f/width, 1.2*(-2.0f/height), 1);
-    glTranslatef(-1, 1, 0);
-    glScalef(2.0f/width, -2.0f/height, 1);
-    glTranslatef(width/2, height/2, 0);
-    glRotatef(anguloGiro, 0, 0, 1);
-    glTranslatef(-width/2, -height/2, 0);
-    desenhaTeia();
-    glPopMatrix();
-	glPopMatrix();
+    if(estado!=ESTADO_CABECA_BAIXA){
+        glPushMatrix();
+        glDisable(GL_TEXTURE_2D);
+        glTranslatef(-1, 1, 0);
+        glScalef(2.0f/width, -2.0f/height, 1);
+        glTranslatef(width/2, height/2, 0);
+        glRotatef(anguloGiro, 0, 0, 1);
+        glTranslatef(-width/2, -height/2, 0);
+        desenhaTeia();
+        glPopMatrix();
+        glPopMatrix();
+    }
 
 }
 
@@ -380,7 +405,7 @@ void VimusMachineOriente::desenhaTeia() {
   for (int i=0; i<NUM_RAIOS; i++) {
     p1x = raios[i][0]->x + r();
     p1y = raios[i][0]->y + r();
-    for (int j=1; j<NUM_PONTOS_RAIO; j++) {
+    for (int j=1; j<NUM_PONTOS_RAIO-1; j++) {
       if (raios[i][j]->x>-1) {
         line (p1x, p1y,
         raios[i][j]->x+r(), raios[i][j]->y+r());
@@ -388,6 +413,8 @@ void VimusMachineOriente::desenhaTeia() {
         p1y = raios[i][j]->y+r();
       }
     }
+    line(p1x, p1y, raios[i][NUM_PONTOS_RAIO-1]->x+400*cos(angulosRaios[i]),
+         raios[i][NUM_PONTOS_RAIO-1]->y-400*sin(angulosRaios[i]));
   }
 
   //desenha espiral
@@ -509,12 +536,12 @@ void VimusMachineOriente::iniciaTeia() {
 
   definePontosEspiral();
 
-  estado=ESTADO_CONSTRUINDO;
+  estado=ESTADO_APARECENDO;
 
   zoom=10.0f;
   anguloGiro=0;
   anguloGiroInc=0;
-  opacidade=1;
+  opacidade=0;
 
 }
 
