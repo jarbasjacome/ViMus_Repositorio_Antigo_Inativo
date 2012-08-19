@@ -101,33 +101,69 @@ VimusMachineOriente::~VimusMachineOriente()
  */
 void VimusMachineOriente::update()
 {
-    //constroiEspiral();
-//
-//  int atual = millis();
-//  if (atual - ultimaConstrucao > random(INTERVALO_CONSTRUCAO*0.8, INTERVALO_CONSTRUCAO*1.2)) {
-//    ultimaConstrucao = atual;
-//   constroiEspiralRandom();
-//  }
-//
-  atualizaPontos();
+    atualizaPontos();
 
-  boost::xtime_get(&(this->tempoAtual), boost::TIME_UTC);
-  this->tempoPassadoMSegs = (this->tempoAtual.nsec - this->inicioToque.nsec) / 1000000.0f;
-  this->tempoPassadoMSegs += (this->tempoAtual.sec - this->inicioToque.sec)*1000;
+    if(estado==ESTADO_CONSTRUINDO){
+        boost::xtime_get(&(this->tempoAtual), boost::TIME_UTC);
+        this->tempoPassadoMSegs = (this->tempoAtual.nsec - this->tempoAnteriorAudio.nsec) / 1000000.0f;
+        this->tempoPassadoMSegs += (this->tempoAtual.sec - this->tempoAnteriorAudio.sec)*1000;
 
-  if(tempoPassadoMSegs>50) {
-      volume-=0.1;
-      if(volume<0){
-        volume=0;
-      }
-  }
+        if(tempoPassadoMSegs>50) {
+            boost::xtime_get(&(this->tempoAnteriorAudio), boost::TIME_UTC);
+            volume-=0.1;
+            if(volume<0){
+                volume=0;
+            }
+        }
 
-  if(audioSampler->getSecondOffset(0)==0){
-    audioSampler->playSample(0);
-    boost::xtime_get(&(this->inicioToque), boost::TIME_UTC);
-  }
+        if(audioSampler->getSecondOffset(0)==0){
+            audioSampler->playSample(0);
+            boost::xtime_get(&(this->tempoAnteriorAudio), boost::TIME_UTC);
+        }
 
-  audioSampler->setGain(0, volume);
+        audioSampler->setGain(0, volume);
+
+    } else if(estado==ESTADO_COMPLETA){
+        boost::xtime_get(&(this->tempoAtual), boost::TIME_UTC);
+        this->tempoPassadoMSegs = (this->tempoAtual.nsec - this->tempoAnteriorGiro.nsec) / 1000000.0f;
+        this->tempoPassadoMSegs += (this->tempoAtual.sec - this->tempoAnteriorGiro.sec)*1000;
+
+        if(tempoPassadoMSegs>50) {
+            boost::xtime_get(&(this->tempoAnteriorGiro), boost::TIME_UTC);
+            zoom-=0.01;
+            if(zoom<5){
+                zoom=5;
+            }
+            anguloGiroInc+=0.002;
+            if(anguloGiroInc>0.5){
+                anguloGiroInc=0.5;
+            }
+            anguloGiro-=anguloGiroInc;
+            if(anguloGiro<-360){
+                anguloGiro+=360;
+            }
+        }
+
+        if(audioSampler->getSecondOffset(0) != 0) {
+            audioSampler->stopSample(0);
+        }
+        if(audioSampler->getSecondOffset(1) == 0) {
+            audioSampler->playSample(1);
+        }
+        audioSampler->setSamplePitch(1, anguloGiroInc*2);
+
+        this->tempoPassadoMSegs = (this->tempoAtual.nsec - this->tempoTeiaCompleta.nsec) / 1000000.0f;
+        this->tempoPassadoMSegs += (this->tempoAtual.sec - this->tempoTeiaCompleta.sec)*1000;
+
+        if(tempoPassadoMSegs>28000){
+            opacidade=1-(tempoPassadoMSegs-28000)/5000;
+            audioSampler->setGain(1, opacidade);
+            if(tempoPassadoMSegs>33000){
+                boost::xtime_get(&(this->tempoTeiaInicio), boost::TIME_UTC);
+                iniciaTeia();
+            }
+        }
+    }
 
 }
 
@@ -172,9 +208,13 @@ void VimusMachineOriente::draw()
         }
 	}
 
-	if(numPixelsDif>3000) {
+	if(numPixelsDif>3000 && estado==ESTADO_CONSTRUINDO) {
 	    kinect->setLed(LED_RED);
         constroiEspiralRandom();
+        volume+=0.1*numPixelsDif/3000;
+        if(volume>0.8){
+            volume=0.8;
+        }
         //kinectAngulo++;
         //if(kinectAngulo>30){
         //    kinectAngulo=30;
@@ -192,7 +232,7 @@ void VimusMachineOriente::draw()
     glMatrixMode (GL_MODELVIEW);
     glLoadIdentity ();
 
-    gluLookAt (0, 0, 10.0f, 0, 0, 10.0f - 5.0f, 0.0, 1.0, 0.0);
+    gluLookAt (0, 0, zoom, 0, 0, zoom - 5.0f, 0.0, 1.0, 0.0);
 
     glClearColor (0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -236,6 +276,9 @@ void VimusMachineOriente::draw()
 //    glScalef(2.0f/width, 1.2*(-2.0f/height), 1);
     glTranslatef(-1, 1, 0);
     glScalef(2.0f/width, -2.0f/height, 1);
+    glTranslatef(width/2, height/2, 0);
+    glRotatef(anguloGiro, 0, 0, 1);
+    glTranslatef(-width/2, -height/2, 0);
     desenhaTeia();
     glPopMatrix();
 	glPopMatrix();
@@ -320,7 +363,7 @@ void VimusMachineOriente::specialKeyBoardFunc(int key, int x, int y)
 void VimusMachineOriente::desenhaTeia() {
 
   //desenha base do centro da teia
-  glColor4f(0.7, 0.7, 0.7, 1.0);
+  glColor4f(opacidade, opacidade, opacidade, 1.0);
 
   for (int i = 0; i<NUM_PONTOS_BASE_CENTRO-1; i++) {
     line( pontosBaseCentro[i]->x+r(), pontosBaseCentro[i]->y+r(),
@@ -332,7 +375,7 @@ void VimusMachineOriente::desenhaTeia() {
   pontosBaseCentro[0]->y+r()); //liga último ao primeiro
 
   //desenha raios
-  glColor4f(0.7, 0.7, 0.7, 1.0);
+  glColor4f(opacidade, opacidade, opacidade, 1.0);
   float p1x, p1y, p2x, p2y;
   for (int i=0; i<NUM_RAIOS; i++) {
     p1x = raios[i][0]->x + r();
@@ -348,7 +391,7 @@ void VimusMachineOriente::desenhaTeia() {
   }
 
   //desenha espiral
-  glColor4f(0.7, 0.7, 0.7, 1.0);
+  glColor4f(opacidade, opacidade, opacidade, 1.0);
   for (int i=0; i<tamEspiral-1; i++) {
     if (desenhandoEspiral[i+1] >= 1) {
       bool cima=false;
@@ -413,8 +456,10 @@ float VimusMachineOriente::random(float menor, float maior){
 void VimusMachineOriente::iniciaTeia() {
 
   //sorteia um ponto para ser o centro da teia
-  centro = new PVector( random(width/2.0-20, width/2.0+20),
-  random(height/2.0f-20, height/2.0f+20));
+  //centro = new PVector( random(width/2.0-20, width/2.0+20),
+  //                      random(height/2.0f-20, height/2.0f+20));
+
+  centro = new PVector( width/2.0, height/2.0f);
 
   //inicializa os pontos da base da teia
   pontosBase[0] = new PVector(width, 0);
@@ -463,6 +508,13 @@ void VimusMachineOriente::iniciaTeia() {
   tamEspiral=0;
 
   definePontosEspiral();
+
+  estado=ESTADO_CONSTRUINDO;
+
+  zoom=10.0f;
+  anguloGiro=0;
+  anguloGiroInc=0;
+  opacidade=1;
 
 }
 
@@ -527,19 +579,11 @@ void VimusMachineOriente::constroiEspiralRandom() {
       raios[raioP1][pontoRaioP1]->y = (raiosIdeal[raioP1][pontoRaioP1]->y + raiosIdeal[raioP2][pontoRaioP2]->y)/2;
       raios[raioP2][pontoRaioP2]->x = (raiosIdeal[raioP1][pontoRaioP1]->x + raiosIdeal[raioP2][pontoRaioP2]->x)/2;
       raios[raioP2][pontoRaioP2]->y = (raiosIdeal[raioP1][pontoRaioP1]->y + raiosIdeal[raioP2][pontoRaioP2]->y)/2;
-
-      volume+=0.4;
-      if(volume>0.8){
-        volume=0.8;
-      }
   }
   else{
-    if(audioSampler->getSecondOffset(0) != 0) {
-        audioSampler->stopSample(0);
-    }
-    if(audioSampler->getSecondOffset(1) == 0) {
-        audioSampler->playSample(1);
-    }
+    estado=ESTADO_COMPLETA;
+    boost::xtime_get(&(this->tempoTeiaCompleta), boost::TIME_UTC);
+    audioSampler->setGain(1, 1);
   }
 }
 
@@ -572,7 +616,7 @@ void VimusMachineOriente::constroiEspiral() {
 float VimusMachineOriente::r() {
   //return random (-2,2);
   return random(-0.4, 0.4);
-  //  return 0;
+  //return 0;
 }
 
 //calcula o angulo em relação ao eixo X formado pela reta

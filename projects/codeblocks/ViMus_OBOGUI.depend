@@ -572,7 +572,7 @@
 1331149660 /usr/include/bits/local_lim.h
 	<linux/limits.h>
 
-1341603321 /usr/include/linux/limits.h
+1343237503 /usr/include/linux/limits.h
 
 1331149660 /usr/include/bits/posix2_lim.h
 
@@ -2519,16 +2519,16 @@
 1331149656 /usr/include/bits/errno.h
 	<linux/errno.h>
 
-1341603320 /usr/include/linux/errno.h
+1343237502 /usr/include/linux/errno.h
 	<asm/errno.h>
 
-1341603322 /usr/include/asm/errno.h
+1343237504 /usr/include/asm/errno.h
 	<asm-generic/errno.h>
 
-1341603320 /usr/include/asm-generic/errno.h
+1343237502 /usr/include/asm-generic/errno.h
 	<asm-generic/errno-base.h>
 
-1341603320 /usr/include/asm-generic/errno-base.h
+1343237502 /usr/include/asm-generic/errno-base.h
 
 1270180998 /usr/include/boost/thread/pthread/timespec.hpp
 	<boost/thread/thread_time.hpp>
@@ -3181,7 +3181,7 @@
 	<map>
 	<pthread.h>
 
-1344727699 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineOriente.h
+1345335786 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineOriente.h
 	"VimusMachineOpenGLObject.h"
 	"Freenect.h"
 	"OpenALSamplerOriente.h"
@@ -3190,7 +3190,7 @@
 	<boost/thread/xtime.hpp>
 	<boost/math/constants/constants.hpp>
 
-1344732034 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineOriente.cpp
+1345333031 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineOriente.cpp
 	"VimusMachineOriente.h"
 
 1270181017 /usr/include/boost/math/constants/constants.hpp

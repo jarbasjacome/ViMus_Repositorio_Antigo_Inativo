@@ -130,7 +130,10 @@ class VimusMachineOriente : public VimusMachineOpenGLObject
         float volume;
 
         boost::xtime tempoAtual;
-        boost::xtime inicioToque;
+        boost::xtime tempoAnteriorAudio;
+        boost::xtime tempoAnteriorGiro;
+        boost::xtime tempoTeiaCompleta;
+        boost::xtime tempoTeiaInicio;
         double tempoPassadoMSegs;
 
 		MyFreenectDevice* kinect;
@@ -145,6 +148,24 @@ class VimusMachineOriente : public VimusMachineOpenGLObject
         unsigned char frameAnterior[640*480];
 
         double kinectAngulo;
+
+        static const int NUM_ESTADOS=3;
+
+        static const int ESTADO_CONSTRUINDO=0;
+        static const int ESTADO_COMPLETA=1;
+        static const int ESTADO_DESAPARECENDO=2;
+
+        int estado;
+
+        float zoom;
+
+        float zoomInc;
+
+        float anguloGiro;
+
+        float anguloGiroInc;
+
+        float opacidade;
 
         //define número de linhas diagonais da teia
         //linhas diagonais são as que vão de lado ao outro da base
