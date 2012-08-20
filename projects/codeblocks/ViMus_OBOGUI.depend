@@ -371,7 +371,7 @@
 	<stdlib.h>
 	<GL/glut.h>
 
-1344212178 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.cpp
+1345418957 source:/dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.cpp
 	"VimusGUIEditor.h"
 
 1306182826 /dados/ViMus/ViMus_OBOGUI/src/VimusGUIEditor.h
@@ -448,7 +448,7 @@
 	<sstream>
 	<vector>
 
-1344212304 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineObjects.h
+1345418009 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineObjects.h
 	"VimusMachineNormalObject.h"
 	"VimusMachineAbstractionObject.h"
 	"VimusMachineVideoPreview.h"
@@ -460,6 +460,7 @@
 	"VimusMachineLanternaMagica.h"
 	"VimusMachineMangue.h"
 	"VimusMachineOriente.h"
+	"VimusMachineCoracoes.h"
 
 1294795662 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineNormalObject.h
 	"VimusMachineObject.h"
@@ -2939,7 +2940,7 @@
 1294795859 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineCVThreshold.cpp
 	"VimusMachineCVThreshold.h"
 
-1344214662 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineEditor.cpp
+1345418017 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineEditor.cpp
 	"VimusMachineEditor.h"
 
 1294795870 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineNormalObject.cpp
@@ -3181,16 +3182,17 @@
 	<map>
 	<pthread.h>
 
-1345399916 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineOriente.h
+1345418545 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineOriente.h
 	"VimusMachineOpenGLObject.h"
 	"Freenect.h"
 	"OpenALSamplerOriente.h"
+	"PVector.h"
 	"GL/glut.h"
 	<boost/thread.hpp>
 	<boost/thread/xtime.hpp>
 	<boost/math/constants/constants.hpp>
 
-1345401025 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineOriente.cpp
+1345433103 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineOriente.cpp
 	"VimusMachineOriente.h"
 
 1270181017 /usr/include/boost/math/constants/constants.hpp
@@ -3359,4 +3361,29 @@
 	<al.h>
 	<alc.h>
 	<alut.h>
+
+1345438663 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineCoracoes.h
+	"VimusMachineOpenGLObject.h"
+	"Freenect.h"
+	"OpenALSamplerCoracoes.h"
+	"PVector.h"
+	"GL/glut.h"
+	<boost/thread.hpp>
+	<boost/thread/xtime.hpp>
+	<boost/math/constants/constants.hpp>
+
+1345418764 /dados/ViMus/ViMus_OBOGUI/src/OpenALSamplerCoracoes.h
+	<stdlib.h>
+	<stdio.h>
+	<al.h>
+	<alc.h>
+	<alut.h>
+
+1345417931 source:/dados/ViMus/ViMus_OBOGUI/src/OpenALSamplerCoracoes.cpp
+	"OpenALSamplerCoracoes.h"
+
+1345418657 /dados/ViMus/ViMus_OBOGUI/src/PVector.h
+
+1345438437 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineCoracoes.cpp
+	"VimusMachineCoracoes.h"
 

@@ -221,8 +221,13 @@ void VimusGUIEditor::keyBoardFunc(unsigned char key, int x, int y)
             break;
         case 'l':
             this->createObject("lanterna", 0.2, -0.5, 0.0);
+            break;
         case 'o':
             this->createObject("oriente", -0.2, -0.5, 0.0);
+            break;
+        case 'r':
+            this->createObject("coracoes", 0.2, 0.5, 0.0);
+            break;
         case 127:
 		case 8:
             removeSelected();

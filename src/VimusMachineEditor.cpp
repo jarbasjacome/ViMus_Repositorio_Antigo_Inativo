@@ -162,6 +162,13 @@ VimusGUIObject * VimusMachineEditor :: createObject(const string& label, float p
 			guiObj = new VimusGUIOpenGLObject(label, posX, posY, posZ, 1, 1, oriente);
 
 			this->addOpenGLObject(oriente);
+		} else if (!this->msgTokens[0].compare("coracoes"))
+		{
+		    VimusMachineCoracoes * coracoes = new VimusMachineCoracoes(this->kinect);
+			macObj = coracoes;
+			guiObj = new VimusGUIOpenGLObject(label, posX, posY, posZ, 1, 1, coracoes);
+
+			this->addOpenGLObject(coracoes);
 		}
         if (macObj)
 			this->currentAbsObj->addObject(macObj);

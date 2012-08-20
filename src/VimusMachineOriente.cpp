@@ -305,7 +305,6 @@ void VimusMachineOriente::draw()
         glTranslatef(-width/2, -height/2, 0);
         desenhaTeia();
         glPopMatrix();
-        glPopMatrix();
     }
 
 }
@@ -778,13 +777,3 @@ int VimusMachineOriente::div(float dividendo, float divisor) {
   }
   return c;
 }
-//
-//void mousePressed() {
-//  background(0);
-//  iniciaTeia();
-//}
-//
-//void keyPressed() {
-//  constroiEspiral();
-//}
-//

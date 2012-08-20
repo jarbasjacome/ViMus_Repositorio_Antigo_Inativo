@@ -23,23 +23,13 @@
 #include "VimusMachineOpenGLObject.h"
 #include "Freenect.h"
 #include "OpenALSamplerOriente.h"
+#include "PVector.h"
 
 #include "GL/glut.h"
 #include <boost/thread.hpp>
 #include <boost/thread/xtime.hpp>
 #include <boost/math/constants/constants.hpp>
 
-class PVector {
-public:
-    float x;
-    float y;
-    PVector(float posX, float posY) {
-        x=posX;
-        y=posY;
-    }
-    ~PVector(){}
-private:
-};
 
 /**
  * VimusMachineOriente desenha uma teia de aranha de acordo com o movimento

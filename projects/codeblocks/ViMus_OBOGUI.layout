@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug" />
+	<ActiveTarget name="Release" />
 	<File name="../../src/Configuration.h" open="0" top="0" tabpos="4">
 		<Cursor position="1955" topLine="55" />
 	</File>
-	<File name="../../src/Freenect.cpp" open="1" top="0" tabpos="3">
+	<File name="../../src/Freenect.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="2359" topLine="42" />
 	</File>
-	<File name="../../src/Freenect.h" open="1" top="0" tabpos="4">
+	<File name="../../src/Freenect.h" open="0" top="0" tabpos="4">
 		<Cursor position="2814" topLine="42" />
 	</File>
 	<File name="../../src/Machine.h" open="0" top="0" tabpos="3">
@@ -25,8 +25,17 @@
 	<File name="../../src/OpenALSampler.h" open="0" top="0" tabpos="2">
 		<Cursor position="1435" topLine="42" />
 	</File>
-	<File name="../../src/OpenALSamplerOriente.cpp" open="1" top="1" tabpos="5">
-		<Cursor position="1538" topLine="70" />
+	<File name="../../src/OpenALSamplerCoracoes.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="1237" topLine="24" />
+	</File>
+	<File name="../../src/OpenALSamplerCoracoes.h" open="0" top="0" tabpos="0">
+		<Cursor position="1712" topLine="42" />
+	</File>
+	<File name="../../src/OpenALSamplerOriente.cpp" open="0" top="0" tabpos="5">
+		<Cursor position="1191" topLine="26" />
+	</File>
+	<File name="../../src/PVector.h" open="1" top="0" tabpos="3">
+		<Cursor position="218" topLine="0" />
 	</File>
 	<File name="../../src/VideoCaptureOpenCV.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="0" topLine="0" />
@@ -35,13 +44,13 @@
 		<Cursor position="2101" topLine="0" />
 	</File>
 	<File name="../../src/VimusGUICube.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="18275" topLine="642" />
+		<Cursor position="1923" topLine="67" />
 	</File>
 	<File name="../../src/VimusGUICube.h" open="0" top="0" tabpos="6">
-		<Cursor position="1654" topLine="48" />
+		<Cursor position="2497" topLine="89" />
 	</File>
 	<File name="../../src/VimusGUIEditor.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="8777" topLine="330" />
+		<Cursor position="6341" topLine="223" />
 	</File>
 	<File name="../../src/VimusGUIEditor.h" open="0" top="0" tabpos="2">
 		<Cursor position="1812" topLine="70" />
@@ -106,8 +115,14 @@
 	<File name="../../src/VimusMachineCVThreshold.h" open="0" top="0" tabpos="4">
 		<Cursor position="2477" topLine="76" />
 	</File>
+	<File name="../../src/VimusMachineCoracoes.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="10070" topLine="302" />
+	</File>
+	<File name="../../src/VimusMachineCoracoes.h" open="1" top="1" tabpos="2">
+		<Cursor position="4378" topLine="175" />
+	</File>
 	<File name="../../src/VimusMachineEditor.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="3513" topLine="116" />
+		<Cursor position="4923" topLine="156" />
 	</File>
 	<File name="../../src/VimusMachineEditor.h" open="0" top="0" tabpos="0">
 		<Cursor position="3368" topLine="130" />
@@ -137,7 +152,7 @@
 		<Cursor position="795" topLine="13" />
 	</File>
 	<File name="../../src/VimusMachineObjects.h" open="0" top="0" tabpos="0">
-		<Cursor position="1044" topLine="18" />
+		<Cursor position="858" topLine="9" />
 	</File>
 	<File name="../../src/VimusMachineOpenGLObject.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="1032" topLine="20" />
@@ -145,11 +160,11 @@
 	<File name="../../src/VimusMachineOpenGLObject.h" open="0" top="0" tabpos="0">
 		<Cursor position="2473" topLine="72" />
 	</File>
-	<File name="../../src/VimusMachineOriente.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="2631" topLine="82" />
+	<File name="../../src/VimusMachineOriente.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="9096" topLine="294" />
 	</File>
-	<File name="../../src/VimusMachineOriente.h" open="1" top="0" tabpos="2">
-		<Cursor position="7185" topLine="144" />
+	<File name="../../src/VimusMachineOriente.h" open="0" top="0" tabpos="2">
+		<Cursor position="8335" topLine="261" />
 	</File>
 	<File name="../../src/VimusMachinePin.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="761" topLine="13" />

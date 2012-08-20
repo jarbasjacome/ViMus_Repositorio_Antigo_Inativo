@@ -59,8 +59,11 @@
 		<Unit filename="../../src/OpenALCapture.h" />
 		<Unit filename="../../src/OpenALSampler.cpp" />
 		<Unit filename="../../src/OpenALSampler.h" />
+		<Unit filename="../../src/OpenALSamplerCoracoes.cpp" />
+		<Unit filename="../../src/OpenALSamplerCoracoes.h" />
 		<Unit filename="../../src/OpenALSamplerOriente.cpp" />
 		<Unit filename="../../src/OpenALSamplerOriente.h" />
+		<Unit filename="../../src/PVector.h" />
 		<Unit filename="../../src/VideoCaptureOpenCV.cpp" />
 		<Unit filename="../../src/VideoCaptureOpenCV.h" />
 		<Unit filename="../../src/VimusGUICube.cpp" />
@@ -88,6 +91,8 @@
 		<Unit filename="../../src/VimusMachineCVBlobDetection.h" />
 		<Unit filename="../../src/VimusMachineCVThreshold.cpp" />
 		<Unit filename="../../src/VimusMachineCVThreshold.h" />
+		<Unit filename="../../src/VimusMachineCoracoes.cpp" />
+		<Unit filename="../../src/VimusMachineCoracoes.h" />
 		<Unit filename="../../src/VimusMachineEditor.cpp" />
 		<Unit filename="../../src/VimusMachineEditor.h" />
 		<Unit filename="../../src/VimusMachineLanternaMagica.cpp" />
