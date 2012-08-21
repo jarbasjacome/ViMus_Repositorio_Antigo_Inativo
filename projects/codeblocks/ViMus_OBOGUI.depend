@@ -3362,7 +3362,7 @@
 	<alc.h>
 	<alut.h>
 
-1345509707 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineCoracoes.h
+1345527382 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineCoracoes.h
 	"VimusMachineOpenGLObject.h"
 	"Freenect.h"
 	"OpenALSamplerCoracoes.h"
@@ -3384,6 +3384,6 @@
 
 1345418657 /dados/ViMus/ViMus_OBOGUI/src/PVector.h
 
-1345509566 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineCoracoes.cpp
+1345527349 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineCoracoes.cpp
 	"VimusMachineCoracoes.h"
 

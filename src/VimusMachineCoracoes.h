@@ -50,6 +50,11 @@ public:
   static const float PI = 3.1415926535897932384;
   static const float HALF_PI = 3.1415926535897932384/2;
 
+    boost::xtime tempoAtual;
+    boost::xtime tempoBatimento;
+    double tempoPassadoMSegs;
+    float batimento;
+
   GLfloat ctrlpoints[4][3];
 
   GLfloat ctrlpointsESQ[4][3];
@@ -106,6 +111,7 @@ public:
     }
 
     void inicia(){
+        batimento=random(0,1);
         dividiu=false;
         divisao=0;
         dividindo=false;
@@ -127,6 +133,19 @@ public:
 
   void atualiza() {
     if (ativo) {
+
+        boost::xtime_get(&(this->tempoAtual), boost::TIME_UTC);
+        this->tempoPassadoMSegs = (this->tempoAtual.nsec - this->tempoBatimento.nsec) / 1000000.0f;
+        this->tempoPassadoMSegs += (this->tempoAtual.sec - this->tempoBatimento.sec)*1000;
+        if (tempoPassadoMSegs > 10) {
+            boost::xtime_get(&(this->tempoBatimento), boost::TIME_UTC);
+            batimento+=0.03;
+            if (batimento>1) {
+                batimento=0;
+            }
+        }
+
+
       posX += velX;
       posY += velY;
       if (velX>0) {
@@ -187,10 +206,12 @@ public:
       glTranslatef(posX, posY, 0.0);
       glRotatef(anguloDiv*360/TWO_PI, 0, 0, 1);
       glScalef(1+divisao/largura, 1, 1);
-      glColor4f(1, 0, 0, 1);
       glScalef((largura+r())/500, (altura+r())/500, 1);
+      if (batimento<0.5) {
+        glScalef(1+fabs(sin(2*batimento*TWO_PI))/15,1+fabs(sin(2*batimento*TWO_PI))/15,1);
+      }
       glTranslatef(-1000/2, -1000/2, 0.0);
-      glLineWidth(2);
+      glLineWidth(3);
       glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, 3, 4, &ctrlpoints[0][0]);
       glBegin(GL_LINE_STRIP);
       for (int i = 0; i <= 30; i++)
@@ -315,10 +336,10 @@ class VimusMachineCoracoes : public VimusMachineOpenGLObject
 		unsigned char** ppNullFrame;
 
         OpenALSamplerCoracoes* audioSampler;
-
         float volume;
 
         boost::xtime tempoAtual;
+        boost::xtime tempoInicio;
         //guarda o momento em segundos que ocorreu o último pulso de frenesi
         boost::xtime tempoFrenesi;
         double tempoPassadoMSegs;
@@ -333,6 +354,10 @@ class VimusMachineCoracoes : public VimusMachineOpenGLObject
 
         float kinectX;
         float kinectY;
+        float kinectZ;
+
+        static const float DIST_MAX = 130;
+        static const float DIST_MIN = 70;
 
         bool preview;
 
@@ -341,7 +366,7 @@ class VimusMachineCoracoes : public VimusMachineOpenGLObject
         double kinectAngulo;
 
         //define intervalo de tempo em segundos entre pulso de frenesi e outro
-        static const float INTERVALO_FRENESI = 50;
+        static const float INTERVALO_FRENESI = 20;
 
         float opacidade;
 
@@ -353,6 +378,8 @@ class VimusMachineCoracoes : public VimusMachineOpenGLObject
 
         int geracao;
 
+        int geracaoFinal;
+
         float random(float maior, float menor);
 
         float dist(float x1, float y1, float x2, float y2);
@@ -360,6 +387,8 @@ class VimusMachineCoracoes : public VimusMachineOpenGLObject
         float r();
 
         void divideCoracoes();
+
+        void reinicia();
 
 };
 
