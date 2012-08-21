@@ -37,7 +37,7 @@ OpenALSamplerCoracoes::OpenALSamplerCoracoes()
 		printf("\nalGenBuffers : %d", error);
 
 	// Carregar arquivos e armazená-los nos buffers
-	if (!this->loadWaveBuffer("/dados/data/coracoes_a_mil/coracoes_loop.wav", buffers[0]))
+	if (!this->loadWaveBuffer("/dados/data/coracoes_a_mil/coracoes.wav", buffers[0]))
 		alDeleteBuffers(NUM_BUFFERS, buffers);
 
 	// Generate the sources

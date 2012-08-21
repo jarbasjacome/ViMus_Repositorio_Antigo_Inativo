@@ -3192,7 +3192,7 @@
 	<boost/thread/xtime.hpp>
 	<boost/math/constants/constants.hpp>
 
-1345433103 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineOriente.cpp
+1345504994 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineOriente.cpp
 	"VimusMachineOriente.h"
 
 1270181017 /usr/include/boost/math/constants/constants.hpp
@@ -3362,7 +3362,7 @@
 	<alc.h>
 	<alut.h>
 
-1345438663 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineCoracoes.h
+1345509707 /dados/ViMus/ViMus_OBOGUI/src/VimusMachineCoracoes.h
 	"VimusMachineOpenGLObject.h"
 	"Freenect.h"
 	"OpenALSamplerCoracoes.h"
@@ -3379,11 +3379,11 @@
 	<alc.h>
 	<alut.h>
 
-1345417931 source:/dados/ViMus/ViMus_OBOGUI/src/OpenALSamplerCoracoes.cpp
+1345501070 source:/dados/ViMus/ViMus_OBOGUI/src/OpenALSamplerCoracoes.cpp
 	"OpenALSamplerCoracoes.h"
 
 1345418657 /dados/ViMus/ViMus_OBOGUI/src/PVector.h
 
-1345438437 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineCoracoes.cpp
+1345509566 source:/dados/ViMus/ViMus_OBOGUI/src/VimusMachineCoracoes.cpp
 	"VimusMachineCoracoes.h"
 

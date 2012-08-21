@@ -83,7 +83,7 @@ VimusMachineCoracoes::VimusMachineCoracoes(MyFreenectDevice* kin)
         coracoes[i]= new Coracao();
     }
 
-    coracoes[0]->nasce(width/2, height/2, Coracao::LARGURA_INICIAL, Coracao::ALTURA_INICIAL, 0, 0, 0, 0, 0);
+    coracoes[0]->nasce(Coracao::width/2, Coracao::height/2, Coracao::LARGURA_INICIAL, Coracao::ALTURA_INICIAL, 0, 0, 0, 0, 0);
     numCoracoes = 1;
     geracao=1;
 
@@ -103,17 +103,26 @@ VimusMachineCoracoes::~VimusMachineCoracoes()
  */
 void VimusMachineCoracoes::update()
 {
-
     if (geracao == Coracao::ULTIMA_GERACAO) {
+        if(audioSampler->getSecondOffset(0)==0){
+            audioSampler->playSample(0);
+            //boost::xtime_get(&(this->tempoAnteriorAudio), boost::TIME_UTC);
+        }
         boost::xtime_get(&(this->tempoAtual), boost::TIME_UTC);
         this->tempoPassadoMSegs = (this->tempoAtual.nsec - this->tempoFrenesi.nsec) / 1000000.0f;
         this->tempoPassadoMSegs += (this->tempoAtual.sec - this->tempoFrenesi.sec)*1000;
         if (tempoPassadoMSegs > INTERVALO_FRENESI) {
             for (int i=0; i<numCoracoes; i++) {
-                coracoes[i]->velX += random (-Coracao::VEL_FRENESI, Coracao::VEL_FRENESI);
-                coracoes[i]->velY += random (-Coracao::VEL_FRENESI, Coracao::VEL_FRENESI);
+                coracoes[i]->velX += random (-1*Coracao::VEL_FRENESI, Coracao::VEL_FRENESI);
+                coracoes[i]->velY += random (-1*Coracao::VEL_FRENESI, Coracao::VEL_FRENESI);
             }
             boost::xtime_get(&(this->tempoFrenesi), boost::TIME_UTC);
+        }
+    } else {
+        if(audioSampler->getSecondOffset(0)!=0){
+            audioSampler->stopSample(0);
+            audioSampler->setPlaybackPos(0, 0);
+            //boost::xtime_get(&(this->tempoAnteriorAudio), boost::TIME_UTC);
         }
     }
 }
@@ -149,6 +158,7 @@ void VimusMachineCoracoes::draw()
     glClearColor (0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    //glRotatef(90, 0, 0, 1);
 
     if (preview) {
 
@@ -171,49 +181,58 @@ void VimusMachineCoracoes::draw()
 
     glPushMatrix();
     glTranslatef(-1, 1, 0);
-    glScalef(2.0f/width, -2.0f/height, 1);
+    glScalef(2.0f/Coracao::width, -2.0f/Coracao::height, 1);
 
     //Detecta colisões entre os corações
+    float distMinima;
+    float distancia;
+    float dX;
+    float dY;
+    float angulo;
+    float targetX;
+    float targetY;
+    float ax;
+    float ay;
     for (int i=0; i<numCoracoes; i++) {
         if (coracoes[i]->ativo) {
           for (int j=i; j<numCoracoes; j++) {
-            float distMinima = coracoes[i]->largura/2 + coracoes[j]->largura/2;
-            float distancia = dist(coracoes[i]->posX, coracoes[i]->posY, coracoes[j]->posX, coracoes[j]->posY);
+            distMinima = coracoes[i]->largura/2 + coracoes[j]->largura/2;
+            distancia = dist(coracoes[i]->posX, coracoes[i]->posY, coracoes[j]->posX, coracoes[j]->posY);
             if (i!=j && coracoes[j]->ativo && distancia<distMinima) {
               //retirado do exemplo do Processing Bouncy Bubbles
-              float dX = coracoes[j]->posX-coracoes[i]->posX;
-              float dY = coracoes[j]->posY-coracoes[i]->posY;
-              float angulo = atan2(dY, dX);
-              float targetX = coracoes[i]->posX + cos(angulo) * distMinima;
-              float targetY = coracoes[i]->posY + sin(angulo) * distMinima;
-              float ax = (targetX - coracoes[i]->posX) * Coracao::MOLA;
-              float ay = (targetY - coracoes[i]->posY) * Coracao::MOLA;
+              dX = coracoes[j]->posX-coracoes[i]->posX;
+              dY = coracoes[j]->posY-coracoes[i]->posY;
+              angulo = atan2(dY, dX);
+              targetX = coracoes[i]->posX + cos(angulo) * distMinima;
+              targetY = coracoes[i]->posY + sin(angulo) * distMinima;
+              ax = (targetX - coracoes[i]->posX) * Coracao::MOLA;
+              ay = (targetY - coracoes[i]->posY) * Coracao::MOLA;
               coracoes[i]->velX -= ax;
               coracoes[i]->velY -= ay;
               coracoes[j]->velX += ax;
               coracoes[j]->velY += ay;
-              coracoes[i]->velGiro = random(-Coracao::VEL_GIRO, Coracao::VEL_GIRO);
-              coracoes[j]->velGiro = random(-Coracao::VEL_GIRO, Coracao::VEL_GIRO);
+              coracoes[i]->velGiro = random(-1*Coracao::VEL_GIRO, Coracao::VEL_GIRO);
+              coracoes[j]->velGiro = random(-1*Coracao::VEL_GIRO, Coracao::VEL_GIRO);
             }
           }
         }
         coracoes[i]->atualiza();
 
-        Coracao* c = coracoes[i];
+        c=coracoes[i];
 
         if (c->dividiu) {
             c->dividiu = false;
             coracoes[numCoracoes]->nasce(c->posX-c->largura*cos(c->anguloDiv)/2, c->posY-c->largura*sin(c->anguloDiv)/2,
-                            c->largura*Coracao::DIMINUICAO*random(0.98, 1.02),
-                            c->altura*Coracao::DIMINUICAO*random(0.98, 1.02),
+                            c->largura*Coracao::DIMINUICAO*random(0.95, 1.05),
+                            c->altura*Coracao::DIMINUICAO*random(0.95, 1.05),
                             c->velX-Coracao::VEL_INICIAL*cos(c->anguloDiv), c->velY-Coracao::VEL_INICIAL*sin(c->anguloDiv),
-                            c->anguloDiv, random(-Coracao::VEL_GIRO/2,Coracao::VEL_GIRO/2), geracao);
+                            c->anguloDiv, random(-0.2/2,0.2/2), geracao);
             numCoracoes++;
             coracoes[numCoracoes]->nasce(c->posX+c->largura*cos(c->anguloDiv)/2, c->posY+c->largura*sin(c->anguloDiv)/2,
-                            c->largura*Coracao::DIMINUICAO*random(0.98, 1.02),
-                            c->altura*Coracao::DIMINUICAO*random(0.98, 1.02),
+                            c->largura*Coracao::DIMINUICAO*random(0.95, 1.05),
+                            c->altura*Coracao::DIMINUICAO*random(0.95, 1.05),
                             c->velX+Coracao::VEL_INICIAL*cos(c->anguloDiv), c->velY+Coracao::VEL_INICIAL*sin(c->anguloDiv),
-                            c->anguloDiv, random(-Coracao::VEL_GIRO/2,Coracao::VEL_GIRO/2), geracao);
+                            c->anguloDiv, random(-0.2/2,0.2/2), geracao);
             numCoracoes++;
         }
 
@@ -306,12 +325,11 @@ void VimusMachineCoracoes::keyBoardFunc(unsigned char key, int x, int y)
         case ' ':
             divideCoracoes();
             break;
-        case 'r':
-            //instancia a classe Coracao em um array de 200 objetos.
+        case 'q':
             for (int i=0; i<Coracao::NUM_MAX_CORACOES; i++) {
-              coracoes[i]= new Coracao();
+              coracoes[i]->inicia();
             }
-            coracoes[0]->nasce(width/2, height/2, Coracao::LARGURA_INICIAL, Coracao::ALTURA_INICIAL, 0, 0, 0, 0, 0);
+            coracoes[0]->nasce(Coracao::width/2, Coracao::height/2, Coracao::LARGURA_INICIAL, Coracao::ALTURA_INICIAL, 0, 0, 0, 0, 0);
             numCoracoes = 1;
             geracao=1;
             break;
@@ -320,15 +338,6 @@ void VimusMachineCoracoes::keyBoardFunc(unsigned char key, int x, int y)
 
 void VimusMachineCoracoes::specialKeyBoardFunc(int key, int x, int y)
 {
-}
-
-int VimusMachineCoracoes::div(float dividendo, float divisor) {
-  int c=0;
-  while (dividendo>divisor) {
-    dividendo-=divisor;
-    c++;
-  }
-  return c;
 }
 
 float VimusMachineCoracoes::random(float menor, float maior){

@@ -34,21 +34,25 @@ class Coracao {
 
 public:
 
-  static const int ULTIMA_GERACAO = 9;
-  static const int NUM_MAX_CORACOES = 513; //deve ser 2^ULTIMA_GERACAO + 1
+  static const int ULTIMA_GERACAO = 10;
+  static const int NUM_MAX_CORACOES = 1025; //deve ser 2^ULTIMA_GERACAO + 1
 
   static const float ATRITO = 0.6;
-  static const float MOLA = 0.07;
-  static const float LARGURA_INICIAL = 300;
-  static const float ALTURA_INICIAL = 300;
+  static const float MOLA = 0.05;
+  static const float LARGURA_INICIAL = 500.0;
+  static const float ALTURA_INICIAL = 500.0;
   static const float DIMINUICAO = 0.8;
-  static const float VEL_INICIAL = 8;
+  static const float VEL_INICIAL = 8.0;
   static const float VEL_FRENESI = 4;
   static const float VEL_GIRO = 0.2;
 
   static const float TWO_PI = 2*3.1415926535897932384;
   static const float PI = 3.1415926535897932384;
   static const float HALF_PI = 3.1415926535897932384/2;
+
+  GLfloat ctrlpoints[4][3];
+
+  GLfloat ctrlpointsESQ[4][3];
 
   //indica o quanto o coração está se dividindo
   float divisao;
@@ -75,15 +79,40 @@ public:
 
   int geracao;
 
-  Coracao () {
-    dividiu=false;
-    divisao=0;
-    dividindo=false;
-    ativo=false;
-    velX = velY = 0;
-    anguloDiv = 0;
-  }
+//  static const int width = 800;
+//  static const int height = 1280;
 
+    static const int width = 1280;
+    static const int height = 800;
+
+    Coracao () {
+        GLfloat ctrlp[4][3] = {
+            { 436, 342, 0.0}, { 627, 66, 0.0},
+            {978, 514, 0.0}, {417, 736, 0.0}};
+        for(int i=0; i<4;i++){
+            for(int j=0; j<3; j++){
+                ctrlpoints[i][j] = ctrlp[i][j];
+            }
+        }
+        GLfloat ctrlpESQ[4][3] = {
+            { 417, 736, 0.0}, { 273, 768, 0.0},
+            {204, 217, 0.0}, {436, 342, 0.0}};
+        for(int i=0; i<4;i++){
+            for(int j=0; j<3; j++){
+                ctrlpointsESQ[i][j] = ctrlpESQ[i][j];
+            }
+        }
+        inicia();
+    }
+
+    void inicia(){
+        dividiu=false;
+        divisao=0;
+        dividindo=false;
+        ativo=false;
+        velX = velY = 0;
+        anguloDiv = 0;
+    }
 
     float random(float menor, float maior){
         float r = menor + (float)rand()/((float)RAND_MAX/(maior-menor));
@@ -92,17 +121,8 @@ public:
 
     float r() {
       //return random (-2,2);
-      return random(-0.4, 0.4);
+      return random(-1, 1);
       //return 0;
-    }
-
-    int div(float dividendo, float divisor) {
-      int c=0;
-      while (dividendo>divisor) {
-        dividendo-=divisor;
-        c++;
-      }
-      return c;
     }
 
   void atualiza() {
@@ -163,19 +183,23 @@ public:
   void desenha() {
     if (ativo) {
       glPushMatrix();
+      glEnable(GL_MAP1_VERTEX_3);
       glTranslatef(posX, posY, 0.0);
       glRotatef(anguloDiv*360/TWO_PI, 0, 0, 1);
       glScalef(1+divisao/largura, 1, 1);
       glColor4f(1, 0, 0, 1);
-      float ranLarg = r();
-      float ranAlt = r();
-      glColor4f(1, 0, 0, 1);
-      //glutWireCube(largura);
+      glScalef((largura+r())/500, (altura+r())/500, 1);
+      glTranslatef(-1000/2, -1000/2, 0.0);
+      glLineWidth(2);
+      glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, 3, 4, &ctrlpoints[0][0]);
       glBegin(GL_LINE_STRIP);
-          glVertex3f( largura*0.5+ranLarg,-altura*0.5+ranAlt, 0);
-          glVertex3f( largura*0.5+ranLarg, altura*0.5+ranAlt, 0);
-          glVertex3f(-largura*0.5+ranLarg, altura*0.5+ranAlt, 0);
-          glVertex3f(-largura*0.5+ranLarg,-altura*0.5+ranAlt, 0);
+      for (int i = 0; i <= 30; i++)
+         glEvalCoord1f((GLfloat) i/30.0);
+      glEnd();
+      glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, 3, 4, &ctrlpointsESQ[0][0]);
+      glBegin(GL_LINE_STRIP);
+      for (int i = 0; i <= 30; i++)
+         glEvalCoord1f((GLfloat) i/30.0);
       glEnd();
       glPopMatrix();
     }
@@ -185,11 +209,12 @@ public:
     if (dividindo==false) {
       dividindo=true;
       divisao=0;
-      anguloDiv = random(-HALF_PI, HALF_PI);
+      anguloDiv = random(-1*HALF_PI, HALF_PI);
     }
   }
 
   void nasce(float x, float y, float l, float a, float vX, float vY, float angulo, float vGiro, int ger) {
+    inicia();
     geracao=ger;
     posX = x;
     posY = y;
@@ -199,6 +224,7 @@ public:
     velY = vY;
     velGiro = vGiro;
     anguloDiv = angulo;
+    dividiu=false;
     ativo = true;
   }
 };
@@ -319,22 +345,19 @@ class VimusMachineCoracoes : public VimusMachineOpenGLObject
 
         float opacidade;
 
+        Coracao* c;
+
         Coracao* coracoes[Coracao::NUM_MAX_CORACOES];
 
         int numCoracoes;
 
         int geracao;
 
-        static const int width = 800;
-        static const int height = 600;
-
         float random(float maior, float menor);
 
         float dist(float x1, float y1, float x2, float y2);
 
         float r();
-
-        int div(float dividendo, float divisor);
 
         void divideCoracoes();
 
